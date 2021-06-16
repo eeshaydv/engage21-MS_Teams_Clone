@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#827f93</color>
+    <color name="colorPrimaryDark">#827f93</color>
+    <color name="colorAccent">#fc6177</color>
+    <color name="gray">#9C9AA7</color>
+    <color name="white">#ffffff</color>
+    <color name="active_dots">#FFFAFA</color>
+    <color name="inactive_dots">#0A0505</color>
+    <color name="back">#9C9AA7</color>
+    <color name="red">#ff0000</color>
+    <array name="colors">
+        <item name="all" type="color">#fc6177</item>
+        <item name="design" type="color">#c467f4</item>
+        <item name="ios" type="color">#ff9a00</item>
+        <item name="android" type="color">#9bc53d</item>
+        <item name="web" type="color">#f4a261</item>
+        <item name="business" type="color">#1ed2bb</item>
+        <item name="research" type="color">#778da9</item>
+        <item name="sales" type="color">#20bf55</item>
+        <item name="quality" type="color">#9f9fed</item>
+        <item name="customer" type="color">#ff284b</item>
+        <item name="other" type="color">#c05780</item>
+        <item name="all1" type="color">#fa9e92</item>
+        <item name="design1" type="color">#74737a</item>
+        <item name="ios1" type="color">#ff5c77</item>
+        <item name="android1" type="color">#96b3c2</item>
+        <item name="web1" type="color">#dea5a4</item>
+        <item name="business1" type="color">#ff9a00</item>
+        <item name="research1" type="color">#bdc3c7</item>
+        <item name="sales1" type="color">#ff6f68</item>
+        <item name="quality1" type="color">#ff3747</item>
+        <item name="customer1" type="color">#fc6177</item>
+        <item name="other1" type="color">#bcbcbc</item>
+
+        <item name="pink" type="color">#fc6177</item>
+        <item name="quality2" type="color">#9f9fed</item>
+        <item name="customer2" type="color">#ff284b</item>
+        <item name="other2" type="color">#c05780</item>
+        <item name="all12" type="color">#fa9e92</item>
+        <item name="white1" type="color">#ffffff</item>
+        <item name="design12" type="color">#74737a</item>
+        <item name="ios12" type="color">#ff5c77</item>
+        <item name="android12" type="color">#96b3c2</item>
+        <item name="web12" type="color">#dea5a4</item>
+        <item name="business12" type="color">#ff9a00</item>
+        <item name="research12" type="color">#bdc3c7</item>
+        <item name="sales12" type="color">#ff6f68</item>
+        <item name="quality12" type="color">#ff3747</item>
+        <item name="customer12" type="color">#fc6177</item>
+        <item name="other12" type="color">#bcbcbc</item>
+        <item name="white12" type="color">#ffffff</item>
+        <item name="pink2" type="color">#fc6177</item>
+    </array>
+
+
+
+    <color name="divider">#b2b6c6</color>
+</resources>
