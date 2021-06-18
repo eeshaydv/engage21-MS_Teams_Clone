@@ -68,6 +68,8 @@
 
         <TextView
             android:textStyle="bold"
+            android:layout_margin="15dp"
+            android:elevation="5dp"
             android:fontFamily="sans-serif-light"
             android:padding="4dp"
             android:textColor="@color/inactive_dots"
@@ -86,6 +88,8 @@
             android:fontFamily="sans-serif-light"
             android:padding="4dp"
             android:id="@+id/logout"
+            android:layout_margin="15dp"
+            android:elevation="5dp"
             android:textColor="@color/inactive_dots"
             android:background="@drawable/pro_layout"
             android:drawableTint="@color/inactive_dots"

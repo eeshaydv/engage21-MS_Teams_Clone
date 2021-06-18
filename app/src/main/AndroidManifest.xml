@@ -9,11 +9,14 @@
         android:roundIcon="@drawable/mslogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SideMenuActivity"></activity>
+        <activity android:name=".ViewImg"></activity>
+        <activity android:name=".GroupChatActivity" />
+        <activity android:name=".FindFriendsActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".SideMenuActivity" />
         <activity
             android:name=".SignUpActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
