@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/mslogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewImg"></activity>
+        <activity android:name=".CommentsActivity"></activity>
+        <activity android:name=".ViewImg" />
         <activity android:name=".GroupChatActivity" />
         <activity android:name=".FindFriendsActivity" />
         <activity android:name=".ChatActivity" />

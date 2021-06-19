@@ -78,6 +78,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_settings_black_24dp"
             android:layout_marginBottom="5dp"
+            android:clickable="true"
             android:text="    Support"
             android:textSize="16sp" />
 
@@ -91,6 +92,7 @@
             android:drawableTint="@color/inactive_dots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:drawableLeft="@drawable/ic_back"
             android:text="    Logout"
             android:textSize="16sp" />

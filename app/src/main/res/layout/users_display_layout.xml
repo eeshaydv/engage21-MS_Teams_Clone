@@ -54,15 +54,6 @@
                     android:visibility="invisible"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/user_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="user status"
-                android:layout_margin="2dp"
-                android:textAlignment="textStart"
-                android:textSize="16sp"
-                android:gravity="start" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
 
             case R.id.nav_requests:
-                fragment = new RequestsFragment();
+                fragment = new FriendsFragment();
                 break;
 
             case R.id.nav_profile:

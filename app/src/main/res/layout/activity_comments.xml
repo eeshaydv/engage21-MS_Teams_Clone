@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentsActivity"
+    android:background="@drawable/button1"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="COMMENTS "
+        android:id="@+id/comment"
+        android:fontFamily="sans-serif-light"
+        android:layout_margin="8dp"
+        android:layout_alignParentTop="true"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/inactive_dots"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/comments_list"
+        android:layout_margin="4dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/comment"
+        android:layout_alignParentLeft="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment_input"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@id/post_comment_button"
+        android:background="@drawable/button1"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Write a comment here.."
+        android:textColorHint="@color/active_dots"
+        android:inputType="textCapSentences"
+        android:layout_alignParentLeft="true" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/post_comment_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:background="@color/colorPrimaryDark"
+        android:tint="@color/white"
+        android:src="@drawable/send_message"
+        android:layout_alignBottom="@id/comment_input"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        android:padding="15dp"
+        android:layout_alignParentRight="true" />
+
+
+
+</RelativeLayout>
