@@ -36,7 +36,7 @@
                     android:layout_height="100dp"
                     android:id="@+id/logo"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/mslogo"/>
+                    android:src="@drawable/ms_logo_sq"/>
 
                 <TextView
                     android:layout_below="@id/logo"
@@ -243,7 +243,6 @@
 
 
             </LinearLayout>
-
 
 
 

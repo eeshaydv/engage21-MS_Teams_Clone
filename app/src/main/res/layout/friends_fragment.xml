@@ -15,7 +15,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"></androidx.recyclerview.widget.RecyclerView>
 
-
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_chat"

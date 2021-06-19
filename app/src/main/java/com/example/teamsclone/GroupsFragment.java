@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 public class GroupsFragment extends Fragment {
     @Nullable
     @Override
@@ -18,6 +19,8 @@ public class GroupsFragment extends Fragment {
         //with the fragment you want to inflate
         //like if the class is HomeFragment it should have R.layout.home_fragment
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
-        return inflater.inflate(R.layout.home_fragment, null);
+        View v = inflater.inflate(R.layout.home_fragment, null);
+
+        return v;
     }
 }

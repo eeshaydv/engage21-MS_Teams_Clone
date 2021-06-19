@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
+
 public class FriendsFragment extends Fragment {
     @Nullable
     @Override
@@ -18,5 +20,6 @@ public class FriendsFragment extends Fragment {
         //like if the class is HomeFragment it should have R.layout.home_fragment
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
         return inflater.inflate(R.layout.friends_fragment, null);
+
     }
 }

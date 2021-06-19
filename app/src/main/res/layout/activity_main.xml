@@ -27,12 +27,12 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/thumbnail"/>
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/thumbnail"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
 
-                android:src="@drawable/profile"
+                android:src="@drawable/ic_profile"
                 android:layout_width="40dp"
                 android:layout_marginRight="8dp"
 
@@ -62,4 +62,10 @@
         app:labelVisibilityMode="labeled"
         tools:ignore="MissingConstraints"
         app:menu="@menu/bottom_navigation"/>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 </RelativeLayout>

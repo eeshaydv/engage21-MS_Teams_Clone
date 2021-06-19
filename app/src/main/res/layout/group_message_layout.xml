@@ -165,6 +165,12 @@
         android:textSize="12sp"
         android:textStyle="bold"
         android:layout_marginLeft="4dp" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 
     <androidx.appcompat.widget.AppCompatImageView
