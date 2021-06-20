@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +29,7 @@ public class profileFragment extends Fragment {
 
     TextDrawable mDrawableBuilder;
     FirebaseDatabase db;
-    DatabaseReference userRef;
+
     FirebaseAuth mAuth;
     CircleImageView pro_frag;
     TextView btn1,Name_frag,email_frag;
@@ -57,14 +58,16 @@ public class profileFragment extends Fragment {
         mAuth= FirebaseAuth.getInstance();
         String currentUserID=mAuth.getCurrentUser().getUid();
 
-         userRef =FirebaseDatabase.getInstance().getReferenceFromUrl("https://teamsclone-965c9-default-rtdb.firebaseio.com/").child("users").child(currentUserID);
+        DatabaseReference userRef =FirebaseDatabase.getInstance().getReference("users").child(mAuth.getUid());
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
 
-                        myProfileName = snapshot.getValue().toString();
+                        myProfileName = String.valueOf(snapshot.child("name").getValue().toString());
+                        Name_frag.setText(myProfileName);
+                        Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
                         char letter = myProfileName.charAt(0);
                         letter = Character.toUpperCase(letter);
                         mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
@@ -80,7 +83,7 @@ public class profileFragment extends Fragment {
         });
 
         pro_frag.setImageDrawable(mDrawableBuilder);
-        Name_frag.setText(myProfileName);
+
         email_frag.setText(mAuth.getCurrentUser().getEmail());
 
         btn1.setOnClickListener(new View.OnClickListener() {
