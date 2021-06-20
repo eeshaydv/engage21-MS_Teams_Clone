@@ -70,8 +70,8 @@ public class RegistrationInteractor implements RegistrationContract.Intractor{
         Map<String,Object> details = new HashMap<>();
        // details.put("UID",uid);
         details.put("name",name);
-        details.put("uid",uid);
-        db.getReference().child("users").updateChildren(details)
+
+        db.getReference().child("users").child(uid).updateChildren(details)
                 .addOnCompleteListener(new OnCompleteListener(){
 
                     @Override

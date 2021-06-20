@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -25,6 +27,8 @@ import java.util.Objects;
 public class SettingsActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
+    Switch simpleSwitch;
+    Switch simpleSwitch3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,6 @@ public class SettingsActivity extends BaseActivity {
 
         mAuth = FirebaseAuth.getInstance();
         securityPreference();
-
         Switch simpleSwitch = findViewById(R.id.simpleSwitch1);
         Switch simpleSwitch3 = findViewById(R.id.simpleSwitch3);
 
@@ -78,15 +81,19 @@ public class SettingsActivity extends BaseActivity {
                     startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
                     finish();
                 } else {
-                    //Handle the exception
+
                     task.getException();
                 }
             });
         });
 
     }
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 
-    private void fingerprintAuthentication() {
+    public void fingerprintAuthentication() {
         final FirebaseDatabase db = FirebaseDatabase.getInstance();
         Map<String, Object> Mset = new HashMap<>();
         Mset.put("fingerprint_unlock", "false");
@@ -97,7 +104,7 @@ public class SettingsActivity extends BaseActivity {
 
     }
 
-    private void fingerprintAuthentication2() {
+    public void fingerprintAuthentication2() {
         final FirebaseDatabase db = FirebaseDatabase.getInstance();
         Map<String, Object> Mset = new HashMap<>();
         Mset.put("fingerprint_unlock", "true");
@@ -128,27 +135,37 @@ public class SettingsActivity extends BaseActivity {
                 .addOnFailureListener(e -> Log.w("", "Error writing Snapshot", e));
     }
 
-    private void securityPreference() {
+    public void securityPreference() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
-
+        showLoadingScreen();
         if(user != null){
+
             final FirebaseDatabase db = FirebaseDatabase.getInstance();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                db.getReference().child("user_settings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("settings").child("security_settings");
+            }
             DatabaseReference Ref = db.getReference().child("user_settings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("settings").child("security_settings");
+
+            Switch ss = findViewById(R.id.simpleSwitch1);
+            Switch ss2 = findViewById(R.id.simpleSwitch3);
+
 
             Ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                        if(snapshot.child("keep_me_signed_in").equals("true")){
-                           Switch simpleSwitch = findViewById(R.id.simpleSwitch1);
-                           simpleSwitch.setChecked(true);
+
+                           ss.setChecked(true);
                        }
 
                        if(snapshot.child("fingerprint_unlock").equals("true")){
-                           Switch simpleSwitch3 = findViewById(R.id.simpleSwitch3);
-                           simpleSwitch3.setChecked(true);
+
+                           ss2.setChecked(true);
                        }
+
+                       hideLoadingScreen();
                     }
                 }
 

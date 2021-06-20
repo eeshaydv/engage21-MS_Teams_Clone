@@ -136,7 +136,7 @@ public class SplashScreen extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     if(snapshot.exists()){
-                        if(snapshot.child("keep_me_signed_in").equals("true")){
+                        if(snapshot.child("keep_me_signed_in").equals("false")){
                             startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                             finish();
                         }
@@ -160,28 +160,27 @@ public class SplashScreen extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     private void FingerPrint(){
-        // Initializing both Android Keyguard Manager and Fingerprint Manager
+
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
-        // Check whether the device has a Fingerprint sensor.
         if(!fingerprintManager.isHardwareDetected()){
 
             startActivity(new Intent(SplashScreen.this, LoginActivity.class));
             finish();
         }
         else {
-            // Checks whether fingerprint permission is set on manifest
+
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                 startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                 finish();
             }else{
-                // Check whether at least one fingerprint is registered
+
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
                     startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                     finish();
                 }else{
-                    // Checks whether lock screen security is enabled or not
+
                     if (!keyguardManager.isKeyguardSecure()) {
                         startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                         finish();
