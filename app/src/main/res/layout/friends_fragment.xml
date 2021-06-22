@@ -8,7 +8,7 @@
     tools:context=".FriendsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_requests_list"
+        android:id="@+id/friends_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
@@ -23,7 +23,7 @@
         android:visibility="gone"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_chat"
+        android:id="@+id/fab_find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -32,5 +32,16 @@
         android:layout_margin="10dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:src="@android:drawable/ic_input_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_req"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/fab_find"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/req" />
 
 </RelativeLayout>

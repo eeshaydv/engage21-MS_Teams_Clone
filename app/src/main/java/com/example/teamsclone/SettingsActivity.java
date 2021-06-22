@@ -142,45 +142,17 @@ public class SettingsActivity extends BaseActivity {
         showLoadingScreen();
         if(user != null){
 
-            /*FirebaseDatabase db = FirebaseDatabase.getInstance();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                db.getReference().child("user_settings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("settings").child("security_settings");
-            }*/
             DatabaseReference Ref = FirebaseDatabase.getInstance().getReference().child("user_settings").child(mAuth.getUid()).child("settings").child("security_settings");
 
             Switch ss = findViewById(R.id.simpleSwitch1);
             Switch ss2 = findViewById(R.id.simpleSwitch3);
-
-            /*Ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()) {
-                        if (snapshot.child("keep_me_signed_in").getValue().equals("true")) {
-                            Toast.makeText(SettingsActivity.this, "keepme True", Toast.LENGTH_SHORT).show();
-                            ss.setChecked(true);
-                        }
-                        if(snapshot.child("fingerprint_unlock").getValue().equals("true")){
-
-                            ss2.setChecked(true);
-                        }
-
-                        hideLoadingScreen();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });*/
-
 
             Ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                        if(snapshot.child("keep_me_signed_in").getValue().equals("true")){
-                           Toast.makeText(SettingsActivity.this, "keepme True", Toast.LENGTH_SHORT).show();
+                          // Toast.makeText(SettingsActivity.this, "keepme True", Toast.LENGTH_SHORT).show();
                            ss.setChecked(true);
                        }
                        if(snapshot.child("fingerprint_unlock").getValue().equals("true")){

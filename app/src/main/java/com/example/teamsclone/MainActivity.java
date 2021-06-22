@@ -9,17 +9,23 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.teamsclone.base.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,11 +33,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends BaseActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener {
 
-     CircleImageView pro;
+     ImageView pro;
     private TextDrawable mDrawableBuilder;
    private  FirebaseAuth mAuth;
     private String currentUserID;
     private DatabaseReference userRef;
+    private DatabaseReference RootRef;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,9 @@ public class MainActivity extends BaseActivity implements
         pro = findViewById(R.id.thumbnail);
 
         mAuth=FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         currentUserID=mAuth.getCurrentUser().getUid();
+        RootRef = FirebaseDatabase.getInstance().getReference();
 
          userRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://teamsclone-965c9-default-rtdb.firebaseio.com/");
 
@@ -60,7 +70,9 @@ public class MainActivity extends BaseActivity implements
                         String myProfileName = snapshot.child("name").getValue(String.class);
                         char letter = myProfileName.charAt(0);
                         letter = Character.toUpperCase(letter);
-                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.white);
+                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                        pro.setImageDrawable(mDrawableBuilder);
+                       // Toast.makeText(MainActivity.this, "drawable", Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -72,8 +84,32 @@ public class MainActivity extends BaseActivity implements
             }
         });
 
-        pro.setImageDrawable(mDrawableBuilder);
+        updateUserStatus("online");
 
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        if (currentUser != null)
+        {
+            updateUserStatus("offline");
+        }
+    }
+
+
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        if (currentUser != null)
+        {
+            updateUserStatus("offline");
+        }
     }
 
 
@@ -116,5 +152,27 @@ public class MainActivity extends BaseActivity implements
             return true;
         }
         return false;
+    }
+
+    private void updateUserStatus(String state)
+    {
+        String saveCurrentTime, saveCurrentDate;
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
+        HashMap<String, Object> onlineStateMap = new HashMap<>();
+        onlineStateMap.put("time", saveCurrentTime);
+        onlineStateMap.put("date", saveCurrentDate);
+        onlineStateMap.put("state", state);
+
+        RootRef.child("users").child(currentUserID).child("userState")
+                .updateChildren(onlineStateMap);
+
     }
 }

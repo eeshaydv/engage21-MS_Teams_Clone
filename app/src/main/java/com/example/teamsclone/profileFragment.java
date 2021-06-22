@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +33,9 @@ public class profileFragment extends Fragment {
     FirebaseDatabase db;
 
     FirebaseAuth mAuth;
-    CircleImageView pro_frag;
-    TextView btn1,Name_frag,email_frag;
+    ImageView pro_frag;
+    ImageView testI;
+    TextView btn1,Name_frag,email_frag,logout_frag;
     String myProfileName;
     @Nullable
     @Override
@@ -46,11 +49,13 @@ public class profileFragment extends Fragment {
         btn1 = (TextView) v.findViewById(R.id.settings);
         Name_frag = (TextView) v.findViewById(R.id.name_profile_frag);
         email_frag = (TextView) v.findViewById(R.id.email_profile_frag);
+        logout_frag = v.findViewById(R.id.logout_profile);
+        testI = v.findViewById(R.id.test);
         //db = FirebaseDatabase.getInstance();
 
 
 
-        pro_frag = (CircleImageView) v.findViewById(R.id.thumb_frag);
+        pro_frag =  v.findViewById(R.id.thumb_frag);
 
 
 
@@ -61,17 +66,19 @@ public class profileFragment extends Fragment {
         DatabaseReference userRef =FirebaseDatabase.getInstance().getReference("users").child(mAuth.getUid());
 
         userRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
 
                         myProfileName = String.valueOf(snapshot.child("name").getValue().toString());
                         Name_frag.setText(myProfileName);
-                        Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
                         char letter = myProfileName.charAt(0);
                         letter = Character.toUpperCase(letter);
                         mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
-
+                        pro_frag.setImageDrawable(mDrawableBuilder);
+                 //       Toast.makeText(getContext(), "drawable", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -82,7 +89,7 @@ public class profileFragment extends Fragment {
             }
         });
 
-        pro_frag.setImageDrawable(mDrawableBuilder);
+
 
         email_frag.setText(mAuth.getCurrentUser().getEmail());
 
@@ -94,6 +101,15 @@ public class profileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 ((MainActivity) getActivity()).startActivity(intent);
 
+            }
+        });
+
+        logout_frag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    mAuth.signOut();
+                    startActivity(new Intent(getContext(), LoginActivity.class));
             }
         });
 

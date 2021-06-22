@@ -33,8 +33,8 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:src="@drawable/ic_back" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/avatar_chat_room"
+                <ImageView
+                    android:id="@+id/custom_profile_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_profile" />
@@ -46,21 +46,23 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/username_chat_room"
+                        android:id="@+id/custom_profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/droid_sans_chinese"
                         android:gravity="bottom"
                         android:text="Imam Candra Kusuma"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/last_seen_and_online"
+                        android:id="@+id/custom_user_lase_seen"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="top"
+                        android:fontFamily="@font/droid_sans_chinese"
                         android:text="last seen today at 3:26 PM"
                         android:textColor="#eef4f4"
                         android:textSize="12sp" />
@@ -88,20 +90,27 @@
 
 
             <EditText
-                android:id="@+id/et_message_chat"
+                android:id="@+id/edit_message_chat"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/button1"
                 android:backgroundTint="#00000000"
+                android:fontFamily="@font/droid_sans_chinese"
                 android:hint="Type a Message" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_attach_file_24" />
+            <ImageButton
+                android:id="@+id/send_files_btn"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_attach_file_24"
+                android:clickable="true"
+                android:layout_alignParentStart="true"
+                android:backgroundTint="@android:color/white"
+                android:layout_alignParentLeft="true" />
+
+
 
         </LinearLayout>
 

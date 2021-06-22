@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="T E A M S"
+                    android:fontFamily="@font/droid_sans_chinese"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="32sp"
@@ -70,14 +71,14 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_one_login"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="409dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="230dp"
                         android:elevation="10dp"
+                        android:foregroundGravity="center"
                         app:cardBackgroundColor="#fcfcfc"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="15dp"
-                        android:foregroundGravity="center"
                         app:cardPreventCornerOverlap="false"
                         app:cardUseCompatPadding="true">
 
@@ -98,9 +99,10 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:layout_marginTop="4dp"
-                                    app:tint="@color/colorPrimaryDark"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_profile" />
+                                    android:src="@drawable/ic_profile"
+                                    app:tint="@color/colorPrimaryDark" />
+
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
@@ -110,11 +112,11 @@
                                         android:layout_width="289dp"
                                         android:layout_height="40dp"
                                         android:layout_marginLeft="2dp"
-                                        android:gravity="left"
                                         android:layout_marginTop="8dp"
-                                        android:inputType="textMultiLine"
                                         android:backgroundTint="@color/colorPrimaryDark"
+                                        android:gravity="left"
                                         android:hint=" Name"
+                                        android:inputType="textMultiLine"
                                         android:textSize="15sp" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,9 +133,10 @@
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     android:layout_marginTop="4dp"
-                                    app:tint="@color/colorPrimaryDark"
                                     android:padding="10dp"
-                                    android:src="@drawable/ic_email_24dp" />
+                                    android:src="@drawable/ic_email_24dp"
+                                    app:tint="@color/colorPrimaryDark" />
+
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
@@ -143,11 +146,11 @@
                                         android:layout_width="289dp"
                                         android:layout_height="40dp"
                                         android:layout_marginLeft="2dp"
-                                        android:gravity="left"
                                         android:layout_marginTop="8dp"
-                                        android:inputType="textEmailAddress"
                                         android:backgroundTint="@color/colorPrimaryDark"
+                                        android:gravity="left"
                                         android:hint=" Email"
+                                        android:inputType="textEmailAddress"
                                         android:textSize="15sp" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,31 +165,33 @@
 
                                 <ImageView
                                     android:layout_width="40dp"
-                                    app:tint="@color/colorPrimaryDark"
                                     android:layout_height="50dp"
                                     android:layout_marginTop="2dp"
                                     android:padding="10dp"
-                                    android:src="@drawable/password" />
+                                    android:src="@drawable/password"
+                                    app:tint="@color/colorPrimaryDark" />
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     app:passwordToggleEnabled="true">
+
                                     <EditText
                                         android:id="@+id/password"
                                         android:layout_width="289dp"
                                         android:layout_height="40dp"
                                         android:layout_marginLeft="2dp"
-                                        android:gravity="left"
                                         android:layout_marginBottom="0dp"
                                         android:backgroundTint="@color/colorPrimaryDark"
-                                        android:inputType="textPassword"
+                                        android:gravity="left"
                                         android:hint="Password"
+                                        android:inputType="textPassword"
                                         android:textSize="15sp" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -199,24 +204,25 @@
                                     android:layout_height="80dp"
                                     android:layout_marginTop="8dp"
                                     android:padding="10dp"
-                                    app:tint="@color/colorPrimaryDark"
-                                    android:src="@drawable/password" />
+                                    android:src="@drawable/password"
+                                    app:tint="@color/colorPrimaryDark" />
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
                                     app:passwordToggleEnabled="true">
+
                                     <EditText
                                         android:id="@+id/confirm_password"
                                         android:layout_width="289dp"
-                                        android:gravity="left"
                                         android:layout_height="40dp"
                                         android:layout_marginLeft="2dp"
                                         android:layout_marginBottom="24dp"
-                                        android:inputType="textPassword"
                                         android:backgroundTint="@color/colorPrimaryDark"
+                                        android:gravity="left"
                                         android:hint="Confirm Password"
+                                        android:inputType="textPassword"
                                         android:textSize="15sp" />
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -237,6 +243,7 @@
                     android:layout_below="@id/cv_one_login"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/button"
+                    android:fontFamily="@font/droid_sans_chinese"
                     android:gravity="center"
                     android:clickable="true"
                     android:layout_marginTop="-38dp"
