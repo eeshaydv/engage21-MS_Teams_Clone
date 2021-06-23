@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/mslogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".CreateGroupActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".RequestsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".SplashScreen">

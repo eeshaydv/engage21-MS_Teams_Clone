@@ -11,8 +11,8 @@
         android:title="CHATS"/>
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:title="HOME"/>
+        android:icon="@drawable/group"
+        android:title="GROUPS"/>
     <item
         android:id="@+id/nav_requests"
         android:icon="@drawable/req2"

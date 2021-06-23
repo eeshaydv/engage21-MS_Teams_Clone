@@ -30,8 +30,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:src="@android:drawable/ic_input_add" />
+        android:backgroundTint="@color/colorAccent"
+        android:src="@drawable/ic_search" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_req"
@@ -41,7 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_above="@id/fab_find"
         android:layout_margin="10dp"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:src="@drawable/req" />
 
 </RelativeLayout>

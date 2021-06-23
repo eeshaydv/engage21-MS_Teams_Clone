@@ -23,6 +23,7 @@ import com.example.teamsclone.models.Friends;
 import com.example.teamsclone.models.Group;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +42,7 @@ public class GroupsFragment extends Fragment
 {
     private View groupFragmentView;
     private ListView list_view;
+    FloatingActionButton fab;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> list_of_groups = new ArrayList<>();
     private DatabaseReference GroupRef;
@@ -55,51 +57,23 @@ public class GroupsFragment extends Fragment
 
         InitializeFields();
 
-        RetrieveAndDisplayGroups();
-
-        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String currentGroupName = adapterView.getItemAtPosition(position).toString();
-                Intent groupChatIntent = new Intent(getContext(), GroupChatActivity.class);
-                groupChatIntent.putExtra("groupName" , currentGroupName);
-                startActivity(groupChatIntent);
+            public void onClick(View v) {
+                Intent chatIntent = new Intent(getContext(), CreateGroupActivity.class);
+                startActivity(chatIntent);
             }
         });
+
 
         return groupFragmentView;
     }
 
 
-    private void RetrieveAndDisplayGroups()
-    {
-        GroupRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Set<String> set = new HashSet<>();
-                Iterator iterator = dataSnapshot.getChildren().iterator();
-                while (iterator.hasNext())
-                {
-                    set.add(((DataSnapshot)iterator.next()).getKey());
-                }
-
-                list_of_groups.clear();
-                list_of_groups.addAll(set);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void InitializeFields()
     {
-        list_view = (ListView) groupFragmentView.findViewById(R.id.list_view);
-        arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, list_of_groups);
-        list_view.setAdapter(arrayAdapter);
+       fab = groupFragmentView.findViewById(R.id.fab_group);
     }
 
 }
