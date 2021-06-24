@@ -1,15 +1,13 @@
-package com.example.teamsclone;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.teamsclone.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
 import com.example.teamsclone.firebase.register.RegistrationContract;
 import com.example.teamsclone.firebase.register.RegistrationPresenter;

@@ -1,4 +1,4 @@
-package com.example.teamsclone;
+package com.example.teamsclone.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.teamsclone.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
 
 public class SplashScreen extends AppCompatActivity {
     public FirebaseUser user;
@@ -78,7 +77,7 @@ public class SplashScreen extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            startActivity(new Intent(SplashScreen.this, LoginActivity .class));
+            startActivity(new Intent(SplashScreen.this, LoginActivity.class));
             finish();
 
         }

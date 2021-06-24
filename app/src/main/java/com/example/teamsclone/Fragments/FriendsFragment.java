@@ -1,4 +1,4 @@
-package com.example.teamsclone;
+package com.example.teamsclone.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.teamsclone.Activities.FindFriendsActivity;
+import com.example.teamsclone.Activities.ProfileActivity;
+import com.example.teamsclone.Activities.RequestsActivity;
+import com.example.teamsclone.R;
 import com.example.teamsclone.models.Friends;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -25,8 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class FriendsFragment extends Fragment {

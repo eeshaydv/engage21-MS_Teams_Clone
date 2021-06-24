@@ -11,30 +11,30 @@
         android:roundIcon="@drawable/mslogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateGroupActivity"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".RequestsActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".Activities.CreateGroupActivity"></activity>
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.RequestsActivity" />
+        <activity android:name=".Activities.SettingsActivity" />
+        <activity android:name=".Activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FingerPrintActivity" />
-        <activity android:name=".VerificationActivity" />
-        <activity android:name=".CommentsActivity" />
-        <activity android:name=".ViewImg" />
-        <activity android:name=".GroupChatActivity" />
-        <activity android:name=".FindFriendsActivity" />
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".SideMenuActivity" />
+        <activity android:name=".Activities.FingerPrintActivity" />
+        <activity android:name=".Activities.VerificationActivity" />
+        <activity android:name=".Activities.CommentsActivity" />
+        <activity android:name=".Activities.ViewImg" />
+        <activity android:name=".Activities.GroupChatActivity" />
+        <activity android:name=".Activities.FindFriendsActivity" />
+        <activity android:name=".Activities.ChatActivity" />
+        <activity android:name=".Activities.SideMenuActivity" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.MainActivity" />
     </application>
 
 </manifest>

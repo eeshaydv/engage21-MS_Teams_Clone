@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
+import com.example.teamsclone.Activities.MainActivity;
+
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class FingerPrintHandler extends FingerprintManager.AuthenticationCallback {
 

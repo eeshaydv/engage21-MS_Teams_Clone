@@ -1,18 +1,20 @@
-package com.example.teamsclone;
+package com.example.teamsclone.Activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.teamsclone.Fragments.CallsFragment;
+import com.example.teamsclone.Fragments.ChatsFragment;
+import com.example.teamsclone.Fragments.FriendsFragment;
+import com.example.teamsclone.Fragments.GroupsFragment;
+import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
+import com.example.teamsclone.Fragments.profileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends BaseActivity implements

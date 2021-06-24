@@ -1,9 +1,10 @@
-package com.example.teamsclone;
+package com.example.teamsclone.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.teamsclone.R;
 import com.example.teamsclone.base.Base;
 import com.example.teamsclone.base.BaseActivity;
 

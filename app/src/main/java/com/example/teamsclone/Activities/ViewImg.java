@@ -1,4 +1,4 @@
-package com.example.teamsclone;
+package com.example.teamsclone.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
 import com.squareup.picasso.Picasso;
 
