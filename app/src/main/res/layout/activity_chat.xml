@@ -52,6 +52,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/droid_sans_chinese"
                         android:gravity="bottom"
+                        android:textSize="16sp"
                         android:text="Imam Candra Kusuma"
                         android:textColor="@android:color/white"
                         android:textStyle="bold" />

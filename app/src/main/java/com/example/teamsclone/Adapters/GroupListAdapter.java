@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.Activities.GroupChatActivity;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.GroupList;
@@ -49,7 +50,8 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Hold
         holder.groupName.setText(grp_name);
         char letter = grp_name.charAt(0);
         letter = Character.toUpperCase(letter);
-        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+        int color = ColorGenerator.MATERIAL.getRandomColor();
+        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
         holder.groupIcon.setImageDrawable(mDrawableBuilder);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

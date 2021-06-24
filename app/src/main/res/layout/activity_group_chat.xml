@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E4E6E3"
     tools:context=".Activities.GroupChatActivity">
 
 
@@ -20,7 +21,7 @@
             android:background="@color/colorPrimary"
             android:theme="@style/MyToolbarTheme">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -30,18 +31,23 @@
                     android:id="@+id/toolbar_back_button"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
+                    android:layout_centerVertical="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:src="@drawable/ic_back" />
 
                 <ImageView
                     android:id="@+id/group_icon"
                     android:layout_width="40dp"
+                    android:layout_toRightOf="@id/toolbar_back_button"
                     android:layout_height="40dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_profile" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/group_icon"
                     android:layout_marginLeft="8dp"
                     android:orientation="vertical">
 
@@ -50,6 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:textSize="16sp"
                         android:fontFamily="@font/droid_sans_chinese"
                         android:gravity="bottom"
                         android:text="Imam Candra Kusuma"
@@ -58,7 +65,22 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/toolbar_add_button"
+                    android:layout_width="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp" />
+
+
+            </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -109,7 +131,6 @@
             tools:listitem="@layout/group_message_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:stackFromEnd="true"
             android:layout_above="@id/layout_bottom_chat"
             android:clipToPadding="false"
             android:paddingTop="5dp" />

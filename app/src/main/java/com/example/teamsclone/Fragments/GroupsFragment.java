@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamsclone.Activities.CreateGroupActivity;
@@ -47,6 +48,7 @@ public class GroupsFragment extends Fragment
         groupFragmentView =  inflater.inflate(R.layout.home_fragment, container, false);
 
         rv = groupFragmentView.findViewById(R.id.groups_recycler_view);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
         fab = groupFragmentView.findViewById(R.id.fab_group);
         mAuth = FirebaseAuth.getInstance();
 
@@ -75,7 +77,7 @@ public class GroupsFragment extends Fragment
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 groupChatLists.clear();
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    if(!ds.child("Participants").child(mAuth.getCurrentUser().getUid()).exists()){
+                    if((ds.child("Participants").child(mAuth.getCurrentUser().getUid()).exists())){
                         GroupList model = ds.getValue(GroupList.class);
                         groupChatLists.add(model);
                     }

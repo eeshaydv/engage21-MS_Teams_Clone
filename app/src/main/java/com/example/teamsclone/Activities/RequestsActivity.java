@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.Friends;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -106,8 +107,8 @@ public class RequestsActivity extends AppCompatActivity {
 
                                                 holder.userName.setText(requestUserName);
                                                 char letter = requestUserName.charAt(0);
-                                                letter = Character.toUpperCase(letter);
-                                                mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                                                int color = ColorGenerator.MATERIAL.getRandomColor();
+                                                mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
                                                 holder.profileImage.setImageDrawable(mDrawableBuilder);
 
                                                 holder.itemView.setOnClickListener(new View.OnClickListener() {

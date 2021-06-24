@@ -47,11 +47,14 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
 
-        loadFragment(new GroupsFragment());
-
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(this);
+
+
+        loadFragment(new GroupsFragment());
+        navigation.setSelectedItemId(R.id.nav_home);
+
 
         pro = findViewById(R.id.thumbnail);
 
@@ -117,6 +120,8 @@ public class MainActivity extends BaseActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
 
+
+
         switch (item.getItemId()) {
             case R.id.nav_home:
                 fragment = new GroupsFragment();
@@ -137,7 +142,10 @@ public class MainActivity extends BaseActivity implements
             case R.id.nav_profile:
                 fragment = new profileFragment();
                 break;
+
         }
+
+        if(fragment==null)fragment = new GroupsFragment();
 
         return loadFragment(fragment);
     }

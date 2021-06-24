@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.ModelGroupChat;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,9 +59,14 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
         String senderUid = model.getSender();
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(Long.parseLong(timestamp));
-        String dateTime = DateFormat.format("dd/MM/yyyy hh:mm:ss",cal).toString();
 
+        try {
+            cal.setTimeInMillis(Long.parseLong(timestamp));
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        String dateTime = android.text.format.DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
 
         holder.Message.setText(message);
         holder.Date.setText(dateTime);
@@ -71,18 +77,19 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
     private void setUserName(ModelGroupChat model, HolderGroupChat holder) {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-        ref.orderByChild("uid").equalTo(model.getSender())
+        ref.child(model.getSender())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot ds : snapshot.getChildren()){
-                            String name = ds.child("name").getValue().toString();
+
+                            String name = snapshot.child("name").getValue().toString();
                             holder.Name.setText(name);
                             char letter = name.charAt(0);
                             letter = Character.toUpperCase(letter);
-                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                            int color = ColorGenerator.MATERIAL.getRandomColor();
+                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
                             holder.Icon.setImageDrawable(mDrawableBuilder);
-                        }
+
                     }
 
                     @Override

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.Adapters.AdapterGroupChat;
 import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
@@ -49,10 +51,10 @@ import java.util.Locale;
 
 public class GroupChatActivity extends AppCompatActivity {
 
-    private String groupId;
+    private String groupId,myGroupRole,groupname;
     private Toolbar mtoolBar;
     private TextView groupName;
-    private ImageView attachIcon,groupIcon;
+    private ImageView attachIcon,groupIcon,addButton;
     private EditText messageEditText;
     private FloatingActionButton sendButton;
     private TextDrawable mDrawableBuilder;
@@ -75,14 +77,17 @@ public class GroupChatActivity extends AppCompatActivity {
         groupName = findViewById(R.id.group_name);
         attachIcon = findViewById(R.id.group_attach_file);
         groupIcon = findViewById(R.id.group_icon);
+        addButton = findViewById(R.id.toolbar_add_button);
         messageEditText = findViewById(R.id.group_edit_text);
         sendButton = findViewById(R.id.group_send_fab);
         group_chat_activity_rv = findViewById(R.id.Group_chat_rv);
         mAuth = FirebaseAuth.getInstance();
-         ref = FirebaseDatabase.getInstance().getReference("Groups").child(groupId);
+         ref = FirebaseDatabase.getInstance().getReference("Groups");
+        group_chat_activity_rv.setLayoutManager(new LinearLayoutManager(GroupChatActivity.this));
 
         loadGroupInfo();
-       // loadGroupMessages();
+        loadGroupMessages();
+        getinfo();
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +103,45 @@ public class GroupChatActivity extends AppCompatActivity {
             }
         });
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                if( myGroupRole.equals("admin") || myGroupRole.equals("creator")){
+                   Intent intent1 = new Intent(GroupChatActivity.this,GroupParticipantsAdd.class);
+                   intent1.putExtra("groupId",groupId);
+                   intent1.putExtra("groupName",groupname);
+                   intent1.putExtra("groupRole",myGroupRole);
+                   startActivity(intent1);
+                }
+                else Toast.makeText(GroupChatActivity.this,"NULL",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
-    /*
+
+    private void getinfo() {
+        String curr = mAuth.getCurrentUser().getUid();
+        Toast.makeText(GroupChatActivity.this,curr,Toast.LENGTH_SHORT).show();
+
+        ref.child(groupId).child("Participants").child(curr).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                       if(snapshot.exists()) myGroupRole = snapshot.child("role").getValue().toString();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(GroupChatActivity.this,"NULLy",Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     public void loadGroupMessages() {
         groupChatList = new ArrayList<>();
@@ -130,8 +171,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
     }
 
-     */
-
+    /*
     @Override
     protected void onStart() {
         super.onStart();
@@ -148,7 +188,6 @@ public class GroupChatActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull final MessagesViewHolder holder, int position, @NonNull ModelGroupChat model)
             {
-                //final String userIDs = getRef(position).getKey();
 
                 ref.child("Messages").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -156,7 +195,7 @@ public class GroupChatActivity extends AppCompatActivity {
                     {
                         if (dataSnapshot.exists())
                         {
-
+                                //forloop
                             String message = dataSnapshot.child("message").getValue().toString();
                             String senderId = dataSnapshot.child("sender").getValue().toString();
                             String timeStamp = dataSnapshot.child("timeStamp").getValue().toString();
@@ -168,8 +207,8 @@ public class GroupChatActivity extends AppCompatActivity {
                                     String User_name = snapshot.child("name").getValue().toString();
                                     holder.Name.setText(User_name);
                                     char letter = User_name.charAt(0);
-                                    letter = Character.toUpperCase(letter);
-                                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                                    int color = ColorGenerator.MATERIAL.getRandomColor();
+                                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
                                     holder.Icon.setImageDrawable(mDrawableBuilder);
                                 }
 
@@ -234,6 +273,8 @@ public class GroupChatActivity extends AppCompatActivity {
         }
     }
 
+     */
+
     private void sendMessage(String message) {
         String timestamp = ""+System.currentTimeMillis();
         HashMap<String,Object> hashMap = new HashMap<>();
@@ -272,7 +313,7 @@ public class GroupChatActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot ds : snapshot.getChildren()){
-                                String groupname = ds.child("groupName").getValue().toString();
+                                 groupname = ds.child("groupName").getValue().toString();
                                 String groupdescription = ds.child("groupDescription").getValue().toString();
                                 String timestamp = ds.child("timeStamp").getValue().toString();
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.Activities.FindFriendsActivity;
 import com.example.teamsclone.Activities.ProfileActivity;
 import com.example.teamsclone.Activities.RequestsActivity;
@@ -127,7 +128,8 @@ public class FriendsFragment extends Fragment {
                                 holder.userName.setText(profileName);
                             char letter = profileName.charAt(0);
                             letter = Character.toUpperCase(letter);
-                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                            int color = ColorGenerator.MATERIAL.getRandomColor();
+                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
                             holder.profileImage.setImageDrawable(mDrawableBuilder);
 
                             holder.itemView.setOnClickListener(new View.OnClickListener() {

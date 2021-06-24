@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
 import com.example.teamsclone.models.Friends;
@@ -66,7 +67,8 @@ public class FindFriendsActivity extends BaseActivity {
                         String myProfileName = model.getName();
                         char letter = myProfileName.charAt(0);
                         letter = Character.toUpperCase(letter);
-                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                        int color = ColorGenerator.MATERIAL.getRandomColor();
+                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
                         holder.profileImage.setImageDrawable(mDrawableBuilder);
 
 
