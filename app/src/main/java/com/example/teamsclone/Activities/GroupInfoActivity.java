@@ -1,13 +1,17 @@
 package com.example.teamsclone.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +20,8 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.teamsclone.Adapters.AdapterParticipantsAdd;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.Friends;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +35,7 @@ public class GroupInfoActivity extends AppCompatActivity {
 
     private String groupId,grpName;
     private String myGrouprole = "";
-    private ImageView groupIcon;
+    private ImageView groupIcon,editTitle,editDesc;
     private TextView editGroup,addParticipant,leaveGroup,grp_title,grp_desc;
     private RecyclerView participantsRecyclerView;
     private FirebaseAuth mAuth;
@@ -45,8 +51,9 @@ public class GroupInfoActivity extends AppCompatActivity {
         groupId = getIntent().getStringExtra("groupId");
         myGrouprole = getIntent().getStringExtra("groupRole");
         groupIcon = findViewById(R.id.group_info_image_view);
-        editGroup = findViewById(R.id.edit_group_text_view);
         grp_title = findViewById(R.id.group_title_text_view);
+        editDesc = findViewById(R.id.edit_desc);
+        editTitle = findViewById(R.id.edit_title);
         grp_desc = findViewById(R.id.group_description_text_view);
         addParticipant = findViewById(R.id.group_add_participant_text_view);
         leaveGroup = findViewById(R.id.group_leave_text_view);
@@ -71,6 +78,174 @@ public class GroupInfoActivity extends AppCompatActivity {
                 else Toast.makeText(GroupInfoActivity.this,"NULL",Toast.LENGTH_SHORT).show();
             }
         });
+
+        leaveGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dTitle="",dDesc="",dPosButton="";
+
+                if(myGrouprole.equals("creator")){
+                    dTitle = "Delete Group";
+                    dDesc = "Are you Sure? The Group will be DELETED Permanently";
+                    dPosButton = "DELETE";
+                }
+                else{
+                    dTitle = "Leave Group";
+                    dDesc = "Are you Sure you want to leave the Group Permanently";
+                    dPosButton = "LEAVE";
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupInfoActivity.this);
+                builder.setTitle(dTitle)
+                        .setMessage(dDesc)
+                        .setPositiveButton(dPosButton, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                if(myGrouprole.equals("creator")){
+                                    deleteGroup();
+                                }
+                                else{
+                                    LeaveGroup();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        editTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder=new AlertDialog.Builder(GroupInfoActivity.this);
+                builder.setTitle("Edit Group Name");
+
+                final  EditText inputfield = new EditText(GroupInfoActivity.this);
+                builder.setView(inputfield);
+                builder.setPositiveButton("EDIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if(myGrouprole.equals("admin")||myGrouprole.equals("creator")) {
+
+                            if((inputfield.getText().toString()).isEmpty()){
+                                Toast.makeText(GroupInfoActivity.this, "Enter Name", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
+                                ref.child(groupId).child("groupName").setValue(inputfield.getText().toString());
+                                Toast.makeText(GroupInfoActivity.this, "Name Updated", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                })
+                        .setNegativeButton("CANCEl", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                Dialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
+
+        editDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder=new AlertDialog.Builder(GroupInfoActivity.this);
+                builder.setTitle("Edit Group Description");
+
+                final  EditText inputfield = new EditText(GroupInfoActivity.this);
+                builder.setView(inputfield);
+                builder.setPositiveButton("EDIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if(myGrouprole.equals("admin")||myGrouprole.equals("creator")) {
+
+                            if((inputfield.getText().toString()).isEmpty()){
+                                Toast.makeText(GroupInfoActivity.this, "Enter Description", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
+                                ref.child(groupId).child("groupDescription").setValue(inputfield.getText().toString());
+                                Toast.makeText(GroupInfoActivity.this, "Description Updated", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                })
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                Dialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
+
+
+
+    }
+
+    private void LeaveGroup() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
+        ref.child(groupId).child("Participants").child(mAuth.getUid())
+                .removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(GroupInfoActivity.this,"Left Succesfully",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(GroupInfoActivity.this,MainActivity.class));
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(GroupInfoActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void deleteGroup() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
+        ref.child(groupId)
+                .removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(GroupInfoActivity.this,"Group Deleted Succesfully",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(GroupInfoActivity.this,MainActivity.class));
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(GroupInfoActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 

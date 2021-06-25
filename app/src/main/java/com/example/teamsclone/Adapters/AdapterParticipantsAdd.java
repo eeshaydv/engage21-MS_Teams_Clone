@@ -222,8 +222,11 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
 
     private void MakeAdmin(Friends friends) {
 
-        HashMap<String ,Object>hashMap = new HashMap<>();
+        String timeStamp = ""+System.currentTimeMillis();
+        HashMap<String,String>hashMap = new HashMap<>();
+        hashMap.put("uid",friends.getUid());
         hashMap.put("role","admin");
+        hashMap.put("timeStamp",""+timeStamp);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupId).child("Participants").child(friends.getUid()).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -271,9 +274,11 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
 
     private void removeAdmin(Friends friends) {
 
-
-        HashMap<String ,Object>hashMap = new HashMap<>();
+        String timeStamp = ""+System.currentTimeMillis();
+        HashMap<String,String>hashMap = new HashMap<>();
+        hashMap.put("uid",friends.getUid());
         hashMap.put("role","participant");
+        hashMap.put("timeStamp",""+timeStamp);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupId).child("Participants").child(friends.getUid()).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

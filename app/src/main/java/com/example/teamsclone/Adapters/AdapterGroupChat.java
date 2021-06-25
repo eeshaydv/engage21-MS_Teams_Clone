@@ -1,6 +1,7 @@
 package com.example.teamsclone.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.example.teamsclone.Activities.CommentsActivity;
+import com.example.teamsclone.Activities.GroupChatActivity;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.ModelGroupChat;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,6 +74,15 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
         holder.Message.setText(message);
         holder.Date.setText(dateTime);
         setUserName(model,holder);
+
+        holder.Comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("commentID",timestamp+senderUid);
+                context.startActivity(intent) ;
+            }
+        });
 
     }
 

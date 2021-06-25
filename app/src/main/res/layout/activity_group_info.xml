@@ -28,6 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <TextView
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -38,10 +42,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FullName"/>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/edit_title"
+                    android:clickable="true"
+                    android:src="@drawable/ic_baseline_edit_24"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/group_title_text_view"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/scroll_view">
                 <TextView
                     android:id="@+id/group_description_text_view"
                     android:layout_width="wrap_content"
@@ -52,6 +70,15 @@
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </HorizontalScrollView>
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:id="@+id/edit_desc"
+                    android:clickable="true"
+                    android:src="@drawable/ic_baseline_edit_24"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/scroll_view"/>
+            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -68,22 +95,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:textStyle="bold"
-            android:fontFamily="@font/droid_sans_chinese"
-            android:padding="4dp"
-            android:layout_margin="8dp"
-            android:textColor="@color/inactive_dots"
-            android:drawableTint="@color/inactive_dots"
-            android:background="@drawable/pro_layout"
-            android:id="@+id/edit_group_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_edit_24"
-            android:layout_marginBottom="5dp"
-            android:clickable="true"
-            android:text="    EDIT"
-            android:textSize="16sp" />
 
         <TextView
             android:textStyle="bold"
