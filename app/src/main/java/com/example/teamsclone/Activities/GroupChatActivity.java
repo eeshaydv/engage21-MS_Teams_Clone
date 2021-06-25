@@ -73,7 +73,7 @@ public class GroupChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         groupId = intent.getStringExtra("groupId");
 
-        mtoolBar = findViewById(R.id.toolbar_chat_room);
+        mtoolBar = findViewById(R.id.toolbar_group_chat_room);
         groupName = findViewById(R.id.group_name);
         attachIcon = findViewById(R.id.group_attach_file);
         groupIcon = findViewById(R.id.group_icon);
@@ -117,6 +117,16 @@ public class GroupChatActivity extends AppCompatActivity {
                    startActivity(intent1);
                 }
                 else Toast.makeText(GroupChatActivity.this,"NULL",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        groupName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(GroupChatActivity.this,GroupInfoActivity.class);
+                intent1.putExtra("groupId",groupId);
+                intent1.putExtra("groupRole",myGroupRole);
+                startActivity(intent1);
             }
         });
 

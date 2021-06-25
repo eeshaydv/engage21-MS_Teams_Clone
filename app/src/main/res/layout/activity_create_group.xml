@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/groupIcon"
-        android:src="@drawable/ic_baseline_group_24"/>
+        android:src="@drawable/ms_logo_sq"/>
 <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
