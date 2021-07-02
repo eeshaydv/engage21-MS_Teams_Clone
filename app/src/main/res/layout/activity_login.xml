@@ -203,28 +203,10 @@
                     android:gravity="center_horizontal"
                     android:text="Don't have an account? Create one"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/login_button"
-                    android:fontFamily="@font/droid_sans_chinese"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:gravity="center_horizontal"
-                    android:text="Or Login with your Google Account"/>
 
 
-                <ImageView
-                    android:id="@+id/google_signin_button"
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/iconsg"
-                    android:layout_marginTop="8dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="fitCenter"
-                    />
+
+
 
                 <TextView
                     android:layout_width="wrap_content"

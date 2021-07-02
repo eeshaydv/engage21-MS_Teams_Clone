@@ -63,6 +63,7 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
         int color = ColorGenerator.MATERIAL.getRandomColor();
         mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
         holder.proPic.setImageDrawable(mDrawableBuilder);
+        holder.UserStatus.setVisibility(View.INVISIBLE);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +94,7 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
     }
 
     private void SendMessage(String uid) {
-        String messageText  = "Hi,\n" + " join the Meet now with Room Id " + roomId;
+        String messageText  = " Hi,\n" + "\n join the Meet now with Room Id \n" + " "+roomId+" : ";
         String saveCurrentTime,saveCurrentDate;
 
         Calendar calendar = Calendar.getInstance();

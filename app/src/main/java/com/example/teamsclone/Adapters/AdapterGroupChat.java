@@ -58,28 +58,19 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
 
         ModelGroupChat model = modelGroupChatList.get(position);
         String message = model.getMessage();
-        String time_stamp = model.getTimestamp();
+        String time = model.getTime();
+        String date = model.getDate();
         String senderUid = model.getSender();
 
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-
-        try {
-            cal.setTimeInMillis(Long.parseLong(time_stamp));
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-
-        String dateTime = android.text.format.DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
-
         holder.Message.setText(message);
-        holder.Date.setText(dateTime);
+        holder.Date.setText( time + " " + date);
         setUserName(model,holder);
 
         holder.Comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CommentsActivity.class);
-                intent.putExtra("commentID",time_stamp+senderUid);
+                intent.putExtra("commentID",time+date+senderUid);
                 context.startActivity(intent) ;
             }
         });

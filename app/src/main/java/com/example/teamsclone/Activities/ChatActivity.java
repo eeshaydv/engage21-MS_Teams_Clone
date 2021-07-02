@@ -439,6 +439,7 @@ public class ChatActivity extends BaseActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
+        userMessagesList.setHasFixedSize(true);
 
         Calendar calendar = Calendar.getInstance();
 

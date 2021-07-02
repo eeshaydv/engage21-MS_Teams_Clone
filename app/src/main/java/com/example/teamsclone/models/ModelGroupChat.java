@@ -1,16 +1,17 @@
 package com.example.teamsclone.models;
 
 public class ModelGroupChat {
-    String message,sender,timestamp,type;
+    String message,sender,type,time,date;
 
     public ModelGroupChat(){
 
     }
 
-    public ModelGroupChat(String message, String sender, String timestamp, String type) {
+    public ModelGroupChat(String message, String sender,String time,String date, String type) {
         this.message = message;
         this.sender = sender;
-        this.timestamp = timestamp;
+        this.time=time;
+        this.date=date;
         this.type = type;
     }
 
@@ -30,13 +31,22 @@ public class ModelGroupChat {
         this.sender = sender;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getTime() {
+        return time;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(String time) {
+        this.time = time;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
 
     public String getType() {
         return type;

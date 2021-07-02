@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.teamsclone.Adapters.AdapterCallParticipants;
 import com.example.teamsclone.Adapters.AdapterParticipantsAdd;
@@ -50,39 +52,46 @@ public class InviteCallParticipant extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(InviteCallParticipant.this));
         userId = getIntent().getStringExtra("userId");
         roomId = getIntent().getStringExtra("roomId");
+        userList = new ArrayList<>();
+        mAdapterParticipantAdd = new AdapterCallParticipants(InviteCallParticipant.this,userList,userId,roomId);
+        rv.setAdapter(mAdapterParticipantAdd);
+        rv.setHasFixedSize(true);
         getAllUsersList();
     }
 
     private void getAllUsersList() {
-        userList = new ArrayList<>();
+
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("friends").child(userId);
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users");
-
+        final long[] i = {0};
         ref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userList.clear();
+                long count=snapshot.getChildrenCount();
+
+                Toast.makeText(InviteCallParticipant.this, ""+count, Toast.LENGTH_SHORT).show();
                 for(DataSnapshot ds : snapshot.getChildren()){
                     String friendId = ds.getKey().toString();
 
-                     ref2.child(friendId).addValueEventListener(new ValueEventListener() {
-                         @Override
-                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                             Friends friends  = snapshot1.getValue(Friends.class);
-                             if(!mAuth.getUid().equals(friends.getUid()))userList.add(friends);
-                         }
+                    ref2.child(friendId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                            Friends friends  = snapshot1.getValue(Friends.class);
+                            //Toast.makeText(InviteCallParticipant.this, " "+friends.getName(), Toast.LENGTH_SHORT).show();
+                            userList.add(new Friends(friends.getName(),friends.getUid()));
+                            i[0]++;
+                            if(i[0] ==count){
+                                mAdapterParticipantAdd.notifyDataSetChanged();
 
-                         @Override
-                         public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                         }
-                     });
-
-
+                        }
+                    });
                 }
-                mAdapterParticipantAdd = new AdapterCallParticipants(InviteCallParticipant.this,userList,userId,roomId);
-                rv.setAdapter(mAdapterParticipantAdd);
-
             }
 
             @Override

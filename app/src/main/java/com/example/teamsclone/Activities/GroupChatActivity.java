@@ -191,15 +191,22 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String message) {
-        String timestamp = ""+System.currentTimeMillis();
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+         String saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String saveCurrentTime = currentTime.format(calendar.getTime());
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("sender",mAuth.getCurrentUser().getUid());
         hashMap.put("message",message);
-        hashMap.put("timeStamp",timestamp);
+        hashMap.put("time", saveCurrentTime);
+        hashMap.put("date", saveCurrentDate);
         hashMap.put("type","text");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(groupId).child("Messages").child(timestamp + mAuth.getCurrentUser().getUid())
+        ref.child(groupId).child("Messages").child(saveCurrentDate+ saveCurrentTime+ mAuth.getCurrentUser().getUid())
                 .setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
