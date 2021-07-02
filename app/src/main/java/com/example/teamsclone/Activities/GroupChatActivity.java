@@ -54,7 +54,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private String groupId,myGroupRole,groupname;
     private Toolbar mtoolBar;
     private TextView groupName;
-    private ImageView attachIcon,groupIcon,addButton;
+    private ImageView attachIcon,groupIcon,addButton,backButton;
     private EditText messageEditText;
     private FloatingActionButton sendButton;
     private TextDrawable mDrawableBuilder;
@@ -70,8 +70,7 @@ public class GroupChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
 
-        Intent intent = getIntent();
-        groupId = intent.getStringExtra("groupId");
+        groupId = getIntent().getStringExtra("groupId");
 
         mtoolBar = findViewById(R.id.toolbar_group_chat_room);
         groupName = findViewById(R.id.group_name);
@@ -88,6 +87,16 @@ public class GroupChatActivity extends AppCompatActivity {
         loadGroupInfo();
         loadGroupMessages();
         getinfo();
+
+        backButton = findViewById(R.id.tool_grp_back_button);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,110 +189,6 @@ public class GroupChatActivity extends AppCompatActivity {
                 });
 
     }
-
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-    FirebaseRecyclerOptions options =
-                new FirebaseRecyclerOptions.Builder<ModelGroupChat>()
-                        .setQuery(ref, ModelGroupChat.class)
-                        .build();
-
-
-        final FirebaseRecyclerAdapter<ModelGroupChat, MessagesViewHolder> adapter
-                = new FirebaseRecyclerAdapter<ModelGroupChat, MessagesViewHolder>(options) {
-
-
-            @Override
-            protected void onBindViewHolder(@NonNull final MessagesViewHolder holder, int position, @NonNull ModelGroupChat model)
-            {
-
-                ref.child("Messages").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
-                        if (dataSnapshot.exists())
-                        {
-                                //forloop
-                            String message = dataSnapshot.child("message").getValue().toString();
-                            String senderId = dataSnapshot.child("sender").getValue().toString();
-                            String timeStamp = dataSnapshot.child("timeStamp").getValue().toString();
-
-                            DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users");
-                            ref1.child(senderId).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String User_name = snapshot.child("name").getValue().toString();
-                                    holder.Name.setText(User_name);
-                                    char letter = User_name.charAt(0);
-                                    int color = ColorGenerator.MATERIAL.getRandomColor();
-                                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
-                                    holder.Icon.setImageDrawable(mDrawableBuilder);
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-
-                            holder.Message.setText(message);
-                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                            cal.setTimeInMillis(Long.parseLong(timeStamp));
-                            String dateTime = DateFormat.format("dd/MM/yyyy hh:mm:ss",cal).toString();
-                            holder.Date.setText(dateTime);
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-            @NonNull
-            @Override
-            public MessagesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-            {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.group_message_layout, viewGroup, false);
-                MessagesViewHolder viewHolder = new MessagesViewHolder(view);
-                return viewHolder;
-            }
-        };
-
-        group_chat_activity_rv.setAdapter(adapter);
-        adapter.startListening();
-    }
-
-    public static class MessagesViewHolder extends RecyclerView.ViewHolder
-    {
-        TextView Name,Date,Message,likesCount,downVotesCount,commentsCount;
-        AppCompatImageView Likes,DownVotes,Comments,More;
-        ImageView Icon;
-
-
-        public MessagesViewHolder(@NonNull View itemView)
-        {
-            super(itemView);
-            Name = itemView.findViewById(R.id.text_name);
-            Message = itemView.findViewById(R.id.text_question);
-            Date = itemView.findViewById(R.id.text_date);
-            likesCount = itemView.findViewById(R.id.text_likes_count);
-            downVotesCount = itemView.findViewById(R.id.text_downVotes_count);
-            commentsCount = itemView.findViewById(R.id.text_chat_count);
-            Likes = itemView.findViewById(R.id.view_likes);
-            DownVotes = itemView.findViewById(R.id.view_downVotes);
-            Comments = itemView.findViewById(R.id.view_chat);
-            More = itemView.findViewById(R.id.view_settings);
-            Icon = itemView.findViewById(R.id.avatar);
-        }
-    }
-
-     */
 
     private void sendMessage(String message) {
         String timestamp = ""+System.currentTimeMillis();

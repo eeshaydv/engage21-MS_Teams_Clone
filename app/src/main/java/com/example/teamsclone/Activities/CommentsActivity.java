@@ -147,6 +147,7 @@ public class CommentsActivity extends BaseActivity {
                             if(task.isSuccessful())
                             {
                                 Toast.makeText(CommentsActivity.this, "Your comment is added successfully", Toast.LENGTH_SHORT).show();
+                                CommentInputText.setText("");
                             }
                             else
                             {

@@ -58,13 +58,13 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
 
         ModelGroupChat model = modelGroupChatList.get(position);
         String message = model.getMessage();
-        String timestamp = model.getTimestamp();
+        String time_stamp = model.getTimestamp();
         String senderUid = model.getSender();
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
 
         try {
-            cal.setTimeInMillis(Long.parseLong(timestamp));
+            cal.setTimeInMillis(Long.parseLong(time_stamp));
         } catch(Exception ex) {
             ex.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CommentsActivity.class);
-                intent.putExtra("commentID",timestamp+senderUid);
+                intent.putExtra("commentID",time_stamp+senderUid);
                 context.startActivity(intent) ;
             }
         });

@@ -38,7 +38,7 @@ public class LoginInteractor implements LoginContract.Intractor {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()) {
-                                    mOnLoginListener.onSuccess(Objects.requireNonNull(task.getResult()).toString());
+                                    mOnLoginListener.onSuccess("");
                                 }
                             }
                         });

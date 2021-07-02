@@ -11,11 +11,10 @@
         ></include>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/req_toolbar"
         android:id="@+id/chat_requests_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"></androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

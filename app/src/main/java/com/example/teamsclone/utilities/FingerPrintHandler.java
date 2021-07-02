@@ -1,4 +1,4 @@
-package com.example.teamsclone;
+package com.example.teamsclone.utilities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import com.example.teamsclone.Activities.MainActivity;
+import com.example.teamsclone.R;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class FingerPrintHandler extends FingerprintManager.AuthenticationCallback {

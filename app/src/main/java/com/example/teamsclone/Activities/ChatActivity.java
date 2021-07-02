@@ -54,7 +54,7 @@ import java.util.Map;
 public class ChatActivity extends BaseActivity {
     private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
     private TextView userName, userLastSeen;
-    private ImageView userImage;
+    private ImageView userImage,backButton;
     private ImageButton attachFiles;
     private Toolbar ChatToolBar;
     private FirebaseAuth mAuth;
@@ -92,6 +92,15 @@ public class ChatActivity extends BaseActivity {
         letter = Character.toUpperCase(letter);
         mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
         userImage.setImageDrawable(mDrawableBuilder);
+        backButton = findViewById(R.id.toolbar_back_button);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
 
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -439,4 +448,6 @@ public class ChatActivity extends BaseActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
         saveCurrentTime = currentTime.format(calendar.getTime());
     }
+
+
 }

@@ -63,8 +63,10 @@ public class SettingsActivity extends BaseActivity {
         Button button = findViewById(R.id.signOutButton);
         button.setOnClickListener(v-> {
             mAuth.signOut();
-            startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-            finish();
+            Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
         });
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
