@@ -30,11 +30,13 @@
             <ImageView
                 android:id="@+id/thumbnail"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/profile"
+                android:src="@drawable/ic_baseline_notifications_none_24"
                 android:layout_width="40dp"
+                android:clickable="true"
                 android:layout_marginRight="8dp"
                 android:layout_alignParentRight="true"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                app:tint="@color/white" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <FrameLayout

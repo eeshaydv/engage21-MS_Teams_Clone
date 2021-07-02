@@ -33,7 +33,7 @@ import java.util.HashMap;
 public class MainActivity extends BaseActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener {
 
-     ImageView pro;
+    // ImageView pro;
     private TextDrawable mDrawableBuilder;
    private  FirebaseAuth mAuth;
     private String currentUserID;
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements
         navigation.setSelectedItemId(R.id.nav_home);
 
 
-        pro = findViewById(R.id.thumbnail);
+      //  pro = findViewById(R.id.thumbnail);
 
         mAuth=FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements
                         char letter = myProfileName.charAt(0);
                         letter = Character.toUpperCase(letter);
                         mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
-                        pro.setImageDrawable(mDrawableBuilder);
+                       // pro.setImageDrawable(mDrawableBuilder);
                        // Toast.makeText(MainActivity.this, "drawable", Toast.LENGTH_SHORT).show();
 
                     }

@@ -13,6 +13,7 @@
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="#EAEAEA"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/participant_call_add_recycler_view"

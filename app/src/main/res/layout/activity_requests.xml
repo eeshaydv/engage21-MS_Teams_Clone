@@ -12,6 +12,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/req_toolbar"
+        android:background="#EAEAEA"
         android:id="@+id/chat_requests_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

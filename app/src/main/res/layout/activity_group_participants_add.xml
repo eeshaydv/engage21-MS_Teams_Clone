@@ -14,6 +14,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
+        android:background="#EAEAEA"
         android:layout_height="match_parent"
         android:id="@+id/groups_participant_add_recycler_view"
         tools:listitem="@layout/user_layout_new"
