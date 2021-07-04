@@ -28,9 +28,13 @@
         android:roundIcon="@drawable/mslogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.InviteCallParticipant"></activity>
-        <activity android:name=".Activities.VideoConferenceActivity" android:theme="@style/AcTheme" />
-        <activity android:name=".Activities.DashboardActivity"></activity>
+        <activity android:name=".Activities.ScheduleDetailsActivity"></activity>
+        <activity android:name=".Activities.ScheduleCallActivity" />
+        <activity android:name=".Activities.InviteCallParticipant" />
+        <activity
+            android:name=".Activities.VideoConferenceActivity"
+            android:theme="@style/AcTheme" />
+        <activity android:name=".Activities.DashboardActivity" />
         <activity android:name=".Activities.GroupInfoActivity" />
         <activity android:name=".Activities.GroupParticipantsAdd" />
         <activity android:name=".Activities.CreateGroupActivity" />

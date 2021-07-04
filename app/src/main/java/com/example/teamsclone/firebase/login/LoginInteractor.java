@@ -1,6 +1,7 @@
 package com.example.teamsclone.firebase.login;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 
@@ -33,7 +35,7 @@ public class LoginInteractor implements LoginContract.Intractor {
 
                         userRef = FirebaseDatabase.getInstance().getReference().child("users");
                         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        String deviceToken = FirebaseMessaging.getInstance().toString();
+                        String deviceToken = FirebaseMessaging.getInstance().getToken().toString();
                         userRef.child(currentUserId).child("device_Token").setValue(deviceToken).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
