@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@android:color/white">
+
+
+    <ImageView
+        android:clickable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:id="@+id/avatar_schedule_item"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="8dp"
+        />
+
+
+    <TextView
+        android:id="@+id/Schedule_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+     android:layout_toRightOf="@id/avatar_schedule_item"
+        android:maxLines="1"
+        android:fontFamily="sans-serif-light"
+        android:text="NAME"
+        android:padding="8dp"
+        android:textColor="#827f93"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+
+
+
+
+
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_schedule"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#ebebeb" />
+
+    <LinearLayout
+        android:layout_below="@id/schedule_item_description"
+        android:layout_width="match_parent"
+        android:id="@+id/ll_schedule"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:background="@drawable/button1"
+        android:textColor="@color/black"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:gravity="center"
+        android:id="@+id/schedule_item_date"
+        android:text="DATE"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button1"
+            android:gravity="center"
+            android:layout_below="@id/divider"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:id="@+id/schedule_item_time"
+            android:text="TIME"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="1"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:id="@+id/schedule_item_status"
+        android:text="STATUS"/>
+
+
+
+    <TextView
+        android:layout_below="@id/avatar_schedule_item"
+        android:id="@+id/schedule_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        android:fontFamily="sans-serif-light"
+      android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textIsSelectable="true"
+        android:maxLines="3"
+        android:text="Deccription of the meet reason if given!"
+        android:paddingBottom="16dp"
+        android:paddingLeft="24dp"
+        android:layout_marginTop="5dp"
+        android:paddingRight="24dp"
+        android:paddingTop="8dp"
+        android:layout_margin="0dp"
+        android:textColor="#000000"
+         />
+
+
+</RelativeLayout>
