@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/llayout"
-        android:background="@color/white"
+        android:background="#EAEAEA"
         android:gravity="center"
         android:orientation="horizontal" >
 
@@ -53,6 +53,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calls_list"
+        android:background="#EAEAEA"
         android:layout_below="@id/llayout"
         tools:listitem="@layout/schedule_item_view"
         android:layout_width = "match_parent"

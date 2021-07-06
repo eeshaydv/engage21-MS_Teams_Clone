@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,9 +18,19 @@ import com.example.teamsclone.Activities.DashboardActivity;
 import com.example.teamsclone.Activities.LoginActivity;
 import com.example.teamsclone.Activities.MainActivity;
 import com.example.teamsclone.Activities.ScheduleCallActivity;
+import com.example.teamsclone.Adapters.ScheduleAdapter;
 import com.example.teamsclone.R;
+import com.example.teamsclone.models.Schedule;
 import com.example.teamsclone.utilities.ViewAnimation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class CallsFragment extends Fragment {
@@ -27,6 +38,8 @@ public class CallsFragment extends Fragment {
     private RecyclerView callsList ;
     private Button scheduledCalls,doneCalls;
     private FloatingActionButton call_fab,add_schedule,add_call;
+    private ArrayList<Schedule>schedules;
+    private ScheduleAdapter scheduleAdapter;
     private int[] mColors;
     private boolean isRotate = false;
     @Nullable
@@ -110,7 +123,36 @@ public class CallsFragment extends Fragment {
             }
         });
 
+        LoadScheduledCalls();
+
 
         return v;
+    }
+
+    private void LoadScheduledCalls() {
+        schedules = new ArrayList<>();
+        String currUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("schedules").child(currUser);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                schedules.clear();
+                for(DataSnapshot ds : snapshot.getChildren()){
+                    Schedule schedule = ds.getValue(Schedule.class);
+                    schedules.add(schedule);
+                }
+
+                scheduleAdapter = new ScheduleAdapter(getActivity(),schedules);
+                callsList.setAdapter(scheduleAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

@@ -64,6 +64,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity implements  DateP
                 month = calendar.get(Calendar.MONTH);
                 day = calendar.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleDetailsActivity.this, ScheduleDetailsActivity.this, year, month, day);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });
