@@ -61,6 +61,7 @@ public class RequestsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("REQUESTS");
+        mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
 
     }

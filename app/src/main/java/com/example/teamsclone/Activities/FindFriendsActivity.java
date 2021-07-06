@@ -47,6 +47,7 @@ public class FindFriendsActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Find Friends");
+        mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
     }
 
