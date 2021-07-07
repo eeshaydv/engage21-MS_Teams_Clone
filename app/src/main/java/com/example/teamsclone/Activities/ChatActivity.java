@@ -24,7 +24,13 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.teamsclone.Adapters.MessageAdapter;
 import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
+import com.example.teamsclone.models.Friends;
 import com.example.teamsclone.models.Messages;
+import com.example.teamsclone.notifications.APIService;
+import com.example.teamsclone.notifications.Client;
+import com.example.teamsclone.notifications.Data;
+import com.example.teamsclone.notifications.Response;
+import com.example.teamsclone.notifications.sender;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,6 +56,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 
 public class ChatActivity extends BaseActivity {
     private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
@@ -71,6 +80,9 @@ public class ChatActivity extends BaseActivity {
     private Uri fileUri;
     private StorageTask uploadTask;
     private TextDrawable mDrawableBuilder;
+
+    APIService apiService;
+    boolean notify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +117,7 @@ public class ChatActivity extends BaseActivity {
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notify=true;
                 SendMessage();
             }
         });
@@ -417,9 +430,65 @@ public class ChatActivity extends BaseActivity {
                         Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                     MessageInputText.setText("");
+
+                    final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users").child(messageSenderID);
+                    mRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            Friends user = snapshot.getValue(Friends.class);
+
+                            if(notify){
+                                sendNotifications(messageReceiverID,user.getName(),messageText);
+                            }
+
+                            notify=false;
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             });
         }
+
+
+    }
+
+    private void sendNotifications(String messageReceiverID, String name, String messageText) {
+
+            DatabaseReference tRef = FirebaseDatabase.getInstance().getReference("users");
+            tRef.child(messageSenderID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String token = snapshot.child("device_Token").getValue().toString();
+                    Data data = new Data(messageSenderID,name+":"+messageText,"New Message",messageReceiverID,R.drawable.ms_logo_sq);
+
+                    sender  senderx = new sender(data,token);
+
+                    apiService.sendNotification(senderx)
+                            .enqueue(new Callback<Response>() {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                    Toast.makeText(ChatActivity.this,token,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChatActivity.this,response.message(),Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t) {
+                                    Toast.makeText(ChatActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
     }
 
 
@@ -440,6 +509,8 @@ public class ChatActivity extends BaseActivity {
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
         userMessagesList.setHasFixedSize(true);
+
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         Calendar calendar = Calendar.getInstance();
 

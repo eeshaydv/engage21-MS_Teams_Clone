@@ -3,7 +3,10 @@ package com.example.teamsclone.Activities;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -24,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,6 +51,9 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
 
+        checkUserStatus();
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -91,6 +98,11 @@ public class MainActivity extends BaseActivity implements
 
     }
 
+    private void updateToken(String token) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                ref.child("device_Token").setValue(token);
+    }
+
     @Override
     protected void onStop()
     {
@@ -102,7 +114,29 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    @Override
+    protected void onResume() {
+        checkUserStatus();
+        super.onResume();
+    }
 
+    private void checkUserStatus() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currUID;
+        if(user!=null){
+            currUID = user.getUid();
+
+            SharedPreferences sp = getSharedPreferences("SP_USER",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("Current_USERID",currUID);
+            editor.apply();
+        }
+        else{
+            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onDestroy()
