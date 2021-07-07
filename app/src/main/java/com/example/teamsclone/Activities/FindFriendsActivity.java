@@ -60,7 +60,7 @@ public class FindFriendsActivity extends BaseActivity {
                         .setQuery(UsersRef, Friends.class)
                         .build();
         FirebaseRecyclerAdapter<Friends, FindFriendViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Friends, FindFriendViewHolder>(options){
+                new FirebaseRecyclerAdapter<Friends, FindFriendViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Friends model) {
 
@@ -101,11 +101,10 @@ public class FindFriendsActivity extends BaseActivity {
     }
 
 
-    public static class FindFriendViewHolder extends RecyclerView.ViewHolder
-
-    {
+    public static class FindFriendViewHolder extends RecyclerView.ViewHolder {
         TextView userName;
         ImageView profileImage;
+
         public FindFriendViewHolder(@NonNull View itemView) {
             super(itemView);
 

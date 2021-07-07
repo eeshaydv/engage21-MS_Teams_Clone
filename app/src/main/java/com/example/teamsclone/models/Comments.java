@@ -1,22 +1,19 @@
 package com.example.teamsclone.models;
 
-public class Comments
-{
+public class Comments {
 
 
+    public String comment, date, time, username, cid;
 
-    public String comment,date,time,username,cid;
-
-    public Comments()
-    {
+    public Comments() {
 
     }
 
-    public Comments(String comment,String cid, String date, String time, String username) {
+    public Comments(String comment, String cid, String date, String time, String username) {
         this.comment = comment;
         this.date = date;
         this.time = time;
-        this.cid=cid;
+        this.cid = cid;
         this.username = username;
     }
 

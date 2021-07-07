@@ -252,7 +252,6 @@ public class VideoConferenceActivity extends AppCompatActivity
         //received when chat data received at room level
     }
 
-   
 
     @Override
     public void onRemoteStreamAudioMute(JSONObject jsonObject) {
@@ -280,7 +279,7 @@ public class VideoConferenceActivity extends AppCompatActivity
             case R.id.disconnect:
                 roomDisconnect();
                 Intent intent = new Intent(VideoConferenceActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.mute:

@@ -28,8 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class GroupsFragment extends Fragment
-{
+public class GroupsFragment extends Fragment {
     private View groupFragmentView;
     private RecyclerView rv;
     FloatingActionButton fab;
@@ -37,15 +36,14 @@ public class GroupsFragment extends Fragment
     private ArrayList<GroupList> groupChatLists;
     private GroupListAdapter groupListAdapter;
 
-    public GroupsFragment(){
+    public GroupsFragment() {
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        groupFragmentView =  inflater.inflate(R.layout.home_fragment, container, false);
+        groupFragmentView = inflater.inflate(R.layout.home_fragment, container, false);
 
         rv = groupFragmentView.findViewById(R.id.groups_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,13 +74,13 @@ public class GroupsFragment extends Fragment
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 groupChatLists.clear();
-                for(DataSnapshot ds : snapshot.getChildren()){
-                    if((ds.child("Participants").child(mAuth.getCurrentUser().getUid()).exists())){
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if ((ds.child("Participants").child(mAuth.getCurrentUser().getUid()).exists())) {
                         GroupList model = ds.getValue(GroupList.class);
                         groupChatLists.add(model);
                     }
                 }
-                groupListAdapter = new GroupListAdapter(getActivity(),groupChatLists);
+                groupListAdapter = new GroupListAdapter(getActivity(), groupChatLists);
                 rv.setAdapter(groupListAdapter);
             }
 
@@ -106,12 +104,12 @@ public class GroupsFragment extends Fragment
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 groupChatLists.clear();
-                for(DataSnapshot ds : snapshot.getChildren()){
-                    if(!ds.child("Participants").child(mAuth.getCurrentUser().getUid()).exists()){
-                       if(ds.child("groupName").toString().toLowerCase().equals(query.toLowerCase())){
-                           GroupList model = ds.getValue(GroupList.class);
-                           groupChatLists.add(model);
-                       }
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if (!ds.child("Participants").child(mAuth.getCurrentUser().getUid()).exists()) {
+                        if (ds.child("groupName").toString().toLowerCase().equals(query.toLowerCase())) {
+                            GroupList model = ds.getValue(GroupList.class);
+                            groupChatLists.add(model);
+                        }
                     }
                 }
             }
@@ -124,10 +122,6 @@ public class GroupsFragment extends Fragment
 
 
     }
-
-
-
-
 
 
 }

@@ -29,7 +29,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
     private RecyclerView rv;
     private ActionBar actionBar;
     private FirebaseAuth mAuth;
-    private String receiverId,receiverName,userId;
+    private String receiverId, receiverName, userId;
     private ArrayList<Friends> userList;
     private AdapterScheduleCall mAdapter;
 
@@ -38,11 +38,11 @@ public class ScheduleCallActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_call);
 
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int)(width*.90),(int) (height*.65));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .90), (int) (height * .65));
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.60f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -54,7 +54,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
         receiverId = getIntent().getStringExtra("receiverId");
         receiverName = getIntent().getStringExtra("receiverName");
         userList = new ArrayList<>();
-        mAdapter = new AdapterScheduleCall(ScheduleCallActivity.this,userList,userId);
+        mAdapter = new AdapterScheduleCall(ScheduleCallActivity.this, userList, userId);
         rv.setAdapter(mAdapter);
         rv.setHasFixedSize(true);
         getAllUsersList();
@@ -72,24 +72,25 @@ public class ScheduleCallActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userList.clear();
-                long count=snapshot.getChildrenCount();
+                long count = snapshot.getChildrenCount();
 
-                Toast.makeText(ScheduleCallActivity.this, ""+count, Toast.LENGTH_SHORT).show();
-                for(DataSnapshot ds : snapshot.getChildren()){
+                Toast.makeText(ScheduleCallActivity.this, "" + count, Toast.LENGTH_SHORT).show();
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String friendId = ds.getKey().toString();
 
                     ref2.child(friendId).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                            Friends friends  = snapshot1.getValue(Friends.class);
+                            Friends friends = snapshot1.getValue(Friends.class);
                             //Toast.makeText(InviteCallParticipant.this, " "+friends.getName(), Toast.LENGTH_SHORT).show();
-                            userList.add(new Friends(friends.getName(),friends.getUid()));
+                            userList.add(new Friends(friends.getName(), friends.getUid()));
                             i[0]++;
-                            if(i[0] ==count){
+                            if (i[0] == count) {
                                 mAdapter.notifyDataSetChanged();
 
                             }
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 

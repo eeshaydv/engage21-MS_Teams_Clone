@@ -34,11 +34,11 @@ public class ChatsFragment extends Fragment {
     private RecyclerView chatsList;
     private DatabaseReference ChatsRef, UsersRef;
     private FirebaseAuth mAuth;
-    private String currentUserID="";
+    private String currentUserID = "";
     private TextDrawable mDrawableBuilder;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         PrivateChatsView = inflater.inflate(R.layout.chat_frgament, container, false);
         mAuth = FirebaseAuth.getInstance();
@@ -52,8 +52,7 @@ public class ChatsFragment extends Fragment {
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
 
 
@@ -66,17 +65,14 @@ public class ChatsFragment extends Fragment {
         FirebaseRecyclerAdapter<Friends, ChatsViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Friends, ChatsViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull Friends model)
-                    {
+                    protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull Friends model) {
                         final String usersIDs = getRef(position).getKey();
 
 
                         UsersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot)
-                            {
-                                if (dataSnapshot.exists())
-                                {
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
 
                                     final String retName = dataSnapshot.child("name").getValue().toString();
 
@@ -84,34 +80,28 @@ public class ChatsFragment extends Fragment {
                                     char letter = retName.charAt(0);
                                     letter = Character.toUpperCase(letter);
                                     int color = ColorGenerator.MATERIAL.getRandomColor();
-                                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+                                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
                                     holder.profileImage.setImageDrawable(mDrawableBuilder);
 
 
-                                    if (dataSnapshot.child("userState").hasChild("state"))
-                                    {
+                                    if (dataSnapshot.child("userState").hasChild("state")) {
                                         String state = dataSnapshot.child("userState").child("state").getValue().toString();
                                         String date = dataSnapshot.child("userState").child("date").getValue().toString();
                                         String time = dataSnapshot.child("userState").child("time").getValue().toString();
 
-                                        if (state.equals("online"))
-                                        {
+                                        if (state.equals("online")) {
                                             holder.onlineIcon.setVisibility(View.VISIBLE);
-                                        }
-                                        else if (state.equals("offline"))
-                                        {
+                                        } else if (state.equals("offline")) {
                                             holder.onlineIcon.setVisibility(View.GONE);
                                         }
-                                    }
-                                    else
-                                    {
-                                        holder.onlineIcon.setVisibility(View.GONE);;
+                                    } else {
+                                        holder.onlineIcon.setVisibility(View.GONE);
+                                        ;
                                     }
 
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void onClick(View view)
-                                        {
+                                        public void onClick(View view) {
                                             Intent chatIntent = new Intent(getContext(), ChatActivity.class);
                                             chatIntent.putExtra("visit_user_id", usersIDs);
                                             chatIntent.putExtra("visit_user_name", retName);
@@ -130,8 +120,7 @@ public class ChatsFragment extends Fragment {
 
                     @NonNull
                     @Override
-                    public ChatsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-                    {
+                    public ChatsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
                         return new ChatsViewHolder(view);
                     }
@@ -141,14 +130,12 @@ public class ChatsFragment extends Fragment {
         adapter.startListening();
     }
 
-    public static class  ChatsViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class ChatsViewHolder extends RecyclerView.ViewHolder {
         ImageView profileImage;
         ImageView onlineIcon;
-        TextView  userName;
+        TextView userName;
 
-        public ChatsViewHolder(@NonNull View itemView)
-        {
+        public ChatsViewHolder(@NonNull View itemView) {
             super(itemView);
 
             profileImage = itemView.findViewById(R.id.users_profile_image);

@@ -3,12 +3,12 @@ package com.example.teamsclone.firebase.verification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class VerificationInteractor  implements VerificationContract.Intractor{
+public class VerificationInteractor implements VerificationContract.Intractor {
 
     private static final String TAG = VerificationInteractor.class.getSimpleName();
     private VerificationContract.onVerificationListener mOnVerificationListener;
 
-    public VerificationInteractor(VerificationContract.onVerificationListener onVerificationListener){
+    public VerificationInteractor(VerificationContract.onVerificationListener onVerificationListener) {
         this.mOnVerificationListener = onVerificationListener;
     }
 
@@ -19,9 +19,7 @@ public class VerificationInteractor  implements VerificationContract.Intractor{
         assert user != null;
         if (user.isEmailVerified()) {
             mOnVerificationListener.onSuccess();
-        }
-
-        else{
+        } else {
             mOnVerificationListener.onFailure("");
         }
     }

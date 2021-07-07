@@ -63,7 +63,7 @@ import retrofit2.Callback;
 public class ChatActivity extends BaseActivity {
     private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
     private TextView userName, userLastSeen;
-    private ImageView userImage,backButton;
+    private ImageView userImage, backButton;
     private ImageButton attachFiles;
     private Toolbar ChatToolBar;
     private FirebaseAuth mAuth;
@@ -76,7 +76,7 @@ public class ChatActivity extends BaseActivity {
     private RecyclerView userMessagesList;
     private ProgressDialog loadingBar;
     private String saveCurrentTime, saveCurrentDate;
-    private String checker = "",myUrl="";
+    private String checker = "", myUrl = "";
     private Uri fileUri;
     private StorageTask uploadTask;
     private TextDrawable mDrawableBuilder;
@@ -117,7 +117,7 @@ public class ChatActivity extends BaseActivity {
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notify=true;
+                notify = true;
                 SendMessage();
             }
         });
@@ -138,29 +138,26 @@ public class ChatActivity extends BaseActivity {
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(i==0)
-                        {
+                        if (i == 0) {
                             checker = "image";
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("image/*");
-                            startActivityForResult(intent.createChooser(intent,"Select Image"),443);
+                            startActivityForResult(intent.createChooser(intent, "Select Image"), 443);
                         }
-                        if(i==1)
-                        {
+                        if (i == 1) {
                             checker = "pdf";
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("application/pdf");
-                            startActivityForResult(intent.createChooser(intent,"Select PDF"),443);
+                            startActivityForResult(intent.createChooser(intent, "Select PDF"), 443);
                         }
-                        if(i==2)
-                        {
+                        if (i == 2) {
                             checker = "docx";
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("application/msword");
-                            startActivityForResult(intent.createChooser(intent,"Select MSWORD FILE"),443);
+                            startActivityForResult(intent.createChooser(intent, "Select MSWORD FILE"), 443);
                         }
                     }
                 });
@@ -173,16 +170,14 @@ public class ChatActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 443 && resultCode == RESULT_OK && data != null && data.getData() != null)
-        {
+        if (requestCode == 443 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             loadingBar.setTitle("Sending File");
             loadingBar.setMessage("Please wait, we are sending....");
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
             fileUri = data.getData();
-            if(!checker.equals("image"))
-            {
+            if (!checker.equals("image")) {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Image Files");
                 final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
                 final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
@@ -197,17 +192,13 @@ public class ChatActivity extends BaseActivity {
                 filePath.putFile(fileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             Map messageTextBody = new HashMap();
                             messageTextBody.put("message", myUrl);
-                            messageTextBody.put("name",fileUri.getLastPathSegment());
-                            if(checker.equals("pdf"))
-                            {
+                            messageTextBody.put("name", fileUri.getLastPathSegment());
+                            if (checker.equals("pdf")) {
                                 messageTextBody.put("type", checker);
-                            }
-                            else
-                            {
+                            } else {
                                 messageTextBody.put("type", checker);
                             }
 
@@ -219,7 +210,7 @@ public class ChatActivity extends BaseActivity {
 
                             Map messageBodyDetails = new HashMap();
                             messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
-                            messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
+                            messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
                             RootRef.updateChildren(messageBodyDetails);
                             loadingBar.dismiss();
@@ -229,19 +220,17 @@ public class ChatActivity extends BaseActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         loadingBar.dismiss();
-                        Toast.makeText(ChatActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double p = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
-                        loadingBar.setMessage((int)p + "% Uploading...");
+                        double p = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        loadingBar.setMessage((int) p + "% Uploading...");
 
                     }
                 });
-            }
-            else if(checker.equals("image"))
-            {
+            } else if (checker.equals("image")) {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Image Files");
                 final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
                 final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
@@ -257,8 +246,7 @@ public class ChatActivity extends BaseActivity {
                 uploadTask.continueWithTask(new Continuation() {
                     @Override
                     public Object then(@NonNull Task task) throws Exception {
-                        if(!task.isSuccessful())
-                        {
+                        if (!task.isSuccessful()) {
                             throw task.getException();
                         }
                         return filePath.getDownloadUrl();
@@ -271,7 +259,7 @@ public class ChatActivity extends BaseActivity {
 
                         Map messageTextBody = new HashMap();
                         messageTextBody.put("message", myUrl);
-                        messageTextBody.put("name",fileUri.getLastPathSegment());
+                        messageTextBody.put("name", fileUri.getLastPathSegment());
                         messageTextBody.put("type", checker);
                         messageTextBody.put("from", messageSenderID);
                         messageTextBody.put("to", messageReceiverID);
@@ -281,18 +269,14 @@ public class ChatActivity extends BaseActivity {
 
                         Map messageBodyDetails = new HashMap();
                         messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
-                        messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
+                        messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
                         RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                             @Override
-                            public void onComplete(@NonNull Task task)
-                            {
-                                if (task.isSuccessful())
-                                {
+                            public void onComplete(@NonNull Task task) {
+                                if (task.isSuccessful()) {
                                     Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
                                 }
                                 loadingBar.dismiss();
@@ -302,11 +286,9 @@ public class ChatActivity extends BaseActivity {
                     }
                 });
 
-            }
-            else
-            {
+            } else {
                 loadingBar.dismiss();
-                Toast.makeText(this,"nothing selected,error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "nothing selected,error", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -315,25 +297,18 @@ public class ChatActivity extends BaseActivity {
         RootRef.child("users").child(messageReceiverID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
-                        if (dataSnapshot.child("userState").hasChild("state"))
-                        {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child("userState").hasChild("state")) {
                             String state = dataSnapshot.child("userState").child("state").getValue().toString();
                             String date = dataSnapshot.child("userState").child("date").getValue().toString();
                             String time = dataSnapshot.child("userState").child("time").getValue().toString();
 
-                            if (state.equals("online"))
-                            {
+                            if (state.equals("online")) {
                                 userLastSeen.setText("online");
-                            }
-                            else if (state.equals("offline"))
-                            {
+                            } else if (state.equals("offline")) {
                                 userLastSeen.setText("Last Seen: " + date + " " + time);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             userLastSeen.setText("offline");
                         }
                     }
@@ -347,14 +322,12 @@ public class ChatActivity extends BaseActivity {
 
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
         RootRef.child("Messages").child(messageSenderID).child(messageReceiverID)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-                    {
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         Messages messages = dataSnapshot.getValue(Messages.class);
                         messagesList.add(messages);
                         messageAdapter.notifyDataSetChanged();
@@ -362,26 +335,22 @@ public class ChatActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-                    {
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                     }
 
                     @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
-                    {
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
                     }
 
                     @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-                    {
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError)
-                    {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
@@ -390,12 +359,9 @@ public class ChatActivity extends BaseActivity {
     private void SendMessage() {
         String messageText = MessageInputText.getText().toString();
 
-        if (TextUtils.isEmpty(messageText))
-        {
+        if (TextUtils.isEmpty(messageText)) {
             Toast.makeText(this, "first write your message...", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
             String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
@@ -415,18 +381,14 @@ public class ChatActivity extends BaseActivity {
 
             Map messageBodyDetails = new HashMap();
             messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
-            messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
+            messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
             RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                 @Override
-                public void onComplete(@NonNull Task task)
-                {
-                    if (task.isSuccessful())
-                    {
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
                         Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                     MessageInputText.setText("");
@@ -438,11 +400,11 @@ public class ChatActivity extends BaseActivity {
 
                             Friends user = snapshot.getValue(Friends.class);
 
-                            if(notify){
-                                sendNotifications(messageReceiverID,user.getName(),messageText);
+                            if (notify) {
+                                sendNotifications(messageReceiverID, user.getName(), messageText);
                             }
 
-                            notify=false;
+                            notify = false;
                         }
 
                         @Override
@@ -459,36 +421,36 @@ public class ChatActivity extends BaseActivity {
 
     private void sendNotifications(String messageReceiverID, String name, String messageText) {
 
-            DatabaseReference tRef = FirebaseDatabase.getInstance().getReference("users");
-            tRef.child(messageSenderID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String token = snapshot.child("device_Token").getValue().toString();
-                    Data data = new Data(messageSenderID,name+":"+messageText,"New Message",messageReceiverID,R.drawable.ms_logo_sq);
+        DatabaseReference tRef = FirebaseDatabase.getInstance().getReference("users");
+        tRef.child(messageSenderID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String token = snapshot.child("device_Token").getValue().toString();
+                Data data = new Data(messageSenderID, name + ":" + messageText, "New Message", messageReceiverID, R.drawable.ms_logo_sq);
 
-                    sender  senderx = new sender(data,token);
+                sender senderx = new sender(data, token);
 
-                    apiService.sendNotification(senderx)
-                            .enqueue(new Callback<Response>() {
-                                @Override
-                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                    Toast.makeText(ChatActivity.this,token,Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(ChatActivity.this,response.message(),Toast.LENGTH_SHORT).show();
-                                }
+                apiService.sendNotification(senderx)
+                        .enqueue(new Callback<Response>() {
+                            @Override
+                            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                Toast.makeText(ChatActivity.this, token, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ChatActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                            }
 
-                                @Override
-                                public void onFailure(Call<Response> call, Throwable t) {
-                                    Toast.makeText(ChatActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onFailure(Call<Response> call, Throwable t) {
+                                Toast.makeText(ChatActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
-                }
+                            }
+                        });
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+            }
+        });
     }
 
 

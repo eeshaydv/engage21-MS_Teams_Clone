@@ -28,19 +28,19 @@ public class GroupParticipantsAdd extends AppCompatActivity {
     private RecyclerView rv;
     private ActionBar actionBar;
     private FirebaseAuth mAuth;
-    private String groupId,Gname,Grole;
-    private ArrayList<Friends>userList;
+    private String groupId, Gname, Grole;
+    private ArrayList<Friends> userList;
     private AdapterParticipantsAdd mAdapterParticipantAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_participants_add);
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int)(width*.90),(int) (height*.65));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .90), (int) (height * .65));
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.60f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -52,7 +52,7 @@ public class GroupParticipantsAdd extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         rv.setLayoutManager(new LinearLayoutManager(GroupParticipantsAdd.this));
 
-        String title = Gname+"("+Grole+")";
+        String title = Gname + "(" + Grole + ")";
 
         //Toast.makeText(GroupParticipantsAdd.this,title+"(",Toast.LENGTH_SHORT).show();
 
@@ -60,33 +60,32 @@ public class GroupParticipantsAdd extends AppCompatActivity {
         getAllUsersList();
 
 
-
     }
 
     private void getAllUsersList() {
 
         userList = new ArrayList<>();
-      DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users");
 
-       ref1.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               userList.clear();
-               for(DataSnapshot ds : snapshot.getChildren()){
-                   Friends friends = ds.getValue(Friends.class);
+        ref1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userList.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Friends friends = ds.getValue(Friends.class);
 
-                   if(!mAuth.getUid().equals(friends.getUid()))userList.add(friends);
-               }
-               mAdapterParticipantAdd = new AdapterParticipantsAdd(GroupParticipantsAdd.this,userList,groupId,Grole);
-               rv.setAdapter(mAdapterParticipantAdd);
+                    if (!mAuth.getUid().equals(friends.getUid())) userList.add(friends);
+                }
+                mAdapterParticipantAdd = new AdapterParticipantsAdd(GroupParticipantsAdd.this, userList, groupId, Grole);
+                rv.setAdapter(mAdapterParticipantAdd);
 
-           }
+            }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-           }
-       });
+            }
+        });
     }
 
 }

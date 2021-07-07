@@ -1,9 +1,9 @@
 package com.example.teamsclone.models;
 
 public class Friends {
-    public String name,uid;
+    public String name, uid;
 
-    public Friends(){
+    public Friends() {
 
     }
 
@@ -20,7 +20,7 @@ public class Friends {
         this.uid = uid;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 

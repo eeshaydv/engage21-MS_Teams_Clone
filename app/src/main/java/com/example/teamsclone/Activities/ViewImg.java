@@ -14,16 +14,17 @@ import com.squareup.picasso.Picasso;
 public class ViewImg extends BaseActivity {
     private ImageView imageView;
     private String imageUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_img);
 
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int)(width*.90),(int) (height*.65));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .90), (int) (height * .65));
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.60f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);

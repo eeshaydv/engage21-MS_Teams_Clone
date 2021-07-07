@@ -31,8 +31,8 @@ import java.util.HashMap;
 public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticipantsAdd.HolderParticipantsAdd> {
 
     private Context context;
-    private ArrayList<Friends>arrayList;
-    private String groupId,myGroupRole;
+    private ArrayList<Friends> arrayList;
+    private String groupId, myGroupRole;
     private TextDrawable mDrawableBuilder;
 
     public AdapterParticipantsAdd(Context context, ArrayList<Friends> arrayList, String groupId, String myGroupRole) {
@@ -46,7 +46,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
     @Override
     public HolderParticipantsAdd onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.user_layout_new,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_layout_new, parent, false);
 
         return new AdapterParticipantsAdd.HolderParticipantsAdd(view);
     }
@@ -62,10 +62,10 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
         char letter = user.charAt(0);
         letter = Character.toUpperCase(letter);
         int color = ColorGenerator.MATERIAL.getRandomColor();
-        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
         holder.proPic.setImageDrawable(mDrawableBuilder);
 
-        CheckIfUserExists(friends,holder);
+        CheckIfUserExists(friends, holder);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +76,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()){
+                                if (snapshot.exists()) {
                                     String prevRole = snapshot.child("role").getValue().toString();
 
                                     String opt[];
@@ -84,72 +84,64 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setTitle("Choose Options");
 
-                                    if(myGroupRole.equals("creator")){
-                                        if(prevRole.equals("admin")){
-                                            opt = new String[]{"Remove Admin","Remove User"};
+                                    if (myGroupRole.equals("creator")) {
+                                        if (prevRole.equals("admin")) {
+                                            opt = new String[]{"Remove Admin", "Remove User"};
                                             builder.setItems(opt, new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    if(which == 0){
+                                                    if (which == 0) {
 
                                                         removeAdmin(friends);
 
-                                                    }
-                                                    else{
+                                                    } else {
                                                         removeParticipant(friends);
                                                     }
                                                 }
                                             }).show();
-                                        }
-                                        else if(prevRole.equals("participant")){
-                                            opt = new String[]{"Make Admin","Remove User"};
+                                        } else if (prevRole.equals("participant")) {
+                                            opt = new String[]{"Make Admin", "Remove User"};
                                             builder.setItems(opt, new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    if(which == 0){
+                                                    if (which == 0) {
 
                                                         MakeAdmin(friends);
 
-                                                    }
-                                                    else{
+                                                    } else {
                                                         removeParticipant(friends);
                                                     }
                                                 }
                                             }).show();
                                         }
-                                    }
-                                    else if(myGroupRole.equals("admin")){
-                                        if(prevRole.equals("creator")){
-                                            Toast.makeText(context,"Creator of the group",Toast.LENGTH_SHORT).show();
-                                        }
-                                        else if(prevRole.equals("admin")){
-                                            opt = new String[]{"Remove Admin","Remove User"};
+                                    } else if (myGroupRole.equals("admin")) {
+                                        if (prevRole.equals("creator")) {
+                                            Toast.makeText(context, "Creator of the group", Toast.LENGTH_SHORT).show();
+                                        } else if (prevRole.equals("admin")) {
+                                            opt = new String[]{"Remove Admin", "Remove User"};
                                             builder.setItems(opt, new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    if(which == 0){
+                                                    if (which == 0) {
 
                                                         removeAdmin(friends);
 
-                                                    }
-                                                    else{
+                                                    } else {
                                                         removeParticipant(friends);
                                                     }
                                                 }
                                             }).show();
 
-                                        }
-                                        else if(prevRole.equals("participant")){
-                                            opt = new String[]{"Make Admin","Remove User"};
+                                        } else if (prevRole.equals("participant")) {
+                                            opt = new String[]{"Make Admin", "Remove User"};
                                             builder.setItems(opt, new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    if(which == 0){
+                                                    if (which == 0) {
 
                                                         MakeAdmin(friends);
 
-                                                    }
-                                                    else{
+                                                    } else {
                                                         removeParticipant(friends);
                                                     }
                                                 }
@@ -157,8 +149,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                                         }
                                     }
 
-                                }
-                                else{
+                                } else {
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setTitle("Add Participant")
@@ -192,11 +183,11 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
 
     private void addParticipant(Friends friends) {
 
-        String timeStamp = ""+System.currentTimeMillis();
-        HashMap<String,String>hashMap = new HashMap<>();
-        hashMap.put("uid",friends.getUid());
-        hashMap.put("role","participant");
-        hashMap.put("timeStamp",""+timeStamp);
+        String timeStamp = "" + System.currentTimeMillis();
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("uid", friends.getUid());
+        hashMap.put("role", "participant");
+        hashMap.put("timeStamp", "" + timeStamp);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
         ref.child(groupId).child("Participants").child(friends.getUid()).setValue(hashMap)
@@ -204,7 +195,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        Toast.makeText(context,"Added Successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Added Successfully", Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -212,7 +203,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -222,18 +213,18 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
 
     private void MakeAdmin(Friends friends) {
 
-        String timeStamp = ""+System.currentTimeMillis();
-        HashMap<String,String>hashMap = new HashMap<>();
-        hashMap.put("uid",friends.getUid());
-        hashMap.put("role","admin");
-        hashMap.put("timeStamp",""+timeStamp);
+        String timeStamp = "" + System.currentTimeMillis();
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("uid", friends.getUid());
+        hashMap.put("role", "admin");
+        hashMap.put("timeStamp", "" + timeStamp);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupId).child("Participants").child(friends.getUid()).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        Toast.makeText(context,"User is now Admin",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "User is now Admin", Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -241,7 +232,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -257,7 +248,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        Toast.makeText(context,"Removed User",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Removed User", Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -265,7 +256,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -274,18 +265,18 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
 
     private void removeAdmin(Friends friends) {
 
-        String timeStamp = ""+System.currentTimeMillis();
-        HashMap<String,String>hashMap = new HashMap<>();
-        hashMap.put("uid",friends.getUid());
-        hashMap.put("role","participant");
-        hashMap.put("timeStamp",""+timeStamp);
+        String timeStamp = "" + System.currentTimeMillis();
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("uid", friends.getUid());
+        hashMap.put("role", "participant");
+        hashMap.put("timeStamp", "" + timeStamp);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupId).child("Participants").child(friends.getUid()).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        Toast.makeText(context,"User No longer Admin",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "User No longer Admin", Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -293,7 +284,7 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -308,13 +299,12 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        if(snapshot.exists()){
+                        if (snapshot.exists()) {
 
                             String uRole = snapshot.child("role").getValue().toString();
                             holder.UserStatus.setText(uRole);
 
-                        }
-                        else{
+                        } else {
                             holder.UserStatus.setText("");
                         }
 
@@ -332,10 +322,10 @@ public class AdapterParticipantsAdd extends RecyclerView.Adapter<AdapterParticip
         return arrayList.size();
     }
 
-    class HolderParticipantsAdd extends RecyclerView.ViewHolder{
+    class HolderParticipantsAdd extends RecyclerView.ViewHolder {
 
         private ImageView proPic;
-        private TextView UserName,UserStatus;
+        private TextView UserName, UserStatus;
 
         public HolderParticipantsAdd(@NonNull View itemView) {
             super(itemView);

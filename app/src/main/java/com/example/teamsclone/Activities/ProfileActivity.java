@@ -41,11 +41,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int)(width*.90),(int) (height*.65));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .90), (int) (height * .65));
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.60f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -75,8 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         UserRef.child(receiverUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists())
-                {
+                if (dataSnapshot.exists()) {
                     String userName = dataSnapshot.child("name").getValue().toString();
                     char letter = userName.charAt(0);
                     letter = Character.toUpperCase(letter);
@@ -99,22 +98,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void ManageChatRequests() {
 
-        ChatRequestRef.child(senderUserID).addValueEventListener(new ValueEventListener()
-        {
+        ChatRequestRef.child(senderUserID).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                if(dataSnapshot.hasChild(receiverUserID))
-                {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(receiverUserID)) {
                     String request_type = dataSnapshot.child(receiverUserID).child("request_type").getValue().toString();
 
-                    if(request_type.equals("sent"))
-                    {
+                    if (request_type.equals("sent")) {
                         Current_State = "request_sent";
                         SendMessageRequestButton.setText("Cancel Request");
-                    }
-                    else if(request_type.equals("received"))
-                    {
+                    } else if (request_type.equals("received")) {
                         Current_State = "request_received";
                         SendMessageRequestButton.setText("Accept Request");
 
@@ -128,16 +121,11 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }
-                else
-                {
-                    ContactsRef.child(senderUserID).addValueEventListener(new ValueEventListener()
-                    {
+                } else {
+                    ContactsRef.child(senderUserID).addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                        {
-                            if(dataSnapshot.hasChild(receiverUserID))
-                            {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild(receiverUserID)) {
                                 Current_State = "friends";
                                 SendMessageRequestButton.setText("Remove Friend");
                             }
@@ -150,34 +138,27 @@ public class ProfileActivity extends AppCompatActivity {
                     });
                 }
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-        if(!senderUserID.equals(receiverUserID))
-        {
-            SendMessageRequestButton.setOnClickListener(new View.OnClickListener()
-            {
+        if (!senderUserID.equals(receiverUserID)) {
+            SendMessageRequestButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
+                public void onClick(View view) {
                     SendMessageRequestButton.setEnabled(false);
-                    if(Current_State.equals("new"))
-                    {
+                    if (Current_State.equals("new")) {
                         SendChatRequest();
                     }
-                    if(Current_State.equals("request_send"))
-                    {
+                    if (Current_State.equals("request_send")) {
                         CancelChatRequest();
                     }
-                    if(Current_State.equals("request_received"))
-                    {
+                    if (Current_State.equals("request_received")) {
                         AcceptChatRequest();
                     }
-                    if(Current_State.equals("friends"))
-                    {
+                    if (Current_State.equals("friends")) {
                         RemoveSpecificContact();
                     }
 
@@ -190,21 +171,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void RemoveSpecificContact() {
         ContactsRef.child(senderUserID)
-                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>()
-        {
+                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task)
-            {
-                if(task.isSuccessful())
-                {
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
                     ContactsRef.child(receiverUserID).child(senderUserID)
-                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>()
-                    {
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task)
-                        {
-                            if(task.isSuccessful())
-                            {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
                                 SendMessageRequestButton.setEnabled(true);
                                 Current_State = "new";
                                 SendMessageRequestButton.setText("Message");
@@ -222,29 +197,21 @@ public class ProfileActivity extends AppCompatActivity {
     private void AcceptChatRequest() {
         ContactsRef.child(senderUserID).child(receiverUserID)
                 .child("friends").setValue("Saved")
-                .addOnCompleteListener(new OnCompleteListener<Void>()
-                {
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        if(task.isSuccessful())
-                        {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
                             ChatRequestRef.child(senderUserID).child(receiverUserID)
                                     .removeValue()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>()
-                                    {
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task)
-                                        {
-                                            if(task.isSuccessful())
-                                            {
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
                                                 ChatRequestRef.child(receiverUserID).child(senderUserID)
                                                         .removeValue()
-                                                        .addOnCompleteListener(new OnCompleteListener<Void>()
-                                                        {
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
-                                                            public void onComplete(@NonNull Task<Void> task)
-                                                            {
+                                                            public void onComplete(@NonNull Task<Void> task) {
                                                                 SendMessageRequestButton.setEnabled(true);
                                                                 Current_State = "friends";
                                                                 SendMessageRequestButton.setText("Remove This Contact");
@@ -266,19 +233,14 @@ public class ProfileActivity extends AppCompatActivity {
                 .child("request_type").setValue("sent")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        if (task.isSuccessful())
-                        {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
                             ChatRequestRef.child(receiverUserID).child(senderUserID)
                                     .child("request_type").setValue("received")
-                                    .addOnCompleteListener(new OnCompleteListener<Void>()
-                                    {
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task)
-                                        {
-                                            if (task.isSuccessful())
-                                            {
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
                                                 HashMap<String, String> chatNotificationMap = new HashMap<>();
                                                 chatNotificationMap.put("from", senderUserID);
                                                 chatNotificationMap.put("type", "request");
@@ -287,10 +249,8 @@ public class ProfileActivity extends AppCompatActivity {
                                                         .setValue(chatNotificationMap)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
-                                                            public void onComplete(@NonNull Task<Void> task)
-                                                            {
-                                                                if (task.isSuccessful())
-                                                                {
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
                                                                     SendMessageRequestButton.setEnabled(true);
                                                                     Current_State = "request_sent";
                                                                     SendMessageRequestButton.setText("Cancel Request");
@@ -308,21 +268,16 @@ public class ProfileActivity extends AppCompatActivity {
     private void CancelChatRequest() {
         ChatRequestRef.child(senderUserID).child(receiverUserID)
                 .removeValue()
-                .addOnCompleteListener(new OnCompleteListener<Void>()
-                {
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        if (task.isSuccessful())
-                        {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
                             ChatRequestRef.child(receiverUserID).child(senderUserID)
                                     .removeValue()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task)
-                                        {
-                                            if (task.isSuccessful())
-                                            {
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
                                                 SendMessageRequestButton.setEnabled(true);
                                                 Current_State = "new";
                                                 SendMessageRequestButton.setText("Message");

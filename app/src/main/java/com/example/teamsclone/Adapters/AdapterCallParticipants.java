@@ -32,11 +32,11 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
 
     private Context context;
     private ArrayList<Friends> arrayList;
-    private String userId,roomId;
+    private String userId, roomId;
     private TextDrawable mDrawableBuilder;
     private DatabaseReference rootRef;
 
-    public AdapterCallParticipants(Context context, ArrayList<Friends> arrayList, String userId,String roomId) {
+    public AdapterCallParticipants(Context context, ArrayList<Friends> arrayList, String userId, String roomId) {
         this.context = context;
         this.arrayList = arrayList;
         this.userId = userId;
@@ -46,7 +46,7 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
     @NonNull
     @Override
     public HolderCallParticipants onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.user_layout_new,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_layout_new, parent, false);
         return new AdapterCallParticipants.HolderCallParticipants(view);
     }
 
@@ -61,7 +61,7 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
         char letter = user.charAt(0);
         letter = Character.toUpperCase(letter);
         int color = ColorGenerator.MATERIAL.getRandomColor();
-        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
         holder.proPic.setImageDrawable(mDrawableBuilder);
         holder.UserStatus.setVisibility(View.INVISIBLE);
 
@@ -79,10 +79,10 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
         return arrayList.size();
     }
 
-    class HolderCallParticipants extends RecyclerView.ViewHolder{
+    class HolderCallParticipants extends RecyclerView.ViewHolder {
 
         private ImageView proPic;
-        private TextView UserName,UserStatus;
+        private TextView UserName, UserStatus;
 
         public HolderCallParticipants(@NonNull View itemView) {
             super(itemView);
@@ -94,8 +94,8 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
     }
 
     private void SendMessage(String uid) {
-        String messageText  = " Hi,\n" + "\n join the Meet now with Room Id \n" + " "+roomId+" : ";
-        String saveCurrentTime,saveCurrentDate;
+        String messageText = " Hi,\n" + "\n join the Meet now with Room Id \n" + " " + roomId + " : ";
+        String saveCurrentTime, saveCurrentDate;
 
         Calendar calendar = Calendar.getInstance();
 
@@ -106,44 +106,40 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
         saveCurrentTime = currentTime.format(calendar.getTime());
 
 
-            String messageSenderRef = "Messages/" + userId + "/" + uid;
-            String messageReceiverRef = "Messages/" + uid + "/" + userId;
+        String messageSenderRef = "Messages/" + userId + "/" + uid;
+        String messageReceiverRef = "Messages/" + uid + "/" + userId;
 
         rootRef = FirebaseDatabase.getInstance().getReference();
 
-            DatabaseReference userMessageKeyRef = rootRef.child("Messages")
-                    .child(userId).child(uid).push();
+        DatabaseReference userMessageKeyRef = rootRef.child("Messages")
+                .child(userId).child(uid).push();
 
-            String messagePushID = userMessageKeyRef.getKey();
+        String messagePushID = userMessageKeyRef.getKey();
 
-            Map messageTextBody = new HashMap();
-            messageTextBody.put("message", messageText);
-            messageTextBody.put("type", "text");
-            messageTextBody.put("from", userId);
-            messageTextBody.put("to", uid);
-            messageTextBody.put("messageID", messagePushID);
-            messageTextBody.put("time", saveCurrentTime);
-            messageTextBody.put("date", saveCurrentDate);
+        Map messageTextBody = new HashMap();
+        messageTextBody.put("message", messageText);
+        messageTextBody.put("type", "text");
+        messageTextBody.put("from", userId);
+        messageTextBody.put("to", uid);
+        messageTextBody.put("messageID", messagePushID);
+        messageTextBody.put("time", saveCurrentTime);
+        messageTextBody.put("date", saveCurrentDate);
 
-            Map messageBodyDetails = new HashMap();
-            messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
-            messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
+        Map messageBodyDetails = new HashMap();
+        messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+        messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
-            rootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task)
-                {
-                    if (task.isSuccessful())
-                    {
-                        Toast.makeText(context,"Invite Sent Successfully!",Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(context,"Error!",Toast.LENGTH_SHORT).show();
-                    }
-
+        rootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "Invite Sent Successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Error!", Toast.LENGTH_SHORT).show();
                 }
-            });
+
+            }
+        });
 
     }
 }

@@ -30,7 +30,7 @@ public class InviteCallParticipant extends AppCompatActivity {
     private RecyclerView rv;
     private ActionBar actionBar;
     private FirebaseAuth mAuth;
-    private String userId,userName,roomId;
+    private String userId, userName, roomId;
     private ArrayList<Friends> userList;
     private AdapterCallParticipants mAdapterParticipantAdd;
 
@@ -38,11 +38,11 @@ public class InviteCallParticipant extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_call_participant);
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int)(width*.90),(int) (height*.65));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .90), (int) (height * .65));
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.60f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -53,7 +53,7 @@ public class InviteCallParticipant extends AppCompatActivity {
         userId = getIntent().getStringExtra("userId");
         roomId = getIntent().getStringExtra("roomId");
         userList = new ArrayList<>();
-        mAdapterParticipantAdd = new AdapterCallParticipants(InviteCallParticipant.this,userList,userId,roomId);
+        mAdapterParticipantAdd = new AdapterCallParticipants(InviteCallParticipant.this, userList, userId, roomId);
         rv.setAdapter(mAdapterParticipantAdd);
         rv.setHasFixedSize(true);
         getAllUsersList();
@@ -68,24 +68,25 @@ public class InviteCallParticipant extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userList.clear();
-                long count=snapshot.getChildrenCount();
+                long count = snapshot.getChildrenCount();
 
-                Toast.makeText(InviteCallParticipant.this, ""+count, Toast.LENGTH_SHORT).show();
-                for(DataSnapshot ds : snapshot.getChildren()){
+                Toast.makeText(InviteCallParticipant.this, "" + count, Toast.LENGTH_SHORT).show();
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String friendId = ds.getKey().toString();
 
                     ref2.child(friendId).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                            Friends friends  = snapshot1.getValue(Friends.class);
+                            Friends friends = snapshot1.getValue(Friends.class);
                             //Toast.makeText(InviteCallParticipant.this, " "+friends.getName(), Toast.LENGTH_SHORT).show();
-                            userList.add(new Friends(friends.getName(),friends.getUid()));
+                            userList.add(new Friends(friends.getName(), friends.getUid()));
                             i[0]++;
-                            if(i[0] ==count){
+                            if (i[0] == count) {
                                 mAdapterParticipantAdd.notifyDataSetChanged();
 
                             }
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 

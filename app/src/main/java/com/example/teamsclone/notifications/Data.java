@@ -2,7 +2,7 @@ package com.example.teamsclone.notifications;
 
 public class Data {
 
-    private String user,body,title,sent;
+    private String user, body, title, sent;
     private Integer icon;
 
     public Data(String user, String body, String title, String sent, Integer icon) {
@@ -13,7 +13,7 @@ public class Data {
         this.icon = icon;
     }
 
-    public Data(){
+    public Data() {
 
     }
 

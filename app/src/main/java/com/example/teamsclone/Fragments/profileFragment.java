@@ -32,8 +32,9 @@ public class profileFragment extends Fragment {
     FirebaseAuth mAuth;
     ImageView pro_frag;
     ImageView testI;
-    TextView btn1,Name_frag,email_frag,logout_frag;
+    TextView btn1, Name_frag, email_frag, logout_frag;
     String myProfileName;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,31 +52,28 @@ public class profileFragment extends Fragment {
         //db = FirebaseDatabase.getInstance();
 
 
-
-        pro_frag =  v.findViewById(R.id.thumb_frag);
-
+        pro_frag = v.findViewById(R.id.thumb_frag);
 
 
+        mAuth = FirebaseAuth.getInstance();
+        String currentUserID = mAuth.getCurrentUser().getUid();
 
-        mAuth= FirebaseAuth.getInstance();
-        String currentUserID=mAuth.getCurrentUser().getUid();
-
-        DatabaseReference userRef =FirebaseDatabase.getInstance().getReference("users").child(mAuth.getUid());
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(mAuth.getUid());
 
         userRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                        myProfileName = String.valueOf(snapshot.child("name").getValue().toString());
-                        Name_frag.setText(myProfileName);
+                    myProfileName = String.valueOf(snapshot.child("name").getValue().toString());
+                    Name_frag.setText(myProfileName);
 //                        Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
-                        char letter = myProfileName.charAt(0);
-                        letter = Character.toUpperCase(letter);
-                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
-                        pro_frag.setImageDrawable(mDrawableBuilder);
-                 //       Toast.makeText(getContext(), "drawable", Toast.LENGTH_SHORT).show();
+                    char letter = myProfileName.charAt(0);
+                    letter = Character.toUpperCase(letter);
+                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                    pro_frag.setImageDrawable(mDrawableBuilder);
+                    //       Toast.makeText(getContext(), "drawable", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -85,7 +83,6 @@ public class profileFragment extends Fragment {
 
             }
         });
-
 
 
         email_frag.setText(mAuth.getCurrentUser().getEmail());
@@ -105,9 +102,9 @@ public class profileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    mAuth.signOut();
+                mAuth.signOut();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
 
             }

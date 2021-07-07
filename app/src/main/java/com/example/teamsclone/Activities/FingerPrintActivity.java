@@ -153,7 +153,7 @@ public class FingerPrintActivity extends BaseActivity {
     }*/
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void fingerPrint(){
+    private void fingerPrint() {
         // Initializing both Android Keyguard Manager and Fingerprint Manager
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
@@ -161,7 +161,7 @@ public class FingerPrintActivity extends BaseActivity {
         textView = findViewById(R.id.errorText);
 
         // Check whether the device has a Fingerprint sensor.
-        if(!fingerprintManager.isHardwareDetected()){
+        if (!fingerprintManager.isHardwareDetected()) {
 
             /**
              * An error message will be displayed if the device does not contain the fingerprint hardware.
@@ -173,19 +173,19 @@ public class FingerPrintActivity extends BaseActivity {
              */
 
             textView.setText("Your Device does not have a Fingerprint Sensor");
-        }else {
+        } else {
             // Checks whether fingerprint permission is set on manifest
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                 textView.setText("Fingerprint authentication permission not enabled");
-            }else{
+            } else {
                 // Check whether at least one fingerprint is registered
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
                     textView.setText("Register at least one fingerprint in Settings");
-                }else{
+                } else {
                     // Checks whether lock screen security is enabled or not
                     if (!keyguardManager.isKeyguardSecure()) {
                         textView.setText("Lock screen security not enabled in Settings");
-                    }else{
+                    } else {
                         generateKey();
 
                         if (cipherInit()) {

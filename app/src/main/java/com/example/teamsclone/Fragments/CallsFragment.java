@@ -35,13 +35,14 @@ import java.util.ArrayList;
 
 public class CallsFragment extends Fragment {
 
-    private RecyclerView callsList ;
-    private Button scheduledCalls,doneCalls;
-    private FloatingActionButton call_fab,add_schedule,add_call;
-    private ArrayList<Schedule>schedules;
+    private RecyclerView callsList;
+    private Button scheduledCalls, doneCalls;
+    private FloatingActionButton call_fab, add_schedule, add_call;
+    private ArrayList<Schedule> schedules;
     private ScheduleAdapter scheduleAdapter;
     private int[] mColors;
     private boolean isRotate = false;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,11 +97,11 @@ public class CallsFragment extends Fragment {
         call_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRotate = ViewAnimation.rotateFab(v,!isRotate);
-                if(isRotate){
+                isRotate = ViewAnimation.rotateFab(v, !isRotate);
+                if (isRotate) {
                     ViewAnimation.showIn(add_call);
                     ViewAnimation.showIn(add_schedule);
-                }else{
+                } else {
                     ViewAnimation.showOut(add_schedule);
                     ViewAnimation.showOut(add_call);
                 }
@@ -138,12 +139,12 @@ public class CallsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 schedules.clear();
-                for(DataSnapshot ds : snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     Schedule schedule = ds.getValue(Schedule.class);
                     schedules.add(schedule);
                 }
 
-                scheduleAdapter = new ScheduleAdapter(getActivity(),schedules);
+                scheduleAdapter = new ScheduleAdapter(getActivity(), schedules);
                 callsList.setAdapter(scheduleAdapter);
 
             }

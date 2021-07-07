@@ -51,22 +51,21 @@ import java.util.Locale;
 
 public class GroupChatActivity extends AppCompatActivity {
 
-    private String groupId,myGroupRole,groupname;
+    private String groupId, myGroupRole, groupname;
     private Toolbar mtoolBar;
     private TextView groupName;
-    private ImageView attachIcon,groupIcon,addButton,backButton;
+    private ImageView attachIcon, groupIcon, addButton, backButton;
     private EditText messageEditText;
     private FloatingActionButton sendButton;
     private TextDrawable mDrawableBuilder;
     private FirebaseAuth mAuth;
     private RecyclerView group_chat_activity_rv;
-    private ArrayList<ModelGroupChat>groupChatList;
+    private ArrayList<ModelGroupChat> groupChatList;
     private AdapterGroupChat adapterGroupChat;
     DatabaseReference ref;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
 
@@ -81,7 +80,7 @@ public class GroupChatActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.group_send_fab);
         group_chat_activity_rv = findViewById(R.id.Group_chat_rv);
         mAuth = FirebaseAuth.getInstance();
-         ref = FirebaseDatabase.getInstance().getReference("Groups");
+        ref = FirebaseDatabase.getInstance().getReference("Groups");
         group_chat_activity_rv.setLayoutManager(new LinearLayoutManager(GroupChatActivity.this));
 
         loadGroupInfo();
@@ -103,10 +102,9 @@ public class GroupChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String message = messageEditText.getText().toString().trim();
 
-                if(TextUtils.isEmpty(message)){
-                    Toast.makeText(GroupChatActivity.this,"Type your Message",Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (TextUtils.isEmpty(message)) {
+                    Toast.makeText(GroupChatActivity.this, "Type your Message", Toast.LENGTH_SHORT).show();
+                } else {
                     sendMessage(message);
                 }
             }
@@ -117,24 +115,22 @@ public class GroupChatActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-                if( myGroupRole.equals("admin") || myGroupRole.equals("creator")){
-                   Intent intent1 = new Intent(GroupChatActivity.this,GroupParticipantsAdd.class);
-                   intent1.putExtra("groupId",groupId);
-                   intent1.putExtra("groupName",groupname);
-                   intent1.putExtra("groupRole",myGroupRole);
-                   startActivity(intent1);
-                }
-                else Toast.makeText(GroupChatActivity.this,"NULL",Toast.LENGTH_SHORT).show();
+                if (myGroupRole.equals("admin") || myGroupRole.equals("creator")) {
+                    Intent intent1 = new Intent(GroupChatActivity.this, GroupParticipantsAdd.class);
+                    intent1.putExtra("groupId", groupId);
+                    intent1.putExtra("groupName", groupname);
+                    intent1.putExtra("groupRole", myGroupRole);
+                    startActivity(intent1);
+                } else Toast.makeText(GroupChatActivity.this, "NULL", Toast.LENGTH_SHORT).show();
             }
         });
 
         groupName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(GroupChatActivity.this,GroupInfoActivity.class);
-                intent1.putExtra("groupId",groupId);
-                intent1.putExtra("groupRole",myGroupRole);
+                Intent intent1 = new Intent(GroupChatActivity.this, GroupInfoActivity.class);
+                intent1.putExtra("groupId", groupId);
+                intent1.putExtra("groupRole", myGroupRole);
                 startActivity(intent1);
             }
         });
@@ -144,21 +140,21 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void getinfo() {
         String curr = mAuth.getCurrentUser().getUid();
-        Toast.makeText(GroupChatActivity.this,curr,Toast.LENGTH_SHORT).show();
+        Toast.makeText(GroupChatActivity.this, curr, Toast.LENGTH_SHORT).show();
 
         ref.child(groupId).child("Participants").child(curr).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                       if(snapshot.exists()) myGroupRole = snapshot.child("role").getValue().toString();
+                if (snapshot.exists()) myGroupRole = snapshot.child("role").getValue().toString();
 
-                    }
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(GroupChatActivity.this,"NULLy",Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(GroupChatActivity.this, "NULLy", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -172,12 +168,12 @@ public class GroupChatActivity extends AppCompatActivity {
 
                         groupChatList.clear();
 
-                        for(DataSnapshot ds : snapshot.getChildren()){
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             ModelGroupChat model = ds.getValue(ModelGroupChat.class);
                             groupChatList.add(model);
                         }
 
-                        adapterGroupChat = new AdapterGroupChat(GroupChatActivity.this,groupChatList);
+                        adapterGroupChat = new AdapterGroupChat(GroupChatActivity.this, groupChatList);
                         group_chat_activity_rv.setAdapter(adapterGroupChat);
 
                     }
@@ -194,19 +190,19 @@ public class GroupChatActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-         String saveCurrentDate = currentDate.format(calendar.getTime());
+        String saveCurrentDate = currentDate.format(calendar.getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
         String saveCurrentTime = currentTime.format(calendar.getTime());
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("sender",mAuth.getCurrentUser().getUid());
-        hashMap.put("message",message);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", mAuth.getCurrentUser().getUid());
+        hashMap.put("message", message);
         hashMap.put("time", saveCurrentTime);
         hashMap.put("date", saveCurrentDate);
-        hashMap.put("type","text");
+        hashMap.put("type", "text");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(groupId).child("Messages").child(saveCurrentDate+ saveCurrentTime+ mAuth.getCurrentUser().getUid())
+        ref.child(groupId).child("Messages").child(saveCurrentDate + saveCurrentTime + mAuth.getCurrentUser().getUid())
                 .setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -220,7 +216,7 @@ public class GroupChatActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(GroupChatActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GroupChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -230,32 +226,31 @@ public class GroupChatActivity extends AppCompatActivity {
     private void loadGroupInfo() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
 
-            ref.orderByChild("groupId").equalTo(groupId)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot ds : snapshot.getChildren()){
-                                 groupname = ds.child("groupName").getValue().toString();
-                                String groupdescription = ds.child("groupDescription").getValue().toString();
-                                String timestamp = ds.child("timeStamp").getValue().toString();
+        ref.orderByChild("groupId").equalTo(groupId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            groupname = ds.child("groupName").getValue().toString();
+                            String groupdescription = ds.child("groupDescription").getValue().toString();
+                            String timestamp = ds.child("timeStamp").getValue().toString();
 
-                                groupName.setText(groupname);
-                                char letter = groupname.charAt(0);
-                                letter = Character.toUpperCase(letter);
-                                mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
-                                groupIcon.setImageDrawable(mDrawableBuilder);
+                            groupName.setText(groupname);
+                            char letter = groupname.charAt(0);
+                            letter = Character.toUpperCase(letter);
+                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                            groupIcon.setImageDrawable(mDrawableBuilder);
 
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
-
 
 
 }

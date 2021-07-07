@@ -40,11 +40,11 @@ public class FriendsFragment extends Fragment {
     private DatabaseReference UsersRef;
     private FirebaseAuth mAuth;
     private String currentUserID;
-    private FloatingActionButton requests,findFriends;
+    private FloatingActionButton requests, findFriends;
     private TextDrawable mDrawableBuilder;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         ContactsView = inflater.inflate(R.layout.friends_fragment, container, false);
         myContactsList = (RecyclerView) ContactsView.findViewById(R.id.friends_list);
@@ -71,8 +71,6 @@ public class FriendsFragment extends Fragment {
         });
 
 
-
-
         return ContactsView;
 
     }
@@ -92,44 +90,34 @@ public class FriendsFragment extends Fragment {
 
 
             @Override
-            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull Friends model)
-            {
+            protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull Friends model) {
                 final String userIDs = getRef(position).getKey();
 
                 UsersRef.child(userIDs).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
-                    {
-                        if (dataSnapshot.exists())
-                        {
-                            if (dataSnapshot.child("userState").hasChild("state"))
-                            {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            if (dataSnapshot.child("userState").hasChild("state")) {
                                 String state = dataSnapshot.child("userState").child("state").getValue().toString();
                                 String date = dataSnapshot.child("userState").child("date").getValue().toString();
                                 String time = dataSnapshot.child("userState").child("time").getValue().toString();
 
-                                if (state.equals("online"))
-                                {
+                                if (state.equals("online")) {
                                     holder.onlineIcon.setVisibility(View.VISIBLE);
-                                }
-                                else if (state.equals("offline"))
-                                {
+                                } else if (state.equals("offline")) {
                                     holder.onlineIcon.setVisibility(View.INVISIBLE);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 holder.onlineIcon.setVisibility(View.INVISIBLE);
                             }
 
 
-
-                                String profileName = dataSnapshot.child("name").getValue().toString();
-                                holder.userName.setText(profileName);
+                            String profileName = dataSnapshot.child("name").getValue().toString();
+                            holder.userName.setText(profileName);
                             char letter = profileName.charAt(0);
                             letter = Character.toUpperCase(letter);
                             int color = ColorGenerator.MATERIAL.getRandomColor();
-                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
                             holder.profileImage.setImageDrawable(mDrawableBuilder);
 
                             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +143,7 @@ public class FriendsFragment extends Fragment {
 
             @NonNull
             @Override
-            public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-            {
+            public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
                 ContactsViewHolder viewHolder = new ContactsViewHolder(view);
                 return viewHolder;
@@ -167,15 +154,13 @@ public class FriendsFragment extends Fragment {
         adapter.startListening();
     }
 
-    public static class ContactsViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class ContactsViewHolder extends RecyclerView.ViewHolder {
         TextView userName;
         ImageView onlineIcon;
         ImageView profileImage;
 
 
-        public ContactsViewHolder(@NonNull View itemView)
-        {
+        public ContactsViewHolder(@NonNull View itemView) {
             super(itemView);
 
             userName = itemView.findViewById(R.id.user_profile_name);

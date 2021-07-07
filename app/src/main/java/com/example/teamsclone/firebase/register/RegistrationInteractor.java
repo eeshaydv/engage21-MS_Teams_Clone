@@ -13,24 +13,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationInteractor implements RegistrationContract.Intractor{
+public class RegistrationInteractor implements RegistrationContract.Intractor {
 
     private static final String TAG = RegistrationInteractor.class.getSimpleName();
     private RegistrationContract.onRegistrationListener mOnRegistrationListener;
 
-    public RegistrationInteractor(RegistrationContract.onRegistrationListener onRegistrationListener){
+    public RegistrationInteractor(RegistrationContract.onRegistrationListener onRegistrationListener) {
         this.mOnRegistrationListener = onRegistrationListener;
     }
 
     @Override
-    public void performFirebaseRegistration(Activity activity, String email, String password,String name) {
+    public void performFirebaseRegistration(Activity activity, String email, String password, String name) {
         FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    if(!task.isSuccessful()){
+                    if (!task.isSuccessful()) {
                         mOnRegistrationListener.onFailure(task.getException().getMessage());
-                    }else{
-                        storeCredentials(activity,email,password,name);
+                    } else {
+                        storeCredentials(activity, email, password, name);
                         mOnRegistrationListener.onSuccess("");
                     }
                 });
@@ -43,12 +43,12 @@ public class RegistrationInteractor implements RegistrationContract.Intractor{
             return;
         }
 
-        if (password.equals("")){
+        if (password.equals("")) {
             mOnRegistrationListener.onFailure("Invalid Password");
             return;
         }
 
-        if (password.length()<6){
+        if (password.length() < 6) {
             mOnRegistrationListener.onFailure("Short Password");
             return;
         }
@@ -58,7 +58,7 @@ public class RegistrationInteractor implements RegistrationContract.Intractor{
             return;
         }
 
-        performFirebaseRegistration(activity,email,password,name);
+        performFirebaseRegistration(activity, email, password, name);
 
     }
 
@@ -66,14 +66,14 @@ public class RegistrationInteractor implements RegistrationContract.Intractor{
     public void storeCredentials(Activity activity, String email, String password, String name) {
         final FirebaseDatabase db = FirebaseDatabase.getInstance();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-       // String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Map<String,Object> details = new HashMap<>();
-       // details.put("UID",uid);
-        details.put("name",name);
-        details.put("uid",uid);
+        // String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Map<String, Object> details = new HashMap<>();
+        // details.put("UID",uid);
+        details.put("name", name);
+        details.put("uid", uid);
 
         db.getReference().child("users").child(uid).updateChildren(details)
-                .addOnCompleteListener(new OnCompleteListener(){
+                .addOnCompleteListener(new OnCompleteListener() {
 
                     @Override
                     public void onComplete(@NonNull Task task) {

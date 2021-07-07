@@ -15,16 +15,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private LoginPresenter mLoginPresenter;
     private FirebaseAuth mAuth;
-    private String email,password;
+    private String email, password;
 
-     EditText LoginEmail;
+    EditText LoginEmail;
     EditText LoginPassword;
-     Button LoginButton;
+    Button LoginButton;
     TextView Registertext;
     TextView ForgotPassword;
 
@@ -51,18 +50,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         });
 
 
+        LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = LoginEmail.getText().toString();
 
+                password = LoginPassword.getText().toString();
 
-      LoginButton.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              email = LoginEmail.getText().toString();
-
-              password = LoginPassword.getText().toString();
-
-              initLogin(email, password);
-          }
-      });
+                initLogin(email, password);
+            }
+        });
 
     }
 
@@ -71,9 +68,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
 
-
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         finish();
     }
 
@@ -89,15 +85,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         onError(message);
     }
 
-    private void IsEmailVerified(){
+    private void IsEmailVerified() {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser Muser = mAuth.getCurrentUser();
         assert Muser != null;
-        if(Muser.isEmailVerified()){
+        if (Muser.isEmailVerified()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-        }
-        else{
+        } else {
             startActivity(new Intent(LoginActivity.this, VerificationActivity.class));
             finish();
         }

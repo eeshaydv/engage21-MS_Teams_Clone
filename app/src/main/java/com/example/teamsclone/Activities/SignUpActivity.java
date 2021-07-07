@@ -12,14 +12,14 @@ import com.example.teamsclone.base.BaseActivity;
 import com.example.teamsclone.firebase.register.RegistrationContract;
 import com.example.teamsclone.firebase.register.RegistrationPresenter;
 
-public class SignUpActivity extends BaseActivity implements RegistrationContract.View  {
+public class SignUpActivity extends BaseActivity implements RegistrationContract.View {
 
     private RegistrationPresenter mRegistrationPresenter;
 
-    private String Uname,Uemail,Upassword,UconfirmPassword;
-     EditText signInEmail;
-     EditText signInPassword;
-   EditText signInConfirmPassword;
+    private String Uname, Uemail, Upassword, UconfirmPassword;
+    EditText signInEmail;
+    EditText signInPassword;
+    EditText signInConfirmPassword;
     EditText Name;
     Button Register;
     TextView LoginText;
@@ -63,7 +63,6 @@ public class SignUpActivity extends BaseActivity implements RegistrationContract
     }
 
 
-
     @Override
     public void onRegistrationSuccess(String message) {
         hideLoadingScreen();
@@ -78,7 +77,7 @@ public class SignUpActivity extends BaseActivity implements RegistrationContract
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         showLoadingScreen();
         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         finish();

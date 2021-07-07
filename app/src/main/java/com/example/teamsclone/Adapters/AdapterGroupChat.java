@@ -34,7 +34,7 @@ import java.util.Locale;
 public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.HolderGroupChat> {
 
     private Context context;
-    private ArrayList<ModelGroupChat>modelGroupChatList;
+    private ArrayList<ModelGroupChat> modelGroupChatList;
     private FirebaseAuth mAuth;
     private TextDrawable mDrawableBuilder;
 
@@ -48,7 +48,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
     @Override
     public HolderGroupChat onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.group_message_layout,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.group_message_layout, parent, false);
 
         return new HolderGroupChat(view);
     }
@@ -63,15 +63,15 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
         String senderUid = model.getSender();
 
         holder.Message.setText(message);
-        holder.Date.setText( time + " " + date);
-        setUserName(model,holder);
+        holder.Date.setText(time + " " + date);
+        setUserName(model, holder);
 
         holder.Comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CommentsActivity.class);
-                intent.putExtra("commentID",time+date+senderUid);
-                context.startActivity(intent) ;
+                intent.putExtra("commentID", time + date + senderUid);
+                context.startActivity(intent);
             }
         });
 
@@ -85,13 +85,13 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            String name = snapshot.child("name").getValue().toString();
-                            holder.Name.setText(name);
-                            char letter = name.charAt(0);
-                            letter = Character.toUpperCase(letter);
-                            int color = ColorGenerator.MATERIAL.getRandomColor();
-                            mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
-                            holder.Icon.setImageDrawable(mDrawableBuilder);
+                        String name = snapshot.child("name").getValue().toString();
+                        holder.Name.setText(name);
+                        char letter = name.charAt(0);
+                        letter = Character.toUpperCase(letter);
+                        int color = ColorGenerator.MATERIAL.getRandomColor();
+                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
+                        holder.Icon.setImageDrawable(mDrawableBuilder);
 
                     }
 
@@ -108,10 +108,10 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.Hold
         return modelGroupChatList.size();
     }
 
-    class HolderGroupChat extends RecyclerView.ViewHolder{
+    class HolderGroupChat extends RecyclerView.ViewHolder {
 
-        TextView Name,Date,Message,likesCount,downVotesCount,commentsCount;
-        AppCompatImageView Likes,DownVotes,Comments,More;
+        TextView Name, Date, Message, likesCount, downVotesCount, commentsCount;
+        AppCompatImageView Likes, DownVotes, Comments, More;
         ImageView Icon;
 
         public HolderGroupChat(@NonNull View itemView) {

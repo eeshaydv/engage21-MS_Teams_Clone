@@ -31,7 +31,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private FirebaseAuth mAuth;
     private CircleImageView GIcon;
-    private EditText GName,GDescription;
+    private EditText GName, GDescription;
     private FloatingActionButton GCreate;
     ProgressDialog mProgressDialog;
 
@@ -40,20 +40,20 @@ public class CreateGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
 
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int)(width*.90),(int) (height*.65));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .90), (int) (height * .65));
         WindowManager.LayoutParams windowManager = getWindow().getAttributes();
         windowManager.dimAmount = 0.60f;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
 
-        GIcon =findViewById(R.id.groupIcon);
-        GName =findViewById(R.id.groupName);
-        GDescription =findViewById(R.id.groupDescription);
-        GCreate =findViewById(R.id.createGroup);
+        GIcon = findViewById(R.id.groupIcon);
+        GName = findViewById(R.id.groupName);
+        GDescription = findViewById(R.id.groupDescription);
+        GCreate = findViewById(R.id.createGroup);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -71,55 +71,55 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     private void CreateGroup() {
-       // mProgressDialog = new ProgressDialog(this);
+        // mProgressDialog = new ProgressDialog(this);
         //mProgressDialog.setMessage("Creating Group - Please Wait");
 
-         String name = GName.getText().toString().trim();
-         String description = GDescription.getText().toString().trim();
-         String timeStamp = ""+System.currentTimeMillis();
-         String currUserId = mAuth.getCurrentUser().getUid();
+        String name = GName.getText().toString().trim();
+        String description = GDescription.getText().toString().trim();
+        String timeStamp = "" + System.currentTimeMillis();
+        String currUserId = mAuth.getCurrentUser().getUid();
 
-         if(TextUtils.isEmpty(name)){
-             Toast.makeText(this,"Enter Group Name",Toast.LENGTH_SHORT).show();
-             return;
-         }
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(this, "Enter Group Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // mProgressDialog.show();
 
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("groupId",currUserId+timeStamp);
-        hashMap.put("groupName",name);
-        hashMap.put("groupDescription",description);
-        hashMap.put("timeStamp",timeStamp);
-        hashMap.put("createdBy",currUserId);
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("groupId", currUserId + timeStamp);
+        hashMap.put("groupName", name);
+        hashMap.put("groupDescription", description);
+        hashMap.put("timeStamp", timeStamp);
+        hashMap.put("createdBy", currUserId);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(currUserId+timeStamp).setValue(hashMap)
+        ref.child(currUserId + timeStamp).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
-                        HashMap<String,String> hashMap1 = new HashMap<>();
-                        hashMap1.put("uid",currUserId);
-                        hashMap1.put("role","creator");
-                        hashMap1.put("timeStamp",timeStamp);
+                        HashMap<String, String> hashMap1 = new HashMap<>();
+                        hashMap1.put("uid", currUserId);
+                        hashMap1.put("role", "creator");
+                        hashMap1.put("timeStamp", timeStamp);
 
                         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Groups");
-                        ref1.child(currUserId+timeStamp).child("Participants").child(currUserId)
+                        ref1.child(currUserId + timeStamp).child("Participants").child(currUserId)
                                 .setValue(hashMap1)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                      //  mProgressDialog.dismiss();
-                                        Toast.makeText(CreateGroupActivity.this,"Group Created!",Toast.LENGTH_SHORT).show();
+                                        //  mProgressDialog.dismiss();
+                                        Toast.makeText(CreateGroupActivity.this, "Group Created!", Toast.LENGTH_SHORT).show();
 
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                      //  mProgressDialog.dismiss();
-                                        Toast.makeText(CreateGroupActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        //  mProgressDialog.dismiss();
+                                        Toast.makeText(CreateGroupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -129,7 +129,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mProgressDialog.dismiss();
-                        Toast.makeText(CreateGroupActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateGroupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

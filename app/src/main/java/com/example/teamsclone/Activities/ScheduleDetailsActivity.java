@@ -28,12 +28,12 @@ import com.google.protobuf.StringValue;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class ScheduleDetailsActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class ScheduleDetailsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private Button sDate,sTime;
+    private Button sDate, sTime;
     private TextView receiverName;
     private EditText rDesc;
-    private String rId,rName;
+    private String rId, rName;
     private FloatingActionButton saveSchedule;
     private boolean selectDate = false;
     private int day, month, year, hour, minute;
@@ -82,21 +82,21 @@ public class ScheduleDetailsActivity extends AppCompatActivity implements  DateP
 
     private void saveTheSchedule() {
 
-        String Desc = ""+rDesc.getText().toString();
+        String Desc = "" + rDesc.getText().toString();
         String currUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        HashMap<String,Object>hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("fromUid", currUid);
-        hashMap.put("toUid",rId);
+        hashMap.put("toUid", rId);
         hashMap.put("year", myYear);
         hashMap.put("month", myMonth);
-        hashMap.put("day",myday);
-        hashMap.put("hour",myHour);
-        hashMap.put("min",myMinute);
-        hashMap.put("description",Desc);
-        hashMap.put("status","pending");
+        hashMap.put("day", myday);
+        hashMap.put("hour", myHour);
+        hashMap.put("min", myMinute);
+        hashMap.put("description", Desc);
+        hashMap.put("status", "pending");
 
-        String key = rId+myYear+myMonth+myday+myHour+myMinute+currUid;
+        String key = rId + myYear + myMonth + myday + myHour + myMinute + currUid;
 
         ScheduleRef.child(currUid).child(key).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -108,16 +108,16 @@ public class ScheduleDetailsActivity extends AppCompatActivity implements  DateP
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ScheduleDetailsActivity.this,"Scheduled!",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ScheduleDetailsActivity.this, "Scheduled!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(ScheduleDetailsActivity.this, MainActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ScheduleDetailsActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ScheduleDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -126,7 +126,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity implements  DateP
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ScheduleDetailsActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ScheduleDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -155,7 +155,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity implements  DateP
                 " " + myMonth + " -" +
                 " " + myYear + " " +
                 " " + myHour + " :" +
-                " " + myMinute+" ");
+                " " + myMinute + " ");
 
         selectDate = true;
     }

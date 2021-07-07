@@ -2,9 +2,9 @@ package com.example.teamsclone.models;
 
 public class GroupList {
 
-    String groupId,groupName,groupDescription,timeStamp,creator;
+    String groupId, groupName, groupDescription, timeStamp, creator;
 
-    public GroupList(){
+    public GroupList() {
 
     }
 

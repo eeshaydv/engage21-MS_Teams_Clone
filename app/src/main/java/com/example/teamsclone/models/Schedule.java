@@ -2,8 +2,8 @@ package com.example.teamsclone.models;
 
 public class Schedule {
 
-    public String fromUid,toUid,description,status;
-    public int year,month,day,hour,min;
+    public String fromUid, toUid, description, status;
+    public int year, month, day, hour, min;
 
     public Schedule() {
 

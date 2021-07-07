@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.teamsclone.R;
 
 
-
 public abstract class BaseActivity extends AppCompatActivity implements Base {
     ProgressDialog loadingBar;
 
@@ -28,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Base {
         b1.setTitle("ERROR");
         b1.setMessage(message);
         b1.setCancelable(true);
-        b1.setNegativeButton("Try Again",(dialog,id) -> dialog.cancel());
+        b1.setNegativeButton("Try Again", (dialog, id) -> dialog.cancel());
         AlertDialog a1 = b1.create();
         a1.show();
     }
@@ -41,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Base {
 
     @Override
     public void hideLoadingScreen() {
-       ProgressBar p1 = findViewById(R.id.progress_bar);
-       p1.setVisibility(View.GONE);
+        ProgressBar p1 = findViewById(R.id.progress_bar);
+        p1.setVisibility(View.GONE);
     }
 }

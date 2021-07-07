@@ -27,20 +27,19 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        SharedPreferences sp = getSharedPreferences("SP_USER",MODE_PRIVATE);
-        String savedCurrUser = sp.getString("Current_USERID","None");
+        SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
+        String savedCurrUser = sp.getString("Current_USERID", "None");
 
         String sent = remoteMessage.getData().get("sent");
         String user = remoteMessage.getData().get("user");
 
         FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(currUser!=null && sent.equals(currUser.getUid())){
-            if(!savedCurrUser.equals(user)){
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (currUser != null && sent.equals(currUser.getUid())) {
+            if (!savedCurrUser.equals(user)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     sendOAndAboveNotification(remoteMessage);
-                }
-                else{
+                } else {
                     sendNormalNotification(remoteMessage);
                 }
             }
@@ -56,13 +55,13 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         String body = remoteMessage.getData().get("body");
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
-        int i = Integer.parseInt(user.replaceAll("[\\D]",""));
-        Intent intent = new Intent(this,ChatActivity.class);
+        int i = Integer.parseInt(user.replaceAll("[\\D]", ""));
+        Intent intent = new Intent(this, ChatActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("visit_user_id",user);
+        bundle.putString("visit_user_id", user);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,i,intent,PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
@@ -75,11 +74,10 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int j=0;
-        if(i>0)j=i;
+        int j = 0;
+        if (i > 0) j = i;
 
-        notificationManager.notify(j,builder.build());
-
+        notificationManager.notify(j, builder.build());
 
 
     }
@@ -93,23 +91,23 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         String body = remoteMessage.getData().get("body");
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
-        int i = Integer.parseInt(user.replaceAll("[\\D]",""));
-        Intent intent = new Intent(this,ChatActivity.class);
+        int i = Integer.parseInt(user.replaceAll("[\\D]", ""));
+        Intent intent = new Intent(this, ChatActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("visit_user_id",user);
+        bundle.putString("visit_user_id", user);
         intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,i,intent,PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         OreoAndAboveNotification notification1 = new OreoAndAboveNotification(this);
-        Notification.Builder builder = notification1.getONotifications(title,body,pendingIntent,defSoundUri,icon);
+        Notification.Builder builder = notification1.getONotifications(title, body, pendingIntent, defSoundUri, icon);
 
-        int j=0;
-        if(i>0)j=i;
+        int j = 0;
+        if (i > 0) j = i;
 
-        notification1.getManager().notify(j,builder.build());
+        notification1.getManager().notify(j, builder.build());
 
     }
 }

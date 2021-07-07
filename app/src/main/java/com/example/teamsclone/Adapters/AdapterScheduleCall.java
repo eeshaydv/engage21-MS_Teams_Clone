@@ -62,8 +62,8 @@ public class AdapterScheduleCall extends RecyclerView.Adapter<AdapterScheduleCal
             public void onClick(View v) {
 
                 Intent intent1 = new Intent(context, ScheduleDetailsActivity.class);
-                intent1.putExtra("receiverId",uid);
-                intent1.putExtra("receiverName",user);
+                intent1.putExtra("receiverId", uid);
+                intent1.putExtra("receiverName", user);
                 context.startActivity(intent1);
 
             }

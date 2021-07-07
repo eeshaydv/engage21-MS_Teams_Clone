@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity implements
 
     // ImageView pro;
     private TextDrawable mDrawableBuilder;
-   private  FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private String currentUserID;
     private DatabaseReference userRef;
     private DatabaseReference RootRef;
@@ -63,29 +63,29 @@ public class MainActivity extends BaseActivity implements
         navigation.setSelectedItemId(R.id.nav_home);
 
 
-      //  pro = findViewById(R.id.thumbnail);
+        //  pro = findViewById(R.id.thumbnail);
 
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        currentUserID=mAuth.getCurrentUser().getUid();
+        currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
-         userRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://teamsclone-965c9-default-rtdb.firebaseio.com/");
+        userRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://teamsclone-965c9-default-rtdb.firebaseio.com/");
 
         userRef.child("users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                        String myProfileName = snapshot.child("name").getValue(String.class);
-                        char letter = myProfileName.charAt(0);
-                        letter = Character.toUpperCase(letter);
-                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
-                       // pro.setImageDrawable(mDrawableBuilder);
-                       // Toast.makeText(MainActivity.this, "drawable", Toast.LENGTH_SHORT).show();
+                    String myProfileName = snapshot.child("name").getValue(String.class);
+                    char letter = myProfileName.charAt(0);
+                    letter = Character.toUpperCase(letter);
+                    mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                    // pro.setImageDrawable(mDrawableBuilder);
+                    // Toast.makeText(MainActivity.this, "drawable", Toast.LENGTH_SHORT).show();
 
-                    }
                 }
+            }
 
 
             @Override
@@ -100,16 +100,14 @@ public class MainActivity extends BaseActivity implements
 
     private void updateToken(String token) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                ref.child("device_Token").setValue(token);
+        ref.child("device_Token").setValue(token);
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
 
-        if (currentUser != null)
-        {
+        if (currentUser != null) {
             updateUserStatus("offline");
         }
     }
@@ -124,27 +122,24 @@ public class MainActivity extends BaseActivity implements
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currUID;
-        if(user!=null){
+        if (user != null) {
             currUID = user.getUid();
 
-            SharedPreferences sp = getSharedPreferences("SP_USER",MODE_PRIVATE);
+            SharedPreferences sp = getSharedPreferences("SP_USER", MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
-            editor.putString("Current_USERID",currUID);
+            editor.putString("Current_USERID", currUID);
             editor.apply();
-        }
-        else{
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        } else {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
 
-        if (currentUser != null)
-        {
+        if (currentUser != null) {
             updateUserStatus("offline");
         }
     }
@@ -153,7 +148,6 @@ public class MainActivity extends BaseActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
-
 
 
         switch (item.getItemId()) {
@@ -179,7 +173,7 @@ public class MainActivity extends BaseActivity implements
 
         }
 
-        if(fragment==null)fragment = new GroupsFragment();
+        if (fragment == null) fragment = new GroupsFragment();
 
         return loadFragment(fragment);
     }
@@ -196,8 +190,7 @@ public class MainActivity extends BaseActivity implements
         return false;
     }
 
-    private void updateUserStatus(String state)
-    {
+    private void updateUserStatus(String state) {
         String saveCurrentTime, saveCurrentDate;
 
         Calendar calendar = Calendar.getInstance();

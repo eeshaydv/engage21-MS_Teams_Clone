@@ -2,12 +2,12 @@ package com.example.teamsclone.firebase.register;
 
 import android.app.Activity;
 
-public class RegistrationPresenter implements RegistrationContract.Presenter ,RegistrationContract.onRegistrationListener {
+public class RegistrationPresenter implements RegistrationContract.Presenter, RegistrationContract.onRegistrationListener {
 
     private RegistrationContract.View mRegisterView;
     private RegistrationInteractor mRegistrationInteractor;
 
-    public RegistrationPresenter(RegistrationContract.View registerView){
+    public RegistrationPresenter(RegistrationContract.View registerView) {
         this.mRegisterView = registerView;
         mRegistrationInteractor = new RegistrationInteractor(this);
     }

@@ -23,7 +23,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     private FirebaseAuth mAuth;
     String user;
 
-     EditText VEmail;
+    EditText VEmail;
     Button Vbutton;
     Button ReSend;
     Button SignOut;
@@ -37,8 +37,6 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         Vbutton = findViewById(R.id.button_verify);
         ReSend = findViewById(R.id.button_resend);
         SignOut = findViewById(R.id.button_signout);
-
-
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -59,16 +57,16 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_signout :
+        switch (v.getId()) {
+            case R.id.button_signout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(VerificationActivity.this, LoginActivity.class));
                 finish();
                 break;
-            case R.id.button_resend :
+            case R.id.button_resend:
                 sendVerification();
                 break;
-            case R.id.button_verify :
+            case R.id.button_verify:
                 reloadUser();
                 IsEmailVerified();
                 break;
@@ -98,16 +96,15 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     private void IsEmailVerified() {
         FirebaseUser C_user = mAuth.getCurrentUser();
         assert C_user != null;
-        if (C_user.isEmailVerified()){
+        if (C_user.isEmailVerified()) {
             startActivity(new Intent(VerificationActivity.this, MainActivity.class));
             finish();
-        }
-        else {
-            Toast.makeText(VerificationActivity.this, "Email not verified"+C_user.getEmail(), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(VerificationActivity.this, "Email not verified" + C_user.getEmail(), Toast.LENGTH_LONG).show();
         }
     }
 
-    private void reloadUser(){
+    private void reloadUser() {
         FirebaseUser C_user = mAuth.getCurrentUser();
         if (C_user != null) {
             mAuth.getCurrentUser().reload();

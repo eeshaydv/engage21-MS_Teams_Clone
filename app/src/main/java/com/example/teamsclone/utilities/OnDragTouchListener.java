@@ -3,8 +3,7 @@ package com.example.teamsclone.utilities;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class OnDragTouchListener implements View.OnTouchListener
-{
+public class OnDragTouchListener implements View.OnTouchListener {
 
     private View mView;
     private View mParent;
@@ -25,67 +24,55 @@ public class OnDragTouchListener implements View.OnTouchListener
 
     private OnDragActionListener mOnDragActionListener;
 
-    public OnDragTouchListener(View view)
-    {
+    public OnDragTouchListener(View view) {
         this(view, (View) view.getParent(), null);
     }
 
-    public OnDragTouchListener(View view, View parent)
-    {
+    public OnDragTouchListener(View view, View parent) {
         this(view, parent, null);
     }
 
-    public OnDragTouchListener(View view, OnDragActionListener onDragActionListener)
-    {
+    public OnDragTouchListener(View view, OnDragActionListener onDragActionListener) {
         this(view, (View) view.getParent(), onDragActionListener);
     }
 
-    public OnDragTouchListener(View view, View parent, OnDragActionListener onDragActionListener)
-    {
+    public OnDragTouchListener(View view, View parent, OnDragActionListener onDragActionListener) {
         initListener(view, parent);
         setOnDragActionListener(onDragActionListener);
     }
 
-    public void setOnDragActionListener(OnDragActionListener onDragActionListener)
-    {
+    public void setOnDragActionListener(OnDragActionListener onDragActionListener) {
         mOnDragActionListener = onDragActionListener;
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event)
-    {
-        if (isDragging)
-        {
+    public boolean onTouch(View v, MotionEvent event) {
+        if (isDragging) {
             float[] bounds = new float[4];
             // LEFT
             bounds[0] = event.getRawX() + dX;
-            if (bounds[0] < maxLeft)
-            {
+            if (bounds[0] < maxLeft) {
                 bounds[0] = maxLeft;
             }
             // RIGHT
             bounds[2] = bounds[0] + width;
-            if (bounds[2] > maxRight)
-            {
+            if (bounds[2] > maxRight) {
                 bounds[2] = maxRight;
                 bounds[0] = bounds[2] - width;
             }
             // TOP
             bounds[1] = event.getRawY() + dY;
-            if (bounds[1] < maxTop)
-            {
+            if (bounds[1] < maxTop) {
                 bounds[1] = maxTop;
             }
             // BOTTOM
             bounds[3] = bounds[1] + height;
-            if (bounds[3] > maxBottom)
-            {
+            if (bounds[3] > maxBottom) {
                 bounds[3] = maxBottom;
                 bounds[1] = bounds[3] - height;
             }
 
-            switch (event.getAction())
-            {
+            switch (event.getAction()) {
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
                     onDragFinish();
@@ -95,21 +82,16 @@ public class OnDragTouchListener implements View.OnTouchListener
                     break;
             }
             return true;
-        }
-        else
-        {
-            switch (event.getAction())
-            {
+        } else {
+            switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     isDragging = true;
-                    if (!isInitialized)
-                    {
+                    if (!isInitialized) {
                         updateBounds();
                     }
                     dX = v.getX() - event.getRawX();
                     dY = v.getY() - event.getRawY();
-                    if (mOnDragActionListener != null)
-                    {
+                    if (mOnDragActionListener != null) {
                         mOnDragActionListener.onDragStart(mView);
                     }
                     return true;
@@ -119,23 +101,20 @@ public class OnDragTouchListener implements View.OnTouchListener
     }
 
 
-    public void initListener(View view, View parent)
-    {
+    public void initListener(View view, View parent) {
         mView = view;
         mParent = parent;
         isDragging = false;
         isInitialized = false;
     }
 
-    public void updateBounds()
-    {
+    public void updateBounds() {
         updateViewBounds();
         updateParentBounds();
         isInitialized = true;
     }
 
-    public void updateViewBounds()
-    {
+    public void updateViewBounds() {
         width = mView.getWidth();
         xWhenAttached = mView.getX();
         dX = 0;
@@ -145,8 +124,7 @@ public class OnDragTouchListener implements View.OnTouchListener
         dY = 0;
     }
 
-    public void updateParentBounds()
-    {
+    public void updateParentBounds() {
         maxLeft = 0;
         maxRight = maxLeft + mParent.getWidth();
 
@@ -154,10 +132,8 @@ public class OnDragTouchListener implements View.OnTouchListener
         maxBottom = maxTop + mParent.getHeight();
     }
 
-    private void onDragFinish()
-    {
-        if (mOnDragActionListener != null)
-        {
+    private void onDragFinish() {
+        if (mOnDragActionListener != null) {
             mOnDragActionListener.onDragEnd(mView);
         }
 
@@ -166,8 +142,7 @@ public class OnDragTouchListener implements View.OnTouchListener
         isDragging = false;
     }
 
-    public interface OnDragActionListener
-    {
+    public interface OnDragActionListener {
         void onDragStart(View view);
 
         void onDragEnd(View view);

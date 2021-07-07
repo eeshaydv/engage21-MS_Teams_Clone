@@ -22,7 +22,7 @@ public class OreoAndAboveNotification extends ContextWrapper {
         super(base);
 
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
         }
 
@@ -31,7 +31,7 @@ public class OreoAndAboveNotification extends ContextWrapper {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createChannel() {
 
-        NotificationChannel notificationChannel = new NotificationChannel(ID,NAME,NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationChannel notificationChannel = new NotificationChannel(ID, NAME, NotificationManager.IMPORTANCE_DEFAULT);
         notificationChannel.enableLights(true);
         notificationChannel.enableVibration(true);
         notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
@@ -39,9 +39,9 @@ public class OreoAndAboveNotification extends ContextWrapper {
         getManager().createNotificationChannel(notificationChannel);
     }
 
-    public NotificationManager getManager(){
+    public NotificationManager getManager() {
 
-        if(notificationManager == null){
+        if (notificationManager == null) {
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
@@ -50,14 +50,14 @@ public class OreoAndAboveNotification extends ContextWrapper {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Notification.Builder getONotifications(String title, String body, PendingIntent pIntent, Uri soundUri,
-                                                  String icon){
-       return  new Notification.Builder(getApplicationContext(),ID)
-               .setContentIntent(pIntent)
-               .setContentTitle(title)
-               .setContentText(body)
-               .setSound(soundUri)
-               .setAutoCancel(true)
-               .setSmallIcon(Integer.parseInt(icon));
+                                                  String icon) {
+        return new Notification.Builder(getApplicationContext(), ID)
+                .setContentIntent(pIntent)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSound(soundUri)
+                .setAutoCancel(true)
+                .setSmallIcon(Integer.parseInt(icon));
     }
 
 }

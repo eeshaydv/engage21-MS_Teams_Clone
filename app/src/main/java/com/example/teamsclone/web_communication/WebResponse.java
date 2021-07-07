@@ -1,7 +1,7 @@
 package com.example.teamsclone.web_communication;
 
-public interface WebResponse
-{
+public interface WebResponse {
     void onWebResponse(String response, int callCode);
+
     void onWebResponseError(String error, int callCode);
 }

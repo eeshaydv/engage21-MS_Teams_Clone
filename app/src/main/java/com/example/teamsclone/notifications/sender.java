@@ -7,7 +7,7 @@ public class sender {
     private Data data;
     private String to;
 
-    public sender(){
+    public sender() {
 
     }
 

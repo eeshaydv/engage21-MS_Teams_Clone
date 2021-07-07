@@ -33,10 +33,10 @@ import java.util.ArrayList;
 
 public class GroupInfoActivity extends AppCompatActivity {
 
-    private String groupId,grpName;
+    private String groupId, grpName;
     private String myGrouprole = "";
-    private ImageView groupIcon,editTitle,editDesc;
-    private TextView editGroup,addParticipant,leaveGroup,grp_title,grp_desc;
+    private ImageView groupIcon, editTitle, editDesc;
+    private TextView editGroup, addParticipant, leaveGroup, grp_title, grp_desc;
     private RecyclerView participantsRecyclerView;
     private FirebaseAuth mAuth;
     private TextDrawable mDrawableBuilder;
@@ -68,28 +68,26 @@ public class GroupInfoActivity extends AppCompatActivity {
         addParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( myGrouprole.equals("admin") || myGrouprole.equals("creator")){
-                    Intent intent1 = new Intent(GroupInfoActivity.this,GroupParticipantsAdd.class);
-                    intent1.putExtra("groupId",groupId);
-                    intent1.putExtra("groupName",grpName);
-                    intent1.putExtra("groupRole",myGrouprole);
+                if (myGrouprole.equals("admin") || myGrouprole.equals("creator")) {
+                    Intent intent1 = new Intent(GroupInfoActivity.this, GroupParticipantsAdd.class);
+                    intent1.putExtra("groupId", groupId);
+                    intent1.putExtra("groupName", grpName);
+                    intent1.putExtra("groupRole", myGrouprole);
                     startActivity(intent1);
-                }
-                else Toast.makeText(GroupInfoActivity.this,"NULL",Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(GroupInfoActivity.this, "NULL", Toast.LENGTH_SHORT).show();
             }
         });
 
         leaveGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String dTitle="",dDesc="",dPosButton="";
+                String dTitle = "", dDesc = "", dPosButton = "";
 
-                if(myGrouprole.equals("creator")){
+                if (myGrouprole.equals("creator")) {
                     dTitle = "Delete Group";
                     dDesc = "Are you Sure? The Group will be DELETED Permanently";
                     dPosButton = "DELETE";
-                }
-                else{
+                } else {
                     dTitle = "Leave Group";
                     dDesc = "Are you Sure you want to leave the Group Permanently";
                     dPosButton = "LEAVE";
@@ -102,10 +100,9 @@ public class GroupInfoActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                if(myGrouprole.equals("creator")){
+                                if (myGrouprole.equals("creator")) {
                                     deleteGroup();
-                                }
-                                else{
+                                } else {
                                     LeaveGroup();
                                 }
 
@@ -127,21 +124,20 @@ public class GroupInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(GroupInfoActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupInfoActivity.this);
                 builder.setTitle("Edit Group Name");
 
-                final  EditText inputfield = new EditText(GroupInfoActivity.this);
+                final EditText inputfield = new EditText(GroupInfoActivity.this);
                 builder.setView(inputfield);
                 builder.setPositiveButton("EDIT", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if(myGrouprole.equals("admin")||myGrouprole.equals("creator")) {
+                        if (myGrouprole.equals("admin") || myGrouprole.equals("creator")) {
 
-                            if((inputfield.getText().toString()).isEmpty()){
+                            if ((inputfield.getText().toString()).isEmpty()) {
                                 Toast.makeText(GroupInfoActivity.this, "Enter Name", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
                                 ref.child(groupId).child("groupName").setValue(inputfield.getText().toString());
@@ -167,21 +163,20 @@ public class GroupInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(GroupInfoActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupInfoActivity.this);
                 builder.setTitle("Edit Group Description");
 
-                final  EditText inputfield = new EditText(GroupInfoActivity.this);
+                final EditText inputfield = new EditText(GroupInfoActivity.this);
                 builder.setView(inputfield);
                 builder.setPositiveButton("EDIT", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if(myGrouprole.equals("admin")||myGrouprole.equals("creator")) {
+                        if (myGrouprole.equals("admin") || myGrouprole.equals("creator")) {
 
-                            if((inputfield.getText().toString()).isEmpty()){
+                            if ((inputfield.getText().toString()).isEmpty()) {
                                 Toast.makeText(GroupInfoActivity.this, "Enter Description", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
                                 ref.child(groupId).child("groupDescription").setValue(inputfield.getText().toString());
@@ -204,7 +199,6 @@ public class GroupInfoActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void LeaveGroup() {
@@ -214,15 +208,15 @@ public class GroupInfoActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(GroupInfoActivity.this,"Left Succesfully",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(GroupInfoActivity.this,MainActivity.class));
+                        Toast.makeText(GroupInfoActivity.this, "Left Succesfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(GroupInfoActivity.this, MainActivity.class));
                         finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(GroupInfoActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GroupInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -235,15 +229,15 @@ public class GroupInfoActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(GroupInfoActivity.this,"Group Deleted Succesfully",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(GroupInfoActivity.this,MainActivity.class));
+                        Toast.makeText(GroupInfoActivity.this, "Group Deleted Succesfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(GroupInfoActivity.this, MainActivity.class));
                         finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(GroupInfoActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GroupInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -258,17 +252,17 @@ public class GroupInfoActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usersList.clear();
 
-                for(DataSnapshot ds : snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String uid = ds.child("uid").getValue().toString();
                     DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users");
                     ref2.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                            for(DataSnapshot d : snapshot1.getChildren()){
+                            for (DataSnapshot d : snapshot1.getChildren()) {
                                 Friends user = d.getValue(Friends.class);
                                 usersList.add(user);
                             }
-                            mAdapterAdd = new AdapterParticipantsAdd(GroupInfoActivity.this,usersList,groupId,myGrouprole);
+                            mAdapterAdd = new AdapterParticipantsAdd(GroupInfoActivity.this, usersList, groupId, myGrouprole);
                             participantsRecyclerView.setAdapter(mAdapterAdd);
                         }
 
@@ -296,7 +290,7 @@ public class GroupInfoActivity extends AppCompatActivity {
         ref.orderByChild("groupId").equalTo(groupId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String gTitle = ds.child("groupName").getValue().toString();
                     String gDesc = ds.child("groupDescription").getValue().toString();
                     grpName = gTitle;

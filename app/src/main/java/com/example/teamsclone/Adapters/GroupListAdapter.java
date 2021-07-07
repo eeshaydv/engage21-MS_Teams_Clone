@@ -34,7 +34,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Hold
     @Override
     public HolderGroupList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.group_item_view,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.group_item_view, parent, false);
 
         return new HolderGroupList(view);
 
@@ -51,15 +51,15 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Hold
         char letter = grp_name.charAt(0);
         letter = Character.toUpperCase(letter);
         int color = ColorGenerator.MATERIAL.getRandomColor();
-        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
         holder.groupIcon.setImageDrawable(mDrawableBuilder);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GroupChatActivity.class);
-                intent.putExtra("groupId",grp_id);
-                context.startActivity(intent) ;
+                intent.putExtra("groupId", grp_id);
+                context.startActivity(intent);
             }
         });
 
@@ -70,9 +70,9 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Hold
         return groupChatLists.size();
     }
 
-    class HolderGroupList extends RecyclerView.ViewHolder{
+    class HolderGroupList extends RecyclerView.ViewHolder {
 
-        private TextView  groupName;
+        private TextView groupName;
         private ImageView groupIcon;
 
         public HolderGroupList(@NonNull View itemView) {

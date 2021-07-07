@@ -36,7 +36,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private SharedPreferences sharedPreferences;
     private String room_Id;
     private FirebaseAuth mAuth;
-    private FloatingActionButton share_fab,chat_fab,other_fab;
+    private FloatingActionButton share_fab, chat_fab, other_fab;
     private boolean isRotate = false;
 
     @Override
@@ -58,11 +58,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         share_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRotate = ViewAnimation.rotateFab(v,!isRotate);
-                if(isRotate){
+                isRotate = ViewAnimation.rotateFab(v, !isRotate);
+                if (isRotate) {
                     ViewAnimation.showIn(chat_fab);
                     ViewAnimation.showIn(other_fab);
-                }else{
+                } else {
                     ViewAnimation.showOut(chat_fab);
                     ViewAnimation.showOut(other_fab);
                 }
@@ -91,9 +91,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                 if (!roomId.getText().toString().equalsIgnoreCase("")) {
 
-                    Intent intent1 = new Intent(DashboardActivity.this,InviteCallParticipant.class);
-                    intent1.putExtra("userId",mAuth.getCurrentUser().getUid());
-                    intent1.putExtra("roomId",roomId.getText().toString());
+                    Intent intent1 = new Intent(DashboardActivity.this, InviteCallParticipant.class);
+                    intent1.putExtra("userId", mAuth.getCurrentUser().getUid());
+                    intent1.putExtra("roomId", roomId.getText().toString());
                     startActivity(intent1);
 
                 } else {

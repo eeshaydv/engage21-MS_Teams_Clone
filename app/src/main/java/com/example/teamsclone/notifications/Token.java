@@ -1,6 +1,6 @@
 package com.example.teamsclone.notifications;
 
-public class  Token {
+public class Token {
 
     //registration token - app ID which allows it to receive Push-Notifications
 
@@ -10,7 +10,7 @@ public class  Token {
         this.token = token;
     }
 
-    public Token(){
+    public Token() {
 
     }
 

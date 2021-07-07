@@ -2,12 +2,12 @@ package com.example.teamsclone.firebase.login;
 
 import android.app.Activity;
 
-public class LoginPresenter implements LoginContract.Presenter , LoginContract.onLoginListener{
+public class LoginPresenter implements LoginContract.Presenter, LoginContract.onLoginListener {
 
     private LoginContract.View mLoginView;
     private LoginInteractor mLoginInteractor;
 
-    public LoginPresenter(LoginContract.View mLoginView){
+    public LoginPresenter(LoginContract.View mLoginView) {
         this.mLoginView = mLoginView;
         mLoginInteractor = new LoginInteractor(this);
     }

@@ -29,12 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.HolderSchedule> {
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.HolderSchedule> {
 
- private Context context;
- private ArrayList<Schedule>schedules;
- private TextDrawable mDrawableBuilder;
- private DatabaseReference ScheduleRef;
+    private Context context;
+    private ArrayList<Schedule> schedules;
+    private TextDrawable mDrawableBuilder;
+    private DatabaseReference ScheduleRef;
 
     public ScheduleAdapter(Context context, ArrayList<Schedule> schedules) {
         this.context = context;
@@ -44,7 +44,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
     @NonNull
     @Override
     public HolderSchedule onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.schedule_item_view,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.schedule_item_view, parent, false);
 
         return new ScheduleAdapter.HolderSchedule(view);
     }
@@ -65,32 +65,31 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
 
         holder.ScheduleItemDate.setText("Date : " + day + " -" +
                 " " + month + " -" +
-                " " + year + " " );
+                " " + year + " ");
 
         holder.ScheduleItemTime.setText("Time : " + hour + " :" +
-                " " + min+" ");
+                " " + min + " ");
 
         holder.ScheduleItemDesc.setText(desc);
         holder.ScheduleItemStatus.setText(status);
 
         String currUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if(currUid.equals(senderUid)){
-            setReceiverUserName(schedule,holder);
-        }
-        else if(currUid.equals(receiverUid)){
-            setSenderUserName(schedule,holder);
+        if (currUid.equals(senderUid)) {
+            setReceiverUserName(schedule, holder);
+        } else if (currUid.equals(receiverUid)) {
+            setSenderUserName(schedule, holder);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String key = receiverUid+year+month+day+hour+min+senderUid;
+                String key = receiverUid + year + month + day + hour + min + senderUid;
                 ScheduleRef = FirebaseDatabase.getInstance().getReference("schedules");
 
-                if(status.equals("pending")){
-                    if(currUid.equals(senderUid)){
+                if (status.equals("pending")) {
+                    if (currUid.equals(senderUid)) {
 
                         //option of cancel schedule
 
@@ -105,7 +104,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                         builder.setItems(options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(which==0){
+                                if (which == 0) {
                                     ScheduleRef.child(senderUid).child(key)
                                             .removeValue()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -116,8 +115,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful())
-                                                                    {
+                                                                    if (task.isSuccessful()) {
                                                                         Toast.makeText(context, "Schedule Deleted", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
@@ -130,8 +128,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                         });
                         builder.show();
 
-                    }
-                    else if(currUid.equals(receiverUid)){
+                    } else if (currUid.equals(receiverUid)) {
                         //option of cancel or accept schedule
 
                         CharSequence options[] = new CharSequence[]
@@ -146,20 +143,20 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                         builder.setItems(options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(which==0){
+                                if (which == 0) {
 
                                     ScheduleRef.child(senderUid).child(key).child("status")
                                             .setValue("Meet Scheduled")
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful()){
+                                                    if (task.isSuccessful()) {
                                                         ScheduleRef.child(receiverUid).child(key).child("status")
                                                                 .setValue("Meet Scheduled")
                                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                                        if(task.isSuccessful()){
+                                                                        if (task.isSuccessful()) {
                                                                             Toast.makeText(context, "Meet scheduled", Toast.LENGTH_SHORT).show();
                                                                             holder.ScheduleItemStatus.setText(schedule.getStatus());
                                                                         }
@@ -169,8 +166,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                                                 }
                                             });
 
-                                }
-                                else if(which==1){
+                                } else if (which == 1) {
 
                                     ScheduleRef.child(senderUid).child(key)
                                             .removeValue()
@@ -182,8 +178,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful())
-                                                                    {
+                                                                    if (task.isSuccessful()) {
                                                                         Toast.makeText(context, "Schedule Deleted", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
@@ -196,8 +191,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                         builder.show();
 
                     }
-                }
-                else{
+                } else {
                     //cancel opt
 
                     CharSequence options[] = new CharSequence[]
@@ -211,7 +205,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                     builder.setItems(options, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(which==0){
+                            if (which == 0) {
 
                                 ScheduleRef.child(senderUid).child(key)
                                         .removeValue()
@@ -223,8 +217,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                if (task.isSuccessful())
-                                                                {
+                                                                if (task.isSuccessful()) {
                                                                     Toast.makeText(context, "Schedule Deleted", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
@@ -255,7 +248,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                         char letter = name.charAt(0);
                         letter = Character.toUpperCase(letter);
                         int color = ColorGenerator.MATERIAL.getRandomColor();
-                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
                         holder.IconScheduleItem.setImageDrawable(mDrawableBuilder);
 
                     }
@@ -280,7 +273,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
                         char letter = name.charAt(0);
                         letter = Character.toUpperCase(letter);
                         int color = ColorGenerator.MATERIAL.getRandomColor();
-                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter),color);
+                        mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
                         holder.IconScheduleItem.setImageDrawable(mDrawableBuilder);
 
                     }
@@ -300,7 +293,7 @@ public class ScheduleAdapter extends  RecyclerView.Adapter<ScheduleAdapter.Holde
     }
 
 
-    class HolderSchedule extends RecyclerView.ViewHolder{
+    class HolderSchedule extends RecyclerView.ViewHolder {
 
         ImageView IconScheduleItem;
         TextView ScheduleItemName, ScheduleItemDesc, ScheduleItemDate, ScheduleItemTime, ScheduleItemStatus;
