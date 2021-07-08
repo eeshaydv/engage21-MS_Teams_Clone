@@ -21,6 +21,7 @@ import com.example.teamsclone.Activities.ProfileActivity;
 import com.example.teamsclone.Activities.RequestsActivity;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.Friends;
+import com.example.teamsclone.utilities.ViewAnimation;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,8 +41,9 @@ public class FriendsFragment extends Fragment {
     private DatabaseReference UsersRef;
     private FirebaseAuth mAuth;
     private String currentUserID;
-    private FloatingActionButton requests, findFriends;
+    private FloatingActionButton requests, findFriends,moreFab;
     private TextDrawable mDrawableBuilder;
+    private boolean isRotate = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,11 +52,29 @@ public class FriendsFragment extends Fragment {
         myContactsList = (RecyclerView) ContactsView.findViewById(R.id.friends_list);
         requests = ContactsView.findViewById(R.id.fab_req);
         findFriends = ContactsView.findViewById(R.id.fab_find);
+        moreFab = ContactsView.findViewById(R.id.friends_more_fab);
         myContactsList.setLayoutManager(new LinearLayoutManager(getContext()));
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         ContacsRef = FirebaseDatabase.getInstance().getReference().child("friends").child(currentUserID);
         UsersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+        ViewAnimation.init(requests);
+        ViewAnimation.init(findFriends);
+
+        moreFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isRotate = ViewAnimation.rotateFab(v, !isRotate);
+                if (isRotate) {
+                    ViewAnimation.showIn(requests);
+                    ViewAnimation.showIn(findFriends);
+                } else {
+                    ViewAnimation.showOut(requests);
+                    ViewAnimation.showOut(findFriends);
+                }
+            }
+        });
 
         requests.setOnClickListener(new View.OnClickListener() {
             @Override
