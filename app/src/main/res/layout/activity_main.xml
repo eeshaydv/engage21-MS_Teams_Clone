@@ -31,12 +31,11 @@
                 android:id="@+id/thumbnail"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_baseline_notifications_none_24"
-                android:layout_width="32dp"
+                android:layout_width="36dp"
                 android:clickable="true"
                 android:layout_marginRight="8dp"
                 android:layout_alignParentRight="true"
-                android:layout_height="32dp"
-                app:tint="@color/white" />
+                android:layout_height="36dp" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <FrameLayout

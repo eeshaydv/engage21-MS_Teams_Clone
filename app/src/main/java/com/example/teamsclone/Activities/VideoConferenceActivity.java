@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.teamsclone.R;
 import com.example.teamsclone.utilities.OnDragTouchListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -64,6 +65,7 @@ public class VideoConferenceActivity extends AppCompatActivity
     EnxPlayerView enxPlayerViewRemote;
     ProgressDialog progressDialog;
     int PERMISSION_ALL = 1;
+    private DatabaseReference callRef;
 
     RecyclerView mRecyclerView;
     boolean touch = false;

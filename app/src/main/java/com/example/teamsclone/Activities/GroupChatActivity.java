@@ -8,8 +8,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -54,7 +57,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private String groupId, myGroupRole, groupname;
     private Toolbar mtoolBar;
     private TextView groupName;
-    private ImageView attachIcon, groupIcon, addButton, backButton;
+    private ImageView attachIcon, groupIcon, addButton, backButton, videoCallButton;
     private EditText messageEditText;
     private FloatingActionButton sendButton;
     private TextDrawable mDrawableBuilder;
@@ -63,6 +66,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private ArrayList<ModelGroupChat> groupChatList;
     private AdapterGroupChat adapterGroupChat;
     DatabaseReference ref;
+    private String mName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,8 @@ public class GroupChatActivity extends AppCompatActivity {
         getinfo();
 
         backButton = findViewById(R.id.tool_grp_back_button);
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +140,6 @@ public class GroupChatActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-
 
     }
 

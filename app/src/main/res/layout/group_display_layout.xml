@@ -48,7 +48,6 @@
                         android:fontFamily="@font/droid_sans_chinese"
                         android:textAlignment="textStart"
                         android:textSize="18sp"
-                        android:textStyle="bold"
                         android:gravity="start" />
 
                 </LinearLayout>

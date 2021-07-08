@@ -47,6 +47,7 @@
                         android:text="user name"
                         android:layout_gravity="center"
                         android:fontFamily="@font/droid_sans_chinese"
+                        android:textColor="@color/black"
                         android:textAlignment="textStart"
                         android:textSize="24sp"
                         android:gravity="start" />

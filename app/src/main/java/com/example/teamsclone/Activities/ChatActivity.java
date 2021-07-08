@@ -1,12 +1,5 @@
 package com.example.teamsclone.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +12,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.teamsclone.Adapters.MessageAdapter;
@@ -81,8 +81,7 @@ public class ChatActivity extends BaseActivity {
     private StorageTask uploadTask;
     private TextDrawable mDrawableBuilder;
 
-    APIService apiService;
-    boolean notify = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +116,6 @@ public class ChatActivity extends BaseActivity {
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notify = true;
                 SendMessage();
             }
         });
@@ -393,64 +391,11 @@ public class ChatActivity extends BaseActivity {
                     }
                     MessageInputText.setText("");
 
-                    final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users").child(messageSenderID);
-                    mRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            Friends user = snapshot.getValue(Friends.class);
-
-                            if (notify) {
-                                sendNotifications(messageReceiverID, user.getName(), messageText);
-                            }
-
-                            notify = false;
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
                 }
             });
         }
 
 
-    }
-
-    private void sendNotifications(String messageReceiverID, String name, String messageText) {
-
-        DatabaseReference tRef = FirebaseDatabase.getInstance().getReference("users");
-        tRef.child(messageSenderID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String token = snapshot.child("device_Token").getValue().toString();
-                Data data = new Data(messageSenderID, name + ":" + messageText, "New Message", messageReceiverID, R.drawable.ms_logo_sq);
-
-                sender senderx = new sender(data, token);
-
-                apiService.sendNotification(senderx)
-                        .enqueue(new Callback<Response>() {
-                            @Override
-                            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                                Toast.makeText(ChatActivity.this, token, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(ChatActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Response> call, Throwable t) {
-                                Toast.makeText(ChatActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 
@@ -472,7 +417,7 @@ public class ChatActivity extends BaseActivity {
         userMessagesList.setAdapter(messageAdapter);
         userMessagesList.setHasFixedSize(true);
 
-        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
+       // apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         Calendar calendar = Calendar.getInstance();
 

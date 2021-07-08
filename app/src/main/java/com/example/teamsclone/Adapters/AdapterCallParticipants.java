@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.teamsclone.Activities.ChatActivity;
+import com.example.teamsclone.Activities.ScheduleDetailsActivity;
 import com.example.teamsclone.R;
 import com.example.teamsclone.models.Friends;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -140,6 +143,52 @@ public class AdapterCallParticipants extends RecyclerView.Adapter<AdapterCallPar
 
             }
         });
+
+        DatabaseReference pastCallRef = rootRef.child("history");
+        Map calldata = new HashMap();
+        calldata.put("callType","Outgoing");
+        calldata.put("callerid",uid);
+        calldata.put("startdate",saveCurrentDate);
+        calldata.put("starttime",saveCurrentTime);
+
+
+        pastCallRef.child(userId).child(roomId).setValue(calldata)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        Map calldata1 = new HashMap();
+                        calldata1.put("callType","Incoming");
+                        calldata1.put("callerid",userId);
+                        calldata1.put("startdate",saveCurrentDate);
+                        calldata1.put("starttime",saveCurrentTime);
+
+
+
+                        pastCallRef.child(uid).child(roomId).setValue(calldata1)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
 
     }
 }

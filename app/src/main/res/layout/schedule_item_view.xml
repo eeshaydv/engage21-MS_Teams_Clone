@@ -28,9 +28,8 @@
         android:fontFamily="sans-serif-light"
         android:text="NAME"
         android:padding="8dp"
-        android:textColor="#827f93"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         />
 
 
@@ -108,7 +107,7 @@
         android:autoLink="all"
         android:fontFamily="sans-serif-light"
       android:layout_centerHorizontal="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:gravity="center"
         android:textIsSelectable="true"
         android:maxLines="3"

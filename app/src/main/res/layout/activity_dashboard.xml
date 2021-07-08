@@ -38,7 +38,7 @@
                 android:layout_below="@+id/logo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:text="Welcome!"
+                android:text="Start a Video Call Now !"
                 android:textColor="@android:color/background_dark"
                 android:textSize="20sp"/>
 

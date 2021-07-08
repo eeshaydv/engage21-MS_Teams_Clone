@@ -117,7 +117,7 @@ public class CommentsActivity extends BaseActivity {
 
                     int year = calFordDate.get(Calendar.YEAR);
                     String RandomKey;
-                    //postRandomName = saveCurrentDate + saveCurrentTime;
+
                     if (month < 10) {
                         if (date < 10)
                             RandomKey = Integer.toString(year) + "0" + Integer.toString(month) + "0" + Integer.toString(date) + saveCurrentTime;
@@ -129,7 +129,6 @@ public class CommentsActivity extends BaseActivity {
                         else
                             RandomKey = Integer.toString(year) + Integer.toString(month) + Integer.toString(date) + saveCurrentTime;
                     }
-                    //final String RandomKey= saveCurrentDate + saveCurrentTime+current_user_id ;
 
                     HashMap commentsMap = new HashMap();
                     commentsMap.put("uid", current_user_id);
@@ -181,7 +180,6 @@ public class CommentsActivity extends BaseActivity {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                             String uid = dataSnapshot1.child("uid").getValue().toString();
                             String check = dataSnapshot1.child("cid").getValue().toString();
-                            //Toast.makeText(CommentsActivity.this, PostsRef.child(uid).child("cid").toString(), Toast.LENGTH_SHORT).show();
 
                             if (uid.equals(current_user_id) && !(check.startsWith("delete"))) {
                                 commentsViewHolder.mDelete.setVisibility(View.VISIBLE);

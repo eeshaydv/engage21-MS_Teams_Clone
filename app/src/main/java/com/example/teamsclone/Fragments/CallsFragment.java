@@ -18,8 +18,10 @@ import com.example.teamsclone.Activities.DashboardActivity;
 import com.example.teamsclone.Activities.LoginActivity;
 import com.example.teamsclone.Activities.MainActivity;
 import com.example.teamsclone.Activities.ScheduleCallActivity;
+import com.example.teamsclone.Adapters.CallHistoryAdapter;
 import com.example.teamsclone.Adapters.ScheduleAdapter;
 import com.example.teamsclone.R;
+import com.example.teamsclone.models.CallHistory;
 import com.example.teamsclone.models.Schedule;
 import com.example.teamsclone.utilities.ViewAnimation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,6 +41,8 @@ public class CallsFragment extends Fragment {
     private Button scheduledCalls, doneCalls;
     private FloatingActionButton call_fab, add_schedule, add_call;
     private ArrayList<Schedule> schedules;
+    private ArrayList<CallHistory>callHistories;
+    private CallHistoryAdapter callHistoryAdapter;
     private ScheduleAdapter scheduleAdapter;
     private int[] mColors;
     private boolean isRotate = false;
@@ -60,6 +64,7 @@ public class CallsFragment extends Fragment {
         ViewAnimation.init(add_call);
         ViewAnimation.init(add_schedule);
 
+        LoadScheduledCalls();
 
         scheduledCalls.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +74,8 @@ public class CallsFragment extends Fragment {
 
                 scheduledCalls.setTextColor(mColors[38]);
                 doneCalls.setTextColor(mColors[11]);
+
+                LoadScheduledCalls();
             }
         });
 
@@ -80,17 +87,8 @@ public class CallsFragment extends Fragment {
 
                 doneCalls.setTextColor(mColors[38]);
                 scheduledCalls.setTextColor(mColors[11]);
-            }
-        });
 
-        doneCalls.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doneCalls.setBackgroundResource(R.drawable.button_clicked);
-                scheduledCalls.setBackgroundResource(R.drawable.button_unclick);
-
-                doneCalls.setTextColor(mColors[38]);
-                scheduledCalls.setTextColor(mColors[11]);
+                LoadCallHistory();
             }
         });
 
@@ -124,10 +122,36 @@ public class CallsFragment extends Fragment {
             }
         });
 
-        LoadScheduledCalls();
-
 
         return v;
+    }
+
+    private void LoadCallHistory() {
+
+        callHistories = new ArrayList<>();
+        String currUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("history").child(currUser);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                schedules.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    CallHistory callHistory = ds.getValue(CallHistory.class);
+                    callHistories.add(callHistory);
+                }
+
+                callHistoryAdapter = new CallHistoryAdapter(getActivity(), callHistories);
+                callsList.setAdapter(callHistoryAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void LoadScheduledCalls() {

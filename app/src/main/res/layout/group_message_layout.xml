@@ -27,12 +27,10 @@
         android:layout_toEndOf="@+id/avatar"
         android:maxLines="1"
         android:fontFamily="sans-serif-light"
-
         android:text="NAME"
         android:padding="1dp"
-        android:textColor="#827f93"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:layout_toRightOf="@+id/avatar" />
 
     <TextView
