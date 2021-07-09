@@ -12,7 +12,33 @@
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llayout"
+        android:background="#EAEAEA"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:fontFamily="@font/droid_sans_chinese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text=" Add Participants "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp" />
+
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/llayout"
         android:layout_width="match_parent"
         android:background="#EAEAEA"
         android:layout_height="match_parent"

@@ -63,12 +63,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Holder
         int month = schedule.getMonth();
         int day = schedule.getDay();
 
-        holder.ScheduleItemDate.setText("Date : " + day + " -" +
-                " " + month + " -" +
-                " " + year + " ");
+        holder.ScheduleItemDate.setText("Date : " + day + "-" +
+                "" + month + "-" +
+                "" + year + " ");
 
-        holder.ScheduleItemTime.setText("Time : " + hour + " :" +
-                " " + min + " ");
+        holder.ScheduleItemTime.setText("Time : " + hour + ":" +
+                "" + min + " ");
 
         holder.ScheduleItemDesc.setText(desc);
         holder.ScheduleItemStatus.setText(status);
