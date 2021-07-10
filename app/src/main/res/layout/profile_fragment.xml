@@ -95,6 +95,22 @@
             android:textStyle="bold"
             android:fontFamily="@font/droid_sans_chinese"
             android:padding="4dp"
+            android:id="@+id/whats_new"
+            android:textColor="@color/inactive_dots"
+            android:background="@drawable/pro_layout"
+            android:drawableTint="@color/inactive_dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_baseline_info_24"
+            android:text="    What's New?"
+            android:textSize="16sp" />
+
+        <TextView
+            android:textStyle="bold"
+            android:fontFamily="@font/droid_sans_chinese"
+            android:padding="4dp"
             android:id="@+id/logout_profile"
             android:textColor="@color/inactive_dots"
             android:background="@drawable/pro_layout"

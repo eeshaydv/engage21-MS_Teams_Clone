@@ -70,7 +70,7 @@ public class IntroActivity extends AppCompatActivity {
         mList.add(new ScreenItem("Video Call","Start an Instant Video Call with a Friend", R.drawable.videocall));
         mList.add(new ScreenItem("Send Call Invites","Send Video Call Invites to Friends", R.drawable.groupcreate));
         mList.add(new ScreenItem("Manage Schedules","Schedule Meets and Manage Them", R.drawable.schedule));
-        mList.add(new ScreenItem("Call History","Have an eye on Call History!", R.drawable.history));
+        mList.add(new ScreenItem("Call History","Have an eye on the Call History!", R.drawable.history));
         // setup viewpager
         screenPager =findViewById(R.id.screen_viewpager);
         introViewPagerAdapter = new IntroViewPagerAdapter(this, mList);

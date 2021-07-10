@@ -1,7 +1,9 @@
 package com.example.teamsclone.Fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.teamsclone.Activities.IntroActivity;
 import com.example.teamsclone.Activities.LoginActivity;
 import com.example.teamsclone.Activities.MainActivity;
 import com.example.teamsclone.Activities.SettingsActivity;
@@ -24,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class profileFragment extends Fragment {
 
     TextDrawable mDrawableBuilder;
@@ -32,7 +37,7 @@ public class profileFragment extends Fragment {
     FirebaseAuth mAuth;
     ImageView pro_frag;
     ImageView testI;
-    TextView btn1, Name_frag, email_frag, logout_frag;
+    TextView btn1, Name_frag, email_frag, logout_frag,whats_new;
     String myProfileName;
 
     @Nullable
@@ -48,6 +53,7 @@ public class profileFragment extends Fragment {
         Name_frag = (TextView) v.findViewById(R.id.name_profile_frag);
         email_frag = (TextView) v.findViewById(R.id.email_profile_frag);
         logout_frag = v.findViewById(R.id.logout_profile);
+        whats_new = v.findViewById(R.id.whats_new);
         testI = v.findViewById(R.id.test);
         //db = FirebaseDatabase.getInstance();
 
@@ -95,6 +101,19 @@ public class profileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 ((MainActivity) getActivity()).startActivity(intent);
 
+            }
+        });
+
+        whats_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences pref = getActivity().getSharedPreferences("myPrefs",MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean("isIntroOpnend",false);
+                editor.commit();
+              Intent intent = new Intent(getContext(), IntroActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
