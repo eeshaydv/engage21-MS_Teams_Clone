@@ -97,7 +97,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         FirebaseUser C_user = mAuth.getCurrentUser();
         assert C_user != null;
         if (C_user.isEmailVerified()) {
-            startActivity(new Intent(VerificationActivity.this, MainActivity.class));
+            startActivity(new Intent(VerificationActivity.this, LoginActivity.class));
             finish();
         } else {
             Toast.makeText(VerificationActivity.this, "Email not verified" + C_user.getEmail(), Toast.LENGTH_LONG).show();

@@ -54,6 +54,7 @@ public class CallsFragment extends Fragment {
 
         callsList = v.findViewById(R.id.calls_list);
         callsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        callsList.setHasFixedSize(true);
         scheduledCalls = v.findViewById(R.id.scheduled_calls);
         doneCalls = v.findViewById(R.id.done_calls);
         mColors = getResources().getIntArray(R.array.colors);
