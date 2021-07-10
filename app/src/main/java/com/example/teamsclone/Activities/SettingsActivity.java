@@ -134,7 +134,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     public void securityPreference() {
-        //FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
         final FirebaseUser user = mAuth.getCurrentUser();
         showLoadingScreen();
         if (user != null) {
@@ -149,7 +149,8 @@ public class SettingsActivity extends BaseActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         if (snapshot.child("keep_me_signed_in").getValue().equals("true")) {
-                            // Toast.makeText(SettingsActivity.this, "keepme True", Toast.LENGTH_SHORT).show();
+
+
                             ss.setChecked(true);
                         }
                         if (snapshot.child("fingerprint_unlock").getValue().equals("true")) {

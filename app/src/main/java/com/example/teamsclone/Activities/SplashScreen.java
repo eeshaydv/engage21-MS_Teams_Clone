@@ -84,7 +84,6 @@ public class SplashScreen extends AppCompatActivity {
 
         if (user != null) {
             final FirebaseDatabase db = FirebaseDatabase.getInstance();
-            //db.getReference().child("user_settings").child(email).child("settings").child("security_settings").updateChildren(stats)
             DatabaseReference Ref = db.getReference().child("user_settings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("settings").child("security_settings");
             Ref.addValueEventListener(new ValueEventListener() {
                 @Override

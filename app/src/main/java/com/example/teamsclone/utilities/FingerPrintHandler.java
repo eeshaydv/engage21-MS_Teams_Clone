@@ -21,7 +21,6 @@ public class FingerPrintHandler extends FingerprintManager.AuthenticationCallbac
 
     private Context context;
 
-    // Constructor
     public FingerPrintHandler(Context mContext) {
         context = mContext;
     }

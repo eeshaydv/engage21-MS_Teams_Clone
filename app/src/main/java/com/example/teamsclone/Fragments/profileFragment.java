@@ -44,10 +44,6 @@ public class profileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        //just change the fragment_dashboard
-        //with the fragment you want to inflate
-        //like if the class is HomeFragment it should have R.layout.home_fragment
-        //if it is DashboardFragment it should have R.layout.fragment_dashboard
         View v = inflater.inflate(R.layout.profile_fragment, null);
         btn1 = (TextView) v.findViewById(R.id.settings);
         Name_frag = (TextView) v.findViewById(R.id.name_profile_frag);
@@ -55,11 +51,8 @@ public class profileFragment extends Fragment {
         logout_frag = v.findViewById(R.id.logout_profile);
         whats_new = v.findViewById(R.id.whats_new);
         testI = v.findViewById(R.id.test);
-        //db = FirebaseDatabase.getInstance();
-
 
         pro_frag = v.findViewById(R.id.thumb_frag);
-
 
         mAuth = FirebaseAuth.getInstance();
         String currentUserID = mAuth.getCurrentUser().getUid();
@@ -74,12 +67,10 @@ public class profileFragment extends Fragment {
 
                     myProfileName = String.valueOf(snapshot.child("name").getValue().toString());
                     Name_frag.setText(myProfileName);
-//                        Toast.makeText(getContext(), "name", Toast.LENGTH_SHORT).show();
                     char letter = myProfileName.charAt(0);
                     letter = Character.toUpperCase(letter);
                     mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
                     pro_frag.setImageDrawable(mDrawableBuilder);
-                    //       Toast.makeText(getContext(), "drawable", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -97,7 +88,7 @@ public class profileFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 ((MainActivity) getActivity()).startActivity(intent);
 

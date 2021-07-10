@@ -3,12 +3,16 @@ package com.example.teamsclone.Activities;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.teamsclone.Fragments.CallsFragment;
@@ -51,6 +55,10 @@ public class MainActivity extends BaseActivity implements
 
 
         checkUserStatus();
+        if(!haveNetworkConnection())
+        {
+            Toast.makeText(MainActivity.this,"You are not Online....Please switch On your internet connection!",Toast.LENGTH_LONG).show();
+        }
 
 
 
@@ -81,7 +89,6 @@ public class MainActivity extends BaseActivity implements
                     letter = Character.toUpperCase(letter);
                     mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
                     pro.setImageDrawable(mDrawableBuilder);
-                    // Toast.makeText(MainActivity.this, "drawable", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -97,6 +104,22 @@ public class MainActivity extends BaseActivity implements
 
     }
 
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
     private void updateToken(String token) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ref.child("device_Token").setValue(token);

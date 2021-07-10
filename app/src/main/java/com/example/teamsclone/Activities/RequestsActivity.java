@@ -195,7 +195,7 @@ public class RequestsActivity extends AppCompatActivity {
                                         });
                                     } else if (type.equals("sent")) {
                                         Button request_sent_btn = holder.itemView.findViewById(R.id.request_accept_btn);
-                                        request_sent_btn.setText("Req Sent");
+                                        request_sent_btn.setText("Request Sent");
 
                                         holder.itemView.findViewById(R.id.request_cancel_btn).setVisibility(View.INVISIBLE);
 
@@ -206,12 +206,11 @@ public class RequestsActivity extends AppCompatActivity {
 
                                                 final String requestUserName = dataSnapshot.child("name").getValue().toString();
 
-
-                                                holder.userName.setText(requestUserName);
                                                 holder.userName.setText(requestUserName);
                                                 char letter = requestUserName.charAt(0);
                                                 letter = Character.toUpperCase(letter);
-                                                mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), R.color.colorAccent);
+                                                int color = ColorGenerator.MATERIAL.getRandomColor();
+                                                mDrawableBuilder = TextDrawable.builder().buildRound(String.valueOf(letter), color);
                                                 holder.profileImage.setImageDrawable(mDrawableBuilder);
 
 

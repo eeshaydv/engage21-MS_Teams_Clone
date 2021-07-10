@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener, WebResponse {
+
     private EditText name;
     private EditText roomId;
     private Button joinRoom;
@@ -141,7 +142,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         inflater.inflate(R.menu.actions, menu);
         if (menu instanceof MenuBuilder) {
             MenuBuilder menuBuilder = (MenuBuilder) menu;
-//            menuBuilder.setOptionalIconsVisible(true);
+            //menuBuilder.setOptionalIconsVisible(true);
         }
         return true;
     }

@@ -249,7 +249,6 @@ public class WebCall extends AsyncTask<Void, Void, String> {
         NetworkInfo activeNetInfoWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         boolean isConnected = activeNetInfo != null && activeNetInfo.isConnectedOrConnecting() || activeNetInfoWifi != null && activeNetInfoWifi.isConnectedOrConnecting();
         if (isConnected) {
-//            Singleton.isNetworkLost = false;
             Log.i("NET", "connected" + isConnected);
             return true;
         } else {

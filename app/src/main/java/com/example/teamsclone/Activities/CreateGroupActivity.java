@@ -71,8 +71,6 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     private void CreateGroup() {
-        // mProgressDialog = new ProgressDialog(this);
-        //mProgressDialog.setMessage("Creating Group - Please Wait");
 
         String name = GName.getText().toString().trim();
         String description = GDescription.getText().toString().trim();
@@ -83,8 +81,6 @@ public class CreateGroupActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter Group Name", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // mProgressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("groupId", currUserId + timeStamp);
@@ -110,7 +106,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        //  mProgressDialog.dismiss();
                                         Toast.makeText(CreateGroupActivity.this, "Group Created!", Toast.LENGTH_SHORT).show();
 
                                     }
@@ -118,7 +113,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        //  mProgressDialog.dismiss();
                                         Toast.makeText(CreateGroupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });

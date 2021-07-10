@@ -56,6 +56,7 @@ import retrofit2.Callback;
 
 
 public class ChatActivity extends BaseActivity {
+
     private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
     private TextView userName, userLastSeen;
     private ImageView userImage, backButton;
@@ -75,7 +76,6 @@ public class ChatActivity extends BaseActivity {
     private Uri fileUri;
     private StorageTask uploadTask;
     private TextDrawable mDrawableBuilder;
-
 
 
     @Override
@@ -411,8 +411,6 @@ public class ChatActivity extends BaseActivity {
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
         userMessagesList.setHasFixedSize(true);
-
-       // apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         Calendar calendar = Calendar.getInstance();
 

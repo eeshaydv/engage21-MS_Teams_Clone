@@ -82,7 +82,6 @@ public class ScheduleCallActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
                             Friends friends = snapshot1.getValue(Friends.class);
-                            //Toast.makeText(InviteCallParticipant.this, " "+friends.getName(), Toast.LENGTH_SHORT).show();
                             userList.add(new Friends(friends.getName(), friends.getUid()));
                             i[0]++;
                             if (i[0] == count) {
