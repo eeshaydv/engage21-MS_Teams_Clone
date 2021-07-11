@@ -6,13 +6,21 @@ It is also incorporated with features like Meet scheduling and managing, which a
 Salient Features of ENGAGE MEET Application :
 
 -> User Authentication + Verification
+
 -> Friends - Find, Add and Remove Friends
+
 -> Personal Chat - Chat with your friends individually in personal chat rooms
+
 -> Create Groups - Create groups, Add Participants
+
 -> Group Discussions - Have Discussions by commenting under user Messages in Groups
+
 -> Video Call - Start an Instant Video Call with a Friend
+
 -> Send Call Invites - Send Video Call Invites to Friends within or outside App
+
 -> Manage Schedule - Schedule Meets and Manage them
+
 -> Call History - Keep an Eye On your Call History
 
 
