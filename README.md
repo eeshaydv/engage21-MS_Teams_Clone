@@ -26,7 +26,7 @@ It is also incorporated with features like Meet scheduling and managing, which a
 <h2> Tech Stack Used </h2>
 
  * <h3>IDE : </h3> Android Studio (JAVA , XML )
- * <h3>Authentication : </h3> Firebase
+ * <h3>Authentication : </h3> Firebase Authentication and Verification with Email + Password
  * <h3>Database : </h3> Firebase Realtime Database
  * <h3>Storage : </h3> Firebase Storage
  * <h3>For Video Call (Real Time Communication) : </h3> EnableX Android SDK
