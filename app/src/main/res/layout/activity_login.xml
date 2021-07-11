@@ -43,7 +43,7 @@
                     android:id="@+id/tv_one_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="T E A M S "
+                    android:text=" E N G A G E "
                     android:padding="8dp"
                     android:fontFamily="@font/droid_sans_chinese"
                     android:textAlignment="center"

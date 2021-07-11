@@ -16,13 +16,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_margin="4dp"
             android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="match_parent"
-                android:text="T E A M S"
+                android:text="E N G A G E"
                 android:fontFamily="@font/droid_sans_chinese"
                 android:textSize="25sp"
+                android:layout_centerVertical="true"
                 android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/thumbnail"/>
@@ -33,6 +35,7 @@
                 android:src="@drawable/ic_baseline_notifications_none_24"
                 android:layout_width="36dp"
                 android:clickable="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
                 android:layout_alignParentRight="true"
                 android:layout_height="36dp" />

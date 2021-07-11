@@ -61,6 +61,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             }
         });
 
+        ForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPassword.class));
+                finish();
+            }
+        });
+
     }
 
     private void initLogin(String email, String password) {
