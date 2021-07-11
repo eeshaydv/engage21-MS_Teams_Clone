@@ -55,6 +55,7 @@ public class MainActivity extends BaseActivity implements
 
 
         checkUserStatus();
+
         if(!haveNetworkConnection())
         {
             Toast.makeText(MainActivity.this,"You are not Online....Please switch On your internet connection!",Toast.LENGTH_LONG).show();

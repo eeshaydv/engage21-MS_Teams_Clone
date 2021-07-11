@@ -79,20 +79,20 @@
                 <Button
                     android:id="@+id/request_accept_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:text="Accept"
                     android:textSize="16sp"
                     android:padding="8dp"
                     android:textColor="@color/inactive_dots"
                     android:textAllCaps="false"
                     android:background="@drawable/button"
-                    android:visibility="invisible"
+                  android:visibility="invisible"
                     />
 
                 <Button
                     android:id="@+id/request_cancel_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:text="Cancel"
                     android:layout_marginStart="10dp"
                     android:padding="8dp"
@@ -100,7 +100,7 @@
                     android:textAllCaps="false"
                     android:background="@drawable/button"
                     android:textColor="@color/inactive_dots"
-                    android:visibility="invisible"
+                   android:visibility="invisible"
                     android:layout_marginLeft="10dp" />
 
             </LinearLayout>
