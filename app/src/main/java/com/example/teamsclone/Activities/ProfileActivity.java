@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String receiverUserID, senderUserID, Current_State;
     private ImageView userProfileImage;
-    private TextView userProfileName, userProfileStatus;
+    private TextView userProfileName;
     private Button SendMessageRequestButton, DeclineMessageRequestButton;
     private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef;
     private FirebaseAuth mAuth;

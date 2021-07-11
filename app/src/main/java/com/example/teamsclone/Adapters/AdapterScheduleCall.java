@@ -26,7 +26,6 @@ public class AdapterScheduleCall extends RecyclerView.Adapter<AdapterScheduleCal
     private ArrayList<Friends> arrayList;
     private String userId, roomId;
     private TextDrawable mDrawableBuilder;
-    private DatabaseReference ScheduleCallRef;
 
     public AdapterScheduleCall(Context context, ArrayList<Friends> arrayList, String userId) {
         this.context = context;

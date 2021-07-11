@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements
         currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
-        userRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://teamsclone-965c9-default-rtdb.firebaseio.com/");
+        userRef = FirebaseDatabase.getInstance().getReference();
 
         userRef.child("users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override

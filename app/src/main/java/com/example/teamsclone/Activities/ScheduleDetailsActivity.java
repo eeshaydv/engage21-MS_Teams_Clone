@@ -73,7 +73,13 @@ public class ScheduleDetailsActivity extends AppCompatActivity implements DatePi
         saveSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveTheSchedule();
+
+                if(selectDate == true) {
+                    saveTheSchedule();
+                }
+                else{
+                    Toast.makeText(ScheduleDetailsActivity.this,"Select A Date!",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -32,8 +32,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class profileFragment extends Fragment {
 
     TextDrawable mDrawableBuilder;
-    FirebaseDatabase db;
-
     FirebaseAuth mAuth;
     ImageView pro_frag;
     ImageView testI;

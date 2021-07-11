@@ -28,9 +28,7 @@ import java.util.ArrayList;
 public class InviteCallParticipant extends AppCompatActivity {
 
     private RecyclerView rv;
-    private ActionBar actionBar;
-    private FirebaseAuth mAuth;
-    private String userId, userName, roomId;
+    private String userId, roomId;
     private ArrayList<Friends> userList;
     private AdapterCallParticipants mAdapterParticipantAdd;
 
@@ -48,7 +46,6 @@ public class InviteCallParticipant extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         rv = findViewById(R.id.participant_call_add_recycler_view);
-        mAuth = FirebaseAuth.getInstance();
         rv.setLayoutManager(new LinearLayoutManager(InviteCallParticipant.this));
         userId = getIntent().getStringExtra("userId");
         roomId = getIntent().getStringExtra("roomId");
@@ -61,10 +58,10 @@ public class InviteCallParticipant extends AppCompatActivity {
 
     private void getAllUsersList() {
 
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("friends").child(userId);
-        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference friendsRef = FirebaseDatabase.getInstance().getReference("friends").child(userId);
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         final long[] i = {0};
-        ref1.addValueEventListener(new ValueEventListener() {
+        friendsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userList.clear();
@@ -74,7 +71,7 @@ public class InviteCallParticipant extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String friendId = ds.getKey().toString();
 
-                    ref2.child(friendId).addValueEventListener(new ValueEventListener() {
+                    usersRef.child(friendId).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
                             Friends friends = snapshot1.getValue(Friends.class);

@@ -36,7 +36,7 @@ public class GroupInfoActivity extends AppCompatActivity {
     private String groupId, grpName;
     private String myGrouprole = "";
     private ImageView groupIcon, editTitle, editDesc;
-    private TextView editGroup, addParticipant, leaveGroup, grp_title, grp_desc;
+    private TextView addParticipant, leaveGroup, grp_title, grp_desc;
     private RecyclerView participantsRecyclerView;
     private FirebaseAuth mAuth;
     private TextDrawable mDrawableBuilder;
@@ -246,16 +246,16 @@ public class GroupInfoActivity extends AppCompatActivity {
     private void loadParticipants() {
         usersList = new ArrayList<>();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(groupId).child("Participants").addValueEventListener(new ValueEventListener() {
+        DatabaseReference groupsRef = FirebaseDatabase.getInstance().getReference("Groups");
+        groupsRef.child(groupId).child("Participants").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usersList.clear();
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String uid = ds.child("uid").getValue().toString();
-                    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users");
-                    ref2.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
+                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+                    usersRef.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
                             for (DataSnapshot d : snapshot1.getChildren()) {
@@ -286,8 +286,8 @@ public class GroupInfoActivity extends AppCompatActivity {
 
     private void loadGroupInfo() {
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.orderByChild("groupId").equalTo(groupId).addValueEventListener(new ValueEventListener() {
+        DatabaseReference groupsRef = FirebaseDatabase.getInstance().getReference("Groups");
+        groupsRef.orderByChild("groupId").equalTo(groupId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

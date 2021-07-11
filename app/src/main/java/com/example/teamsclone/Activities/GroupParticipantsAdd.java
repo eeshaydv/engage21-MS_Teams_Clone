@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class GroupParticipantsAdd extends AppCompatActivity {
 
     private RecyclerView rv;
-    private ActionBar actionBar;
     private FirebaseAuth mAuth;
     private String groupId, Gname, Grole;
     private ArrayList<Friends> userList;

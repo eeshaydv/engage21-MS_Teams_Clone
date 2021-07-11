@@ -57,7 +57,7 @@ import retrofit2.Callback;
 
 public class ChatActivity extends BaseActivity {
 
-    private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
+    private String messageReceiverID, messageReceiverName, messageSenderID;
     private TextView userName, userLastSeen;
     private ImageView userImage, backButton;
     private ImageButton attachFiles;

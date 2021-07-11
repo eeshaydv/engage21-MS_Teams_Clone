@@ -28,7 +28,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
-    private ActionBar actionBar;
     private FirebaseAuth mAuth;
     private CircleImageView GIcon;
     private EditText GName, GDescription;

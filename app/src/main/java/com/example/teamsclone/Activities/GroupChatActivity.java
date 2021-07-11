@@ -55,9 +55,8 @@ import java.util.Locale;
 public class GroupChatActivity extends AppCompatActivity {
 
     private String groupId, myGroupRole, groupname;
-    private Toolbar mtoolBar;
     private TextView groupName;
-    private ImageView attachIcon, groupIcon, addButton, backButton, videoCallButton;
+    private ImageView groupIcon, addButton, backButton;
     private EditText messageEditText;
     private FloatingActionButton sendButton;
     private TextDrawable mDrawableBuilder;
@@ -65,8 +64,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private RecyclerView group_chat_activity_rv;
     private ArrayList<ModelGroupChat> groupChatList;
     private AdapterGroupChat adapterGroupChat;
-    DatabaseReference ref;
-    private String mName = "";
+    DatabaseReference groupsRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,16 +73,14 @@ public class GroupChatActivity extends AppCompatActivity {
 
         groupId = getIntent().getStringExtra("groupId");
 
-        mtoolBar = findViewById(R.id.toolbar_group_chat_room);
         groupName = findViewById(R.id.group_name);
-        attachIcon = findViewById(R.id.group_attach_file);
         groupIcon = findViewById(R.id.group_icon);
         addButton = findViewById(R.id.toolbar_add_button);
         messageEditText = findViewById(R.id.group_edit_text);
         sendButton = findViewById(R.id.group_send_fab);
         group_chat_activity_rv = findViewById(R.id.Group_chat_rv);
         mAuth = FirebaseAuth.getInstance();
-        ref = FirebaseDatabase.getInstance().getReference("Groups");
+        groupsRef = FirebaseDatabase.getInstance().getReference("Groups");
         group_chat_activity_rv.setLayoutManager(new LinearLayoutManager(GroupChatActivity.this));
 
         loadGroupInfo();
@@ -147,7 +143,7 @@ public class GroupChatActivity extends AppCompatActivity {
         String curr = mAuth.getCurrentUser().getUid();
         Toast.makeText(GroupChatActivity.this, curr, Toast.LENGTH_SHORT).show();
 
-        ref.child(groupId).child("Participants").child(curr).addValueEventListener(new ValueEventListener() {
+        groupsRef.child(groupId).child("Participants").child(curr).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

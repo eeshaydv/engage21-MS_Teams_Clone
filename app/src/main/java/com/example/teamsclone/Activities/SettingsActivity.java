@@ -24,8 +24,6 @@ import java.util.Map;
 public class SettingsActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
-    Switch simpleSwitch;
-    Switch simpleSwitch3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

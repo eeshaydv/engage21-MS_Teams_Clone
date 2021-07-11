@@ -12,7 +12,6 @@ import com.example.teamsclone.R;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements Base {
-    ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
