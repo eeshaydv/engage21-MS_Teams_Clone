@@ -38,7 +38,3 @@ It is also incorporated with features like Meet scheduling and managing, which a
 * Retrofit
 * picasso
 
-
-Complete Presentation : https://docs.google.com/presentation/d/1dVXYZo8N1CftoBT6tLgRyIMcfZ_e70_V7uM7pPOK3M4/edit?usp=sharing
-
-
