@@ -1,9 +1,9 @@
-ENGAGE Android Meet Application
+<h1> ENGAGE Android Meet Application </h1>
 
 The Primary motive and idea behind various features included in Engage Meet Application, is to facilitate seamless communication  by making it as a single destination for Video Conferencing, Personal and Group Discussions via Chat.
 It is also incorporated with features like Meet scheduling and managing, which aim to give Users superior experience and help them use their time optimally!
 
-Salient Features of ENGAGE MEET Application :
+<h2> Salient Features : </h2>
 
 ![image](https://user-images.githubusercontent.com/58601804/125182367-1f357400-e22b-11eb-86c7-3fc89ea8cbaf.png)
 
@@ -22,6 +22,21 @@ Salient Features of ENGAGE MEET Application :
 ![image](https://user-images.githubusercontent.com/58601804/125182419-8eab6380-e22b-11eb-9c71-567601490ec7.png)
 
 ![image](https://user-images.githubusercontent.com/58601804/125182430-9c60e900-e22b-11eb-80ab-9f1078d85d0a.png)
+
+<h2> Tech Stack Used </h2>
+
+ * <h3>IDE : </h3> Android Studio (JAVA , XML )
+ * <h3>Authentication : </h3> Firebase
+ * <h3>Database : </h3> Firebase Realtime Database
+ * <h3>Storage : </h3> Firebase Storage
+ * <h3>For Video Call (Real Time Communication) : </h3> EnableX Android SDK
+
+<h2> Libraries Used </h2>
+
+* Circular ImageView
+* Text Drawable
+* Retrofit
+* picasso
 
 
 Complete Presentation : https://docs.google.com/presentation/d/1dVXYZo8N1CftoBT6tLgRyIMcfZ_e70_V7uM7pPOK3M4/edit?usp=sharing
