@@ -1,4 +1,4 @@
-package com.example.teamsclone.Activities;
+package com.example.teamsclone.OnBoardingActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;

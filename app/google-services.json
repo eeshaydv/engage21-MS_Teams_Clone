@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "472135507460",
+    "firebase_url": "https://teamsclone-965c9-default-rtdb.firebaseio.com",
+    "project_id": "teamsclone-965c9",
+    "storage_bucket": "teamsclone-965c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472135507460:android:cb411bf61eb0e9de531f51",
+        "android_client_info": {
+          "package_name": "com.example.teamsclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472135507460-jjq9fsh24udhdl5mauf39omennj3t9o8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaL7ej3IJxmHC1DfgiqPopptfkqiwddgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472135507460-jjq9fsh24udhdl5mauf39omennj3t9o8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

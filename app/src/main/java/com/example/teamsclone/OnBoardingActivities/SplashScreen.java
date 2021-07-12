@@ -1,4 +1,4 @@
-package com.example.teamsclone.Activities;
+package com.example.teamsclone.OnBoardingActivities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,6 +16,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.teamsclone.Activities.FingerPrintActivity;
+import com.example.teamsclone.Activities.LoginActivity;
+import com.example.teamsclone.Activities.MainActivity;
+import com.example.teamsclone.Activities.VerificationActivity;
 import com.example.teamsclone.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

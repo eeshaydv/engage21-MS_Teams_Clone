@@ -24,6 +24,7 @@ import com.example.teamsclone.base.BaseActivity;
 import com.example.teamsclone.Fragments.profileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,8 +59,8 @@ public class MainActivity extends BaseActivity implements
 
         if(!haveNetworkConnection())
         {
-            Toast.makeText(MainActivity.this,"You are not Online....Please switch On your internet connection!",Toast.LENGTH_LONG).show();
-        }
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Welcome To Main Activity", Snackbar.LENGTH_LONG);
+            snackbar.show();}
 
 
 
