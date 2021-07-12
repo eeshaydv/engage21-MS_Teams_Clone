@@ -6,13 +6,15 @@
     <color name="gray">#9C9AA7</color>
     <color name="white">#ffffff</color>
     <color name="active_dots">#FFFAFA</color>
+    <color name="green">#78FF6E</color>
     <color name="inactive_dots">#0A0505</color>
+    <color name="yellow">#FFEB3B</color>
     <color name="back">#9C9AA7</color>
     <color name="red">#ff0000</color>
     <array name="colors">
         <item name="all" type="color">#fc6177</item>
         <item name="design" type="color">#c467f4</item>
-        <item name="ios" type="color">#ff9a00</item>
+        <item name="ios" type="color">#FFEB3B</item>
         <item name="android" type="color">#4DF15E</item>
         <item name="web" type="color">#f4a261</item>
         <item name="business" type="color">#1ed2bb</item>

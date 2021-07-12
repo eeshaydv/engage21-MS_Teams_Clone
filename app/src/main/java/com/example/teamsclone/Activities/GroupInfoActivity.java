@@ -3,6 +3,7 @@ package com.example.teamsclone.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.example.teamsclone.R;
 import com.example.teamsclone.models.Friends;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -74,7 +76,12 @@ public class GroupInfoActivity extends AppCompatActivity {
                     intent1.putExtra("groupName", grpName);
                     intent1.putExtra("groupRole", myGrouprole);
                     startActivity(intent1);
-                } else Toast.makeText(GroupInfoActivity.this, "NULL", Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "You do not have the permission to add participants to the Group", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.white));
+                    snackbar.show();
+                }
             }
         });
 
@@ -136,12 +143,19 @@ public class GroupInfoActivity extends AppCompatActivity {
                         if (myGrouprole.equals("admin") || myGrouprole.equals("creator")) {
 
                             if ((inputfield.getText().toString()).isEmpty()) {
-                                Toast.makeText(GroupInfoActivity.this, "Enter Name", Toast.LENGTH_SHORT).show();
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Enter Name", Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.red));
+                                snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.white));
+                                snackbar.show();
                             } else {
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
                                 ref.child(groupId).child("groupName").setValue(inputfield.getText().toString());
-                                Toast.makeText(GroupInfoActivity.this, "Name Updated", Toast.LENGTH_SHORT).show();
+
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Name Updated", Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.green));
+                                snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.black));
+                                snackbar.show();
                             }
 
                         }
@@ -175,12 +189,19 @@ public class GroupInfoActivity extends AppCompatActivity {
                         if (myGrouprole.equals("admin") || myGrouprole.equals("creator")) {
 
                             if ((inputfield.getText().toString()).isEmpty()) {
-                                Toast.makeText(GroupInfoActivity.this, "Enter Description", Toast.LENGTH_SHORT).show();
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Enter Description", Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.red));
+                                snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.white));
+                                snackbar.show();
                             } else {
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
                                 ref.child(groupId).child("groupDescription").setValue(inputfield.getText().toString());
-                                Toast.makeText(GroupInfoActivity.this, "Description Updated", Toast.LENGTH_SHORT).show();
+
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Description Updated", Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.green));
+                                snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.black));
+                                snackbar.show();
                             }
 
                         }
@@ -208,7 +229,10 @@ public class GroupInfoActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(GroupInfoActivity.this, "Left Succesfully", Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Left Successfully", Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.green));
+                        snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.black));
+                        snackbar.show();
                         startActivity(new Intent(GroupInfoActivity.this, MainActivity.class));
                         finish();
                     }
@@ -216,7 +240,10 @@ public class GroupInfoActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(GroupInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), e.getMessage(), Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.red));
+                        snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.white));
+                        snackbar.show();
                     }
                 });
     }
@@ -229,16 +256,20 @@ public class GroupInfoActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(GroupInfoActivity.this, "Group Deleted Succesfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(GroupInfoActivity.this, MainActivity.class));
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Group Deleted Successfully", Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.green));
+                        snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.black));
+                        snackbar.show();startActivity(new Intent(GroupInfoActivity.this, MainActivity.class));
                         finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(GroupInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), e.getMessage(), Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(GroupInfoActivity.this, R.color.red));
+                        snackbar.setTextColor(ContextCompat.getColor(GroupInfoActivity.this,R.color.white));
+                        snackbar.show(); }
                 });
 
     }

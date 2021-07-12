@@ -121,7 +121,7 @@ public class ChatsFragment extends Fragment {
                     @NonNull
                     @Override
                     public ChatsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_layout_new, viewGroup, false);
                         return new ChatsViewHolder(view);
                     }
                 };
@@ -138,8 +138,8 @@ public class ChatsFragment extends Fragment {
         public ChatsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profileImage = itemView.findViewById(R.id.users_profile_image);
-            userName = itemView.findViewById(R.id.user_profile_name);
+            profileImage = itemView.findViewById(R.id.users_profile_image_new);
+            userName = itemView.findViewById(R.id.user_profile_name_new);
             onlineIcon = itemView.findViewById(R.id.user_online_status);
         }
     }

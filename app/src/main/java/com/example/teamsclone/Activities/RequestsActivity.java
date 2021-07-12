@@ -3,11 +3,13 @@ package com.example.teamsclone.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -145,7 +148,10 @@ public class RequestsActivity extends AppCompatActivity {
                                                                                                                             @Override
                                                                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                                                                 if (task.isSuccessful()) {
-                                                                                                                                    Toast.makeText(RequestsActivity.this, "New Contact Saved", Toast.LENGTH_SHORT).show();
+                                                                                                                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Request Sent", Snackbar.LENGTH_SHORT);
+                                                                                                                                    snackbar.setBackgroundTint(ContextCompat.getColor(RequestsActivity.this, R.color.green));
+                                                                                                                                    snackbar.setTextColor(ContextCompat.getColor(RequestsActivity.this,R.color.black));
+                                                                                                                                    snackbar.show();
                                                                                                                                 }
                                                                                                                             }
                                                                                                                         });
@@ -172,7 +178,10 @@ public class RequestsActivity extends AppCompatActivity {
                                                                                                     @Override
                                                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                                                         if (task.isSuccessful()) {
-                                                                                                            Toast.makeText(RequestsActivity.this, "Contact Deleted", Toast.LENGTH_SHORT).show();
+                                                                                                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Contact Deleted", Snackbar.LENGTH_SHORT);
+                                                                                                            snackbar.setBackgroundTint(ContextCompat.getColor(RequestsActivity.this, R.color.green));
+                                                                                                            snackbar.setTextColor(ContextCompat.getColor(RequestsActivity.this,R.color.black));
+                                                                                                            snackbar.show();
                                                                                                         }
                                                                                                     }
                                                                                                 });
@@ -240,8 +249,10 @@ public class RequestsActivity extends AppCompatActivity {
                                                                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                                     @Override
                                                                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                                                                        if (task.isSuccessful()) {
-                                                                                                            Toast.makeText(RequestsActivity.this, "you have cancelled the chat request.", Toast.LENGTH_SHORT).show();
+                                                                                                        if (task.isSuccessful()) {Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Cancelled Chat Request", Snackbar.LENGTH_SHORT);
+                                                                                                            snackbar.setBackgroundTint(ContextCompat.getColor(RequestsActivity.this, R.color.green));
+                                                                                                            snackbar.setTextColor(ContextCompat.getColor(RequestsActivity.this,R.color.black));
+                                                                                                            snackbar.show();
                                                                                                         }
                                                                                                     }
                                                                                                 });

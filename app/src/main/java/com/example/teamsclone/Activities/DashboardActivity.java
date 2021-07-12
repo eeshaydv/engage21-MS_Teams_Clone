@@ -3,6 +3,7 @@ package com.example.teamsclone.Activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,7 @@ import com.example.teamsclone.web_communication.WebCall;
 import com.example.teamsclone.web_communication.WebConstants;
 import com.example.teamsclone.web_communication.WebResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -81,7 +83,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                     startActivity(sharingIntent);
                 } else {
-                    Toast.makeText(DashboardActivity.this, "Please create Room first.", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please Create Room First", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+                    snackbar.show();
                 }
             }
         });
@@ -98,7 +103,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                     startActivity(intent1);
 
                 } else {
-                    Toast.makeText(DashboardActivity.this, "Please create Room first.", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please Create Room First", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+                    snackbar.show();
                 }
             }
         });
@@ -123,10 +131,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     private boolean validations() {
         if (name.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please Enter name", Toast.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please Enter Name", Snackbar.LENGTH_SHORT);
+            snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+            snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+            snackbar.show();
             return false;
         } else if (roomId.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please create Room Id.", Toast.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please Create Room First", Snackbar.LENGTH_SHORT);
+            snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+            snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+            snackbar.show();
             return false;
         }
         return true;
@@ -159,7 +173,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                     startActivity(sharingIntent);
                 } else {
-                    Toast.makeText(this, "Please create Room first.", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please Create Room First", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+                    snackbar.show();
                 }
                 break;
         }
@@ -187,7 +204,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         try {
             JSONObject jsonObject = new JSONObject(response);
             if (jsonObject.optString("result").trim().equalsIgnoreCase("40001")) {
-                Toast.makeText(this, jsonObject.optString("error"), Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), jsonObject.optString("error"), Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+                snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+                snackbar.show();
             } else {
                 savePreferences();
                 getRoomTokenWebCall();
@@ -211,7 +231,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("name", name.getText().toString());
                 startActivity(intent);
             } else {
-                Toast.makeText(this, jsonObject.optString("error"), Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), jsonObject.optString("error"), Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(ContextCompat.getColor(DashboardActivity.this, R.color.red));
+                snackbar.setTextColor(ContextCompat.getColor(DashboardActivity.this,R.color.white));
+                snackbar.show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

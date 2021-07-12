@@ -3,6 +3,7 @@ package com.example.teamsclone.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.teamsclone.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -77,7 +79,10 @@ public class CreateGroupActivity extends AppCompatActivity {
         String currUserId = mAuth.getCurrentUser().getUid();
 
         if (TextUtils.isEmpty(name)) {
-            Toast.makeText(this, "Enter Group Name", Toast.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Enter Group Name", Snackbar.LENGTH_SHORT);
+            snackbar.setBackgroundTint(ContextCompat.getColor(CreateGroupActivity.this, R.color.red));
+            snackbar.setTextColor(ContextCompat.getColor(CreateGroupActivity.this,R.color.white));
+            snackbar.show();
             return;
         }
 
@@ -105,8 +110,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(CreateGroupActivity.this, "Group Created!", Toast.LENGTH_SHORT).show();
-
+                                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Group Created", Snackbar.LENGTH_SHORT);
+                                        snackbar.setBackgroundTint(ContextCompat.getColor(CreateGroupActivity.this, R.color.green));
+                                        snackbar.setTextColor(ContextCompat.getColor(CreateGroupActivity.this,R.color.black));
+                                        snackbar.show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -122,7 +129,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mProgressDialog.dismiss();
-                        Toast.makeText(CreateGroupActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), e.getMessage(), Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(CreateGroupActivity.this, R.color.red));
+                        snackbar.setTextColor(ContextCompat.getColor(CreateGroupActivity.this,R.color.white));
+                        snackbar.show();
                     }
                 });
 

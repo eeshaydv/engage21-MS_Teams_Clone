@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.teamsclone.R;
 import com.example.teamsclone.utilities.OnDragTouchListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 
@@ -157,8 +159,11 @@ public class VideoConferenceActivity extends AppCompatActivity
     @Override
     public void onEventError(JSONObject jsonObject) {
         //received when any error occurred for any room event
-        Toast.makeText(VideoConferenceActivity.this, jsonObject.optString("msg"), Toast.LENGTH_SHORT).show();
-    }
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),jsonObject.optString("msg"), Snackbar.LENGTH_SHORT);
+        snackbar.setBackgroundTint(ContextCompat.getColor(VideoConferenceActivity.this, R.color.red));
+        snackbar.setTextColor(ContextCompat.getColor(VideoConferenceActivity.this,R.color.white));
+        snackbar.show();
+         }
 
     @Override
     public void onEventInfo(JSONObject jsonObject) {
@@ -336,7 +341,10 @@ public class VideoConferenceActivity extends AppCompatActivity
                         && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
                     initialize();
                 } else {
-                    Toast.makeText(this, "Please enable permissions to further proceed.", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Please enable permissions to further proceed.", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(VideoConferenceActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(VideoConferenceActivity.this,R.color.white));
+                    snackbar.show();
                 }
                 break;
         }
@@ -547,7 +555,10 @@ public class VideoConferenceActivity extends AppCompatActivity
                 progressDialog.setMessage("Wait, Reconnecting");
                 progressDialog.show();
             } else {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),message, Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(ContextCompat.getColor(VideoConferenceActivity.this, R.color.red));
+                snackbar.setTextColor(ContextCompat.getColor(VideoConferenceActivity.this,R.color.white));
+                snackbar.show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -560,7 +571,12 @@ public class VideoConferenceActivity extends AppCompatActivity
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        Toast.makeText(this, "Reconnect Success", Toast.LENGTH_SHORT).show();
+
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "GReconnect Success.", Snackbar.LENGTH_SHORT);
+        snackbar.setBackgroundTint(ContextCompat.getColor(VideoConferenceActivity.this, R.color.green));
+        snackbar.setTextColor(ContextCompat.getColor(VideoConferenceActivity.this,R.color.black));
+        snackbar.show();startActivity(new Intent(VideoConferenceActivity.this, MainActivity.class));
+
     }
 
     @Override

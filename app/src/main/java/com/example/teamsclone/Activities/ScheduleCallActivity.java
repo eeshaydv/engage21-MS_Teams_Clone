@@ -50,8 +50,6 @@ public class ScheduleCallActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getUid().toString();
         rv.setLayoutManager(new LinearLayoutManager(ScheduleCallActivity.this));
-        receiverId = getIntent().getStringExtra("receiverId");
-        receiverName = getIntent().getStringExtra("receiverName");
         userList = new ArrayList<>();
         mAdapter = new AdapterScheduleCall(ScheduleCallActivity.this, userList, userId);
         rv.setAdapter(mAdapter);

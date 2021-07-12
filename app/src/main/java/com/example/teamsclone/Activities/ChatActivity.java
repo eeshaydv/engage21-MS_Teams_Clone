@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -213,7 +215,10 @@ public class ChatActivity extends BaseActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         loadingBar.dismiss();
-                        Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), e.getMessage(), Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(ChatActivity.this, R.color.red));
+                        snackbar.setTextColor(ContextCompat.getColor(ChatActivity.this,R.color.white));
+                        snackbar.show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -268,9 +273,15 @@ public class ChatActivity extends BaseActivity {
                             @Override
                             public void onComplete(@NonNull Task task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Image Sent", Snackbar.LENGTH_SHORT);
+                                    snackbar.setBackgroundTint(ContextCompat.getColor(ChatActivity.this, R.color.green));
+                                    snackbar.setTextColor(ContextCompat.getColor(ChatActivity.this,R.color.black));
+                                    snackbar.show();
                                 } else {
-                                    Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), task.getException().getMessage(), Snackbar.LENGTH_SHORT);
+                                    snackbar.setBackgroundTint(ContextCompat.getColor(ChatActivity.this, R.color.red));
+                                    snackbar.setTextColor(ContextCompat.getColor(ChatActivity.this,R.color.white));
+                                    snackbar.show();
                                 }
                                 loadingBar.dismiss();
                                 MessageInputText.setText("");
@@ -281,7 +292,10 @@ public class ChatActivity extends BaseActivity {
 
             } else {
                 loadingBar.dismiss();
-                Toast.makeText(this, "nothing selected,error", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Nothing Selected, Error!", Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(ContextCompat.getColor(ChatActivity.this, R.color.red));
+                snackbar.setTextColor(ContextCompat.getColor(ChatActivity.this,R.color.white));
+                snackbar.show();
             }
         }
     }
@@ -380,9 +394,16 @@ public class ChatActivity extends BaseActivity {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Message Sent", Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(ChatActivity.this, R.color.green));
+                        snackbar.setTextColor(ContextCompat.getColor(ChatActivity.this,R.color.black));
+                        snackbar.show();
+                    }
+                    else {
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), task.getException().getMessage(), Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(ChatActivity.this, R.color.red));
+                        snackbar.setTextColor(ContextCompat.getColor(ChatActivity.this,R.color.white));
+                        snackbar.show();
                     }
                     MessageInputText.setText("");
 

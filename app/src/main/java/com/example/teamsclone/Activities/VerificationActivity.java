@@ -9,9 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.teamsclone.R;
 import com.example.teamsclone.base.BaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -79,14 +82,16 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
             user.sendEmailVerification()
                     .addOnCompleteListener(VerificationActivity.this, (OnCompleteListener) task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(VerificationActivity.this,
-                                    "Sent verification email.",
-                                    Toast.LENGTH_LONG).show();
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Sent Verification Email", Snackbar.LENGTH_SHORT);
+                            snackbar.setBackgroundTint(ContextCompat.getColor(VerificationActivity.this, R.color.green));
+                            snackbar.setTextColor(ContextCompat.getColor(VerificationActivity.this,R.color.black));
+                            snackbar.show();
                         } else {
                             Log.e("", "sendEmailVerification", task.getException());
-                            Toast.makeText(VerificationActivity.this,
-                                    "Failed to send verification email.",
-                                    Toast.LENGTH_LONG).show();
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Failed to send Verification Email, Try again", Snackbar.LENGTH_SHORT);
+                            snackbar.setBackgroundTint(ContextCompat.getColor(VerificationActivity.this, R.color.red));
+                            snackbar.setTextColor(ContextCompat.getColor(VerificationActivity.this,R.color.white));
+                            snackbar.show();
 
                         }
                     });
@@ -100,8 +105,10 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
             startActivity(new Intent(VerificationActivity.this, LoginActivity.class));
             finish();
         } else {
-            Toast.makeText(VerificationActivity.this, "Email not verified" + C_user.getEmail(), Toast.LENGTH_LONG).show();
-        }
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Email Not Verified", Snackbar.LENGTH_SHORT);
+            snackbar.setBackgroundTint(ContextCompat.getColor(VerificationActivity.this, R.color.red));
+            snackbar.setTextColor(ContextCompat.getColor(VerificationActivity.this,R.color.white));
+            snackbar.show();}
     }
 
     private void reloadUser() {

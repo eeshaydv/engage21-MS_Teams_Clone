@@ -2,6 +2,7 @@ package com.example.teamsclone.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,8 +102,12 @@ public class CommentsActivity extends BaseActivity {
 
                 String commentText = CommentInputText.getText().toString();
 
-                if (commentText.isEmpty())
-                    Toast.makeText(CommentsActivity.this, "Enter Comment", Toast.LENGTH_SHORT).show();
+                if (commentText.isEmpty()){
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Comment Can't be empty", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(CommentsActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(CommentsActivity.this,R.color.white));
+                    snackbar.show();
+                }
                 else {
 
 
@@ -141,10 +147,15 @@ public class CommentsActivity extends BaseActivity {
                         @Override
                         public void onComplete(@NonNull Task task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(CommentsActivity.this, "Your comment is added successfully", Toast.LENGTH_SHORT).show();
-                                CommentInputText.setText("");
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Comment Added", Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(ContextCompat.getColor(CommentsActivity.this, R.color.green));
+                                snackbar.setTextColor(ContextCompat.getColor(CommentsActivity.this,R.color.black));
+                                snackbar.show();CommentInputText.setText("");
                             } else {
-                                Toast.makeText(CommentsActivity.this, "Error! Try again", Toast.LENGTH_SHORT).show();
+                                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Error! Try Again", Snackbar.LENGTH_SHORT);
+                                snackbar.setBackgroundTint(ContextCompat.getColor(CommentsActivity.this, R.color.red));
+                                snackbar.setTextColor(ContextCompat.getColor(CommentsActivity.this,R.color.white));
+                                snackbar.show();
                             }
                         }
                     });
@@ -205,8 +216,10 @@ public class CommentsActivity extends BaseActivity {
 
                         CommentsRef.child(cid).child("comment").setValue("The comment has been deleted");
                         CommentsRef.child(cid).child("cid").setValue("delete" + cid);
-                        Toast.makeText(CommentsActivity.this, "Comment deleted....", Toast.LENGTH_SHORT).show();
-
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Comment Deleted", Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(CommentsActivity.this, R.color.green));
+                        snackbar.setTextColor(ContextCompat.getColor(CommentsActivity.this,R.color.black));
+                        snackbar.show();
 
                     }
                 });

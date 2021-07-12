@@ -90,7 +90,7 @@ public class FindFriendsActivity extends BaseActivity {
                     @NonNull
                     @Override
                     public FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_layout_new, viewGroup, false);
                         FindFriendViewHolder viewHolder = new FindFriendViewHolder(view);
                         return viewHolder;
                     }
@@ -108,8 +108,8 @@ public class FindFriendsActivity extends BaseActivity {
         public FindFriendViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.user_profile_name);
-            profileImage = itemView.findViewById(R.id.users_profile_image);
+            userName = itemView.findViewById(R.id.user_profile_name_new);
+            profileImage = itemView.findViewById(R.id.users_profile_image_new);
         }
     }
 }

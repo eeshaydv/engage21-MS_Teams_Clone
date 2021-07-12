@@ -1,6 +1,7 @@
 package com.example.teamsclone.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -55,12 +56,20 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
 
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "You are now Online!", Snackbar.LENGTH_SHORT);
+        snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.green));
+        snackbar.setTextColor(ContextCompat.getColor(this,R.color.black));
+        snackbar.show();
+
         checkUserStatus();
 
         if(!haveNetworkConnection())
         {
-            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Welcome To Main Activity", Snackbar.LENGTH_LONG);
-            snackbar.show();}
+            Snackbar snackbar1 = Snackbar.make(findViewById(android.R.id.content), "Check your Internet Connection, You need Stable Internet Connection to use this App", Snackbar.LENGTH_LONG);
+            snackbar1.setBackgroundTint(ContextCompat.getColor(this, R.color.yellow));
+            snackbar1.setTextColor(ContextCompat.getColor(this,R.color.black));
+            snackbar1.show();
+        }
 
 
 

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -105,7 +107,10 @@ public class GroupChatActivity extends AppCompatActivity {
                 String message = messageEditText.getText().toString().trim();
 
                 if (TextUtils.isEmpty(message)) {
-                    Toast.makeText(GroupChatActivity.this, "Type your Message", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Type your Message", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(GroupChatActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(GroupChatActivity.this,R.color.white));
+                    snackbar.show();
                 } else {
                     sendMessage(message);
                 }
@@ -123,7 +128,12 @@ public class GroupChatActivity extends AppCompatActivity {
                     intent1.putExtra("groupName", groupname);
                     intent1.putExtra("groupRole", myGroupRole);
                     startActivity(intent1);
-                } else Toast.makeText(GroupChatActivity.this, "NULL", Toast.LENGTH_SHORT).show();
+                } else {
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "You do not have the permission to add participants to the Group", Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(ContextCompat.getColor(GroupChatActivity.this, R.color.red));
+                    snackbar.setTextColor(ContextCompat.getColor(GroupChatActivity.this,R.color.white));
+                    snackbar.show();
+                }
             }
         });
 
@@ -141,7 +151,6 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void getinfo() {
         String curr = mAuth.getCurrentUser().getUid();
-        Toast.makeText(GroupChatActivity.this, curr, Toast.LENGTH_SHORT).show();
 
         groupsRef.child(groupId).child("Participants").child(curr).addValueEventListener(new ValueEventListener() {
             @Override
@@ -153,7 +162,10 @@ public class GroupChatActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GroupChatActivity.this, "NULLy", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), error.getMessage(), Snackbar.LENGTH_SHORT);
+                snackbar.setBackgroundTint(ContextCompat.getColor(GroupChatActivity.this, R.color.red));
+                snackbar.setTextColor(ContextCompat.getColor(GroupChatActivity.this,R.color.white));
+                snackbar.show();
             }
         });
     }
@@ -217,7 +229,10 @@ public class GroupChatActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(GroupChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), e.getMessage(), Snackbar.LENGTH_SHORT);
+                        snackbar.setBackgroundTint(ContextCompat.getColor(GroupChatActivity.this, R.color.red));
+                        snackbar.setTextColor(ContextCompat.getColor(GroupChatActivity.this,R.color.white));
+                        snackbar.show();
 
                     }
                 });
@@ -233,8 +248,6 @@ public class GroupChatActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             groupname = ds.child("groupName").getValue().toString();
-                            String groupdescription = ds.child("groupDescription").getValue().toString();
-                            String timestamp = ds.child("timeStamp").getValue().toString();
 
                             groupName.setText(groupname);
                             char letter = groupname.charAt(0);

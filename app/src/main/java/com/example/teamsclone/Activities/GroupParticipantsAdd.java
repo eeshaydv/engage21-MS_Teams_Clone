@@ -51,11 +51,6 @@ public class GroupParticipantsAdd extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         rv.setLayoutManager(new LinearLayoutManager(GroupParticipantsAdd.this));
 
-        String title = Gname + "(" + Grole + ")";
-
-        //Toast.makeText(GroupParticipantsAdd.this,title+"(",Toast.LENGTH_SHORT).show();
-
-
         getAllUsersList();
 
 

@@ -164,7 +164,7 @@ public class FriendsFragment extends Fragment {
             @NonNull
             @Override
             public ContactsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.users_display_layout, viewGroup, false);
+                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_layout_new, viewGroup, false);
                 ContactsViewHolder viewHolder = new ContactsViewHolder(view);
                 return viewHolder;
             }
@@ -173,6 +173,7 @@ public class FriendsFragment extends Fragment {
         myContactsList.setAdapter(adapter);
         adapter.startListening();
     }
+
 
     public static class ContactsViewHolder extends RecyclerView.ViewHolder {
         TextView userName;
@@ -183,9 +184,9 @@ public class FriendsFragment extends Fragment {
         public ContactsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.user_profile_name);
+            userName = itemView.findViewById(R.id.user_profile_name_new);
             onlineIcon = (ImageView) itemView.findViewById(R.id.user_online_status);
-            profileImage = itemView.findViewById(R.id.users_profile_image);
+            profileImage = itemView.findViewById(R.id.users_profile_image_new);
         }
     }
 }

@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
@@ -21,6 +25,7 @@ import com.example.teamsclone.Activities.LoginActivity;
 import com.example.teamsclone.Activities.MainActivity;
 import com.example.teamsclone.Activities.VerificationActivity;
 import com.example.teamsclone.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,8 +45,32 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        if(!haveNetworkConnection())
+        { int backgroundColor = ContextCompat.getColor(this, R.color.yellow);
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Check your Internet Connection, You need Stable Internet Connection to use this App", Snackbar.LENGTH_LONG);
+            snackbar.setBackgroundTint(backgroundColor);
+            snackbar.setTextColor(ContextCompat.getColor(this,R.color.black));
+            snackbar.show();
+
+        }
     }
 
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
 
     @Override
     public void onStart() {
