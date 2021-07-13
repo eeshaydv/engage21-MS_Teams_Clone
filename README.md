@@ -3,7 +3,7 @@
 * The google-services.json file has not been uploaded along with the Application Source Code owing to security reasons
 *  To run the App, use the .APK file attached below
 
-Google Drive Link to .APK file : https://drive.google.com/file/d/1tRiOY75vCkUvEjY6s1Mt8MSvU5bSCR58/view?usp=sharing
+Google Drive Link to .APK file : 
 
 * Once Installed via .APK file, Register, Verify yourselves and Login into the Application via your Email and Password.
 * You're done! Go Ahead and explore some amazing features and engage yourself in *Engage* Application ;) 
