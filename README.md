@@ -1,13 +1,3 @@
-<h1> Instructions to Run the Application on a Mobile </h1>
-
-* The google-services.json file has not been uploaded along with the Application Source Code owing to security reasons
-*  To run the App, use the .APK file attached below
-
-Google Drive Link to .APK file : https://drive.google.com/file/d/1rt1l1mZ_PeFo-rUbu0L1WsQu9e_0tTA0/view?usp=sharing
-
-* Once Installed via .APK file, Register, Verify yourselves and Login into the Application via your Email and Password.
-* You're done! Go Ahead and explore some amazing features and engage yourself in *Engage* Application :) 
-
 <h1> ENGAGE Android Meet Application </h1>
 
 The Primary motive and idea behind various features included in Engage Meet Application, is to facilitate seamless communication  by making it as a single destination for Video Conferencing, Personal and Group Discussions via Chat.
