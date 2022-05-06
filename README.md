@@ -1,4 +1,4 @@
-<h1> ENGAGE Android Meet Application </h1>
+<h1> ENGAGE Android Meeting Application </h1>
 
 The Primary motive and idea behind various features included in Engage Meet Application, is to facilitate seamless communication  by making it as a single destination for Video Conferencing, Personal and Group Discussions via Chat.
 It is also incorporated with features like Meet scheduling and managing, which aim to give Users superior experience and help them use their time optimally!
